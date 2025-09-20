@@ -2,9 +2,13 @@
 
 import React, { useState, useMemo } from "react";
 
-// Simple Card
-const Card = ({ children, className }) => (
-  <div className={`bg-white rounded-xl p-6 shadow-lg ${className}`}>{children}</div>
+interface CardProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+const Card: React.FC<CardProps> = ({ children, className }) => (
+  <div className={`bg-white rounded-xl p-6 shadow-lg ${className || ""}`}>{children}</div>
 );
 
 type Player = { name: string; picks: string[]; tiebreaker: number };
