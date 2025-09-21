@@ -21,8 +21,8 @@ type Result = { [gameIndex: number]: string };
 // Week 3 results (BUF already confirmed)
 const confirmedResults: (string | null)[] = [
   "BUF", // TNF
-  null, null, null, null, null, null, null,
-  null, null, null, null, null, null, null, null
+  "CAR", "CLE", "JAX", "MIN", "PIT", "PHI", "TB",
+  "IND", "WAS", null, null, null, null, null, null
 ];
 
 // Week 3 Picks (truncated for brevity, keep your full list)
