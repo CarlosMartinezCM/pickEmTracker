@@ -22,7 +22,8 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // Week 3 results
 const confirmedResults: (string | null)[] = [
   "BUF", "CAR", "CLE", "JAX", "MIN", "PIT", "PHI", "TB",
-  "IND", "WAS", "LAC", "SEA", "CHI", "SF", null, null
+  "IND", "WAS", "LAC", "SEA", "CHI", "SF", "KC", 
+  null  //monday night game
 ];
 
 // Week 3 Picks (truncated for brevity, keep your full list)
