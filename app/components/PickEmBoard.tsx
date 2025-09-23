@@ -1,6 +1,39 @@
 "use client";
 
 import React, { useState, useMemo, useEffect } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
+
+
+const exportPDF = async () => {
+  const element = document.getElementById("leaderboard");
+  if (!element) return;
+
+  const canvas = await html2canvas(element);
+  const imgData = canvas.toDataURL("image/png");
+
+  const pdf = new jsPDF("l", "mm", "a4");
+  const imgProps = pdf.getImageProperties(imgData);
+  const pdfWidth = pdf.internal.pageSize.getWidth();
+  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+  pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+
+  // Instead of saving locally, get PDF as blob
+  const pdfBlob = pdf.output("blob");
+
+  // Send to backend
+  const formData = new FormData();
+  formData.append("file", pdfBlob, "pickem_results.pdf");
+
+  await fetch("http://localhost:8081/upload", {
+    method: "POST",
+    body: formData,
+  });
+
+  alert("✅ PDF exported & uploaded to server");
+};
+
 
 interface CardProps {
   children: React.ReactNode;
@@ -22,8 +55,8 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // Week 3 results
 const confirmedResults: (string | null)[] = [
   "BUF", "CAR", "CLE", "JAX", "MIN", "PIT", "PHI", "TB",
-  "IND", "WAS", "LAC", "SEA", "CHI", "SF", "KC", 
-  null  //monday night game
+  "IND", "WAS", "LAC", "SEA", "CHI", "SF", "KC",
+  "DET"  //monday night game
 ];
 
 // Week 3 Picks (truncated for brevity, keep your full list)
@@ -104,44 +137,58 @@ export default function PickemTracker() {
       ...calculateRecord(p.picks, results),
     }));
 
-    playersWithRecord.sort((a, b) => b.correct - a.correct || a.tiebreaker - b.tiebreaker);
+    // Sort by correct (desc), then tiebreaker (asc)
+    playersWithRecord.sort((a, b) => {
+      if (b.correct !== a.correct) return b.correct - a.correct;
+      return a.tiebreaker - b.tiebreaker;
+    });
 
+    // Assign ranks
     let rank = 1;
     let lastCorrect: number | null = null;
+    let lastTiebreaker: number | null = null;
 
-    return playersWithRecord.map((p, idx, arr) => {
-      if (lastCorrect !== null && p.correct < lastCorrect) rank = idx + 1;
+    return playersWithRecord.map((p, idx) => {
+      if (
+        lastCorrect !== null &&
+        (p.correct !== lastCorrect || p.tiebreaker !== lastTiebreaker)
+      ) {
+        rank = idx + 1;
+      }
       lastCorrect = p.correct;
+      lastTiebreaker = p.tiebreaker;
       return { ...p, rank };
     });
   }, [results]);
 
-  // Realistic scenario: players with rank ≤ 3
+
+  // Winner(s): players with rank 1
+  const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
+
+  // Top contenders: rank ≤ 3
   const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 3), [leaderboard]);
 
-  return (
-    <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">
-      {/* Dark mode toggle */}
-      <div className="flex justify-end mb-4">
-        <button
-          onClick={toggleDarkMode}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
-        >
-          Toggle {isDarkMode ? "Light" : "Dark"} Mode
-        </button>
-      </div>
 
-      {/* Picks Tracker */}
+  return (
+    <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">      {/* Picks Tracker */}
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
-          🏈 NFL Pick'em Tracker 2025 🏈
+          🏈 NFL Pick'em Tracker 2025 - WEEK 3 🏈
         </h1>
-           {/* Realistic winners */}
+        {/* Winner */}
+        {winners.length > 0 && (
+          <div className="mt-4 text-xl font-bold text-yellow-700 dark:text-yellow-300">
+            🏆 Winner: {winners.map(p => p.name).join(", ")}
+          </div>
+        )}
+
+        {/* Top contenders */}
         {realisticWinners.length > 0 && (
-          <div className="mt-4 text-lg font-semibold text-green-700 dark:text-green-300">
+          <div className="mt-2 text-lg font-semibold text-green-700 dark:text-green-300">
             Top contenders: {realisticWinners.map(p => p.name).join(", ")}
           </div>
         )}
+
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm">
             <thead className="bg-gradient-to-r from-blue-200 to-blue-100 dark:from-blue-900 dark:to-blue-700 sticky top-0">
@@ -163,8 +210,8 @@ export default function PickemTracker() {
                   <tr
                     key={player.name}
                     className={`${i % 2 === 0
-                        ? "bg-white dark:bg-gray-800"
-                        : "bg-gray-50 dark:bg-gray-700"
+                      ? "bg-white dark:bg-gray-800"
+                      : "bg-gray-50 dark:bg-gray-700"
                       } hover:bg-gray-100 dark:hover:bg-gray-600
                       ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""}`}
                   >
@@ -172,13 +219,12 @@ export default function PickemTracker() {
                     {player.picks.map((pick, idx) => (
                       <td
                         key={idx}
-                        className={`border p-2 text-center font-medium ${
-                          results[idx]
-                            ? results[idx] === pick
-                              ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
-                              : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
-                            : "bg-gray-100 dark:bg-gray-600"
-                        }`}
+                        className={`border p-2 text-center font-medium ${results[idx]
+                          ? results[idx] === pick
+                            ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
+                            : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
+                          : "bg-gray-100 dark:bg-gray-600"
+                          }`}
                       >
                         {pick}
                       </td>
@@ -217,8 +263,8 @@ export default function PickemTracker() {
                   <tr
                     key={player.name}
                     className={`${player.rank % 2 === 0
-                        ? "bg-white dark:bg-gray-800"
-                        : "bg-gray-50 dark:bg-gray-700"
+                      ? "bg-white dark:bg-gray-800"
+                      : "bg-gray-50 dark:bg-gray-700"
                       } hover:bg-gray-100 dark:hover:bg-gray-600
                       ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""}`}
                   >
