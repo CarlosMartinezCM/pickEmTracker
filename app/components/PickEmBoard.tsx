@@ -78,6 +78,8 @@ const initialPlayers: Player[] = [
   { name: "Gzuz", picks: ["ARI","MIN","WAS","BUF","DET","TEN","NE","NYG","PHI","LAR","SF","KC","CHI","GB","MIA","CIN"], tiebreaker: 38 },
   { name: "Danny", picks: ["SEA","PIT","WAS","BUF","DET","HOU","NE","LAC","TB","LAR","SF","BAL","CHI","GB","NYJ","DEN"], tiebreaker: 45 },
   { name: "Los", picks: ["SEA","MIN","WAS","BUF","DET","TEN","CAR","LAC","PHI","IND","SF","BAL","LV","GB","MIA","CIN"], tiebreaker: 45 },
+  { name: "Tito", picks: ["SEA", "MIN", "WAS", "BUF", "DET", "HOU", "NE", "LAC", "PHI", "IND", "JAX", "BAL", "LV", "GB", "NYJ", "DEN"], tiebreaker: 41 },
+  { name: "KC", picks: ["SEA", "MIN", "WAS", "BUF", "DET", "HOU", "NE", "LAC", "TB", "LAR", "SF", "BAL", "LV", "DAL", "NYJ", "DEN"], tiebreaker: 42 }
 ];
 
 // Helper: calculate correct/wrong
@@ -201,7 +203,7 @@ export default function PickemTracker() {
             <tbody>
               {leaderboard.map((player, i) => {
                 const record = calculateRecord(player.picks, results);
-                const isTop4 = player.rank <= 4;
+                const isTop4 = player.rank <= 1;
                 return (
                   <tr
                     key={player.name}
