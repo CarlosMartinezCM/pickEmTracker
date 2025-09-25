@@ -52,38 +52,34 @@ type Player = { name: string; picks: string[]; tiebreaker: number };
 type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
-// Week 3 results
+// Week 4 results
 const confirmedResults: (string | null)[] = [
-  "BUF", "CAR", "CLE", "JAX", "MIN", "PIT", "PHI", "TB",
-  "IND", "WAS", "LAC", "SEA", "CHI", "SF", "KC",
-  "DET"  //monday night game
 ];
 
-// Week 3 Picks (truncated for brevity, keep your full list)
+// Week 4 Picks (truncated for brevity, keep your full list)
 const initialPlayers: Player[] = [
-  { name: "Carlos(comish)", picks: ["BUF", "ATL", "CLE", "HOU", "CIN", "NE", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "CHI", "ARI", "NYG", "BAL"], tiebreaker: 54 },
-  { name: "Erick Escobar", picks: ["BUF", "ATL", "GB", "JAX", "MIN", "NE", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "CHI", "SF", "KC", "BAL"], tiebreaker: 42 },
-  { name: "J El De la R", picks: ["BUF", "ATL", "CLE", "HOU", "MIN", "NE", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "DET"], tiebreaker: 50 },
-  { name: "RIOS", picks: ["BUF", "ATL", "GB", "HOU", "CIN", "PIT", "PHI", "TB", "IND", "LV", "LAC", "SEA", "DAL", "ARI", "KC", "BAL"], tiebreaker: 60 },
-  { name: "Edgar B", picks: ["BUF", "ATL", "GB", "JAX", "MIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "CHI", "SF", "KC", "BAL"], tiebreaker: 51 },
-  { name: "YOLO", picks: ["BUF", "CAR", "GB", "HOU", "CIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "DET"], tiebreaker: 44 },
-  { name: "Maverick", picks: ["BUF", "CAR", "GB", "HOU", "CIN", "PIT", "LAR", "TB", "IND", "LV", "LAC", "SEA", "CHI", "SF", "KC", "BAL"], tiebreaker: 56 },
-  { name: "Sumo", picks: ["BUF", "ATL", "GB", "HOU", "MIN", "NE", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 62 },
-  { name: "Chico", picks: ["BUF", "CAR", "GB", "HOU", "MIN", "PIT", "LAR", "NYJ", "IND", "WAS", "LAC", "SEA", "DAL", "ARI", "KC", "BAL"], tiebreaker: 48 },
-  { name: "Bobby", picks: ["BUF", "ATL", "GB", "JAX", "MIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 47 },
-  { name: "Fay", picks: ["BUF", "ATL", "GB", "HOU", "MIN", "PIT", "LAR", "TB", "TEN", "LV", "LAC", "SEA", "DAL", "ARI", "KC", "DET"], tiebreaker: 48 },
-  { name: "Eric Rodriguez", picks: ["BUF", "ATL", "GB", "HOU", "MIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "NYG", "BAL"], tiebreaker: 65 },
-  { name: "NikGo", picks: ["BUF", "ATL", "GB", "HOU", "MIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 41 },
-  { name: "Ant", picks: ["BUF", "ATL", "GB", "HOU", "CIN", "PIT", "PHI", "TB", "IND", "LV", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 49 },
-  { name: "Beto", picks: ["BUF", "ATL", "GB", "JAX", "CIN", "PIT", "PHI", "NYJ", "TEN", "WAS", "LAC", "SEA", "DAL", "SF", "NYG", "DET"], tiebreaker: 60 },
-  { name: "Javier A", picks: ["BUF", "CAR", "GB", "HOU", "MIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "NYG", "BAL"], tiebreaker: 55 },
-  { name: "Dennis", picks: ["BUF", "ATL", "GB", "HOU", "MIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 50 },
-  { name: "Oso", picks: ["BUF", "ATL", "GB", "HOU", "MIN", "PIT", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "CHI", "ARI", "KC", "BAL"], tiebreaker: 53 },
-  { name: "Ernest", picks: ["BUF", "ATL", "GB", "JAX", "MIN", "NE", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 47 },
-  { name: "Danny", picks: ["BUF", "ATL", "GB", "HOU", "MIN", "NE", "PHI", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 59 },
-  { name: "Castro", picks: ["BUF", "ATL", "GB", "JAX", "MIN", "PIT", "PHI", "TB", "IND", "LV", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 55 },
-  { name: "Candon", picks: ["BUF", "ATL", "GB", "HOU", "CIN", "PIT", "LAR", "TB", "IND", "WAS", "LAC", "SEA", "DAL", "SF", "KC", "BAL"], tiebreaker: 44 }
+  { name: "Carlos(comish)", picks: ["SEA","PIT","WAS","BUF","DET","HOU","NE","LAC","PHI","LAR","JAX","BAL","LV","GB","MIA","DEN"], tiebreaker: 40 },
+  { name: "J El de la R", picks: ["SEA","PIT","WAS","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","BAL","CHI","DAL","MIA","DEN"], tiebreaker: 48 },
+  { name: "Candon", picks: ["SEA","PIT","WAS","BUF","DET","HOU","NE","LAC","TB","LAR","SF","BAL","LV","GB","MIA","DEN"], tiebreaker: 49 },
+  { name: "Fay", picks: ["SEA","MIN","ATL","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","KC","LV","DAL","NYJ","DEN"], tiebreaker: 48 },
+  { name: "Sumo", picks: ["SEA","MIN","WAS","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","BAL","LV","GB","NYJ","DEN"], tiebreaker: 38 },
+  { name: "Edgar B", picks: ["SEA","MIN","ATL","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","KC","LV","GB","MIA","CIN"], tiebreaker: 45 },
+  { name: "Chico", picks: ["SEA","PIT","WAS","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","BAL","CHI","DAL","NYJ","DEN"], tiebreaker: 50 },
+  { name: "Beto", picks: ["SEA","PIT","WAS","BUF","DET","HOU","CAR","LAC","TB","LAR","SF","BAL","CHI","DAL","MIA","DEN"], tiebreaker: 34 },
+  { name: "Nik", picks: ["SEA","PIT","WAS","BUF","DET","TEN","CAR","LAC","TB","LAR","SF","BAL","CHI","GB","MIA","DEN"], tiebreaker: 43 },
+  { name: "Eric Rodriguez", picks: ["SEA","MIN","WAS","BUF","DET","HOU","NE","LAC","PHI","IND","JAX","BAL","CHI","GB","MIA","DEN"], tiebreaker: 42 },
+  { name: "Erick Escobar", picks: ["SEA","PIT","ATL","BUF","DET","HOU","NE","LAC","TB","IND","SF","KC","LV","GB","MIA","DEN"], tiebreaker: 42 },
+  { name: "Bobby", picks: ["SEA","PIT","ATL","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","KC","CHI","GB","NYJ","DEN"], tiebreaker: 43 },
+  { name: "RIOS", picks: ["SEA","PIT","WAS","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","BAL","LV","GB","NYJ","DEN"], tiebreaker: 52 },
+  { name: "Yolo", picks: ["ARI","MIN","WAS","BUF","DET","HOU","CAR","LAC","TB","LAR","SF","KC","LV","GB","MIA","CIN"], tiebreaker: 44 },
+  { name: "Oso", picks: ["SEA","MIN","WAS","BUF","DET","HOU","NE","LAC","PHI","IND","JAX","BAL","CHI","GB","NYJ","CIN"], tiebreaker: 53 },
+  { name: "Teno", picks: ["SEA","PIT","WAS","BUF","DET","HOU","CAR","LAC","PHI","LAR","SF","BAL","LV","GB","NYJ","CIN"], tiebreaker: 37 },
+  { name: "Dennis", picks: ["ARI","PIT","WAS","BUF","DET","HOU","NE","LAC","PHI","LAR","SF","BAL","LV","GB","MIA","DEN"], tiebreaker: 48 },
+  { name: "Gzuz", picks: ["ARI","MIN","WAS","BUF","DET","TEN","NE","NYG","PHI","LAR","SF","KC","CHI","GB","MIA","CIN"], tiebreaker: 38 },
+  { name: "Danny", picks: ["SEA","PIT","WAS","BUF","DET","HOU","NE","LAC","TB","LAR","SF","BAL","CHI","GB","NYJ","DEN"], tiebreaker: 45 },
+  { name: "Los", picks: ["SEA","MIN","WAS","BUF","DET","TEN","CAR","LAC","PHI","IND","SF","BAL","LV","GB","MIA","CIN"], tiebreaker: 45 },
 ];
+
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
   let correct = 0, wrong = 0;
@@ -173,7 +169,7 @@ export default function PickemTracker() {
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">      {/* Picks Tracker */}
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
-          🏈 NFL Pick'em Tracker 2025 - WEEK 3 🏈
+          🏈 NFL Pick'em Tracker 2025 - WEEK 4 🏈
         </h1>
         {/* Winner */}
         {winners.length > 0 && (
