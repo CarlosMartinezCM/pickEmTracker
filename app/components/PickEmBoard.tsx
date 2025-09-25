@@ -190,50 +190,53 @@ export default function PickemTracker() {
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm">
             <thead className="bg-gradient-to-r from-blue-200 to-blue-100 dark:from-blue-900 dark:to-blue-700 sticky top-0">
-              <tr>
-                <th className="border p-3 text-left">Player</th>
-                {Array.from({ length: 16 }).map((_, idx) => (
-                  <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
-                ))}
-                <th className="border p-3 text-center">✅ Correct</th>
-                <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker</th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaderboard.map((player, i) => {
-                const record = calculateRecord(player.picks, results);
-                const isTop4 = player.rank <= 1;
-                return (
-                  <tr
-                    key={player.name}
-                    className={`${i % 2 === 0
-                      ? "bg-white dark:bg-gray-800"
-                      : "bg-gray-50 dark:bg-gray-700"
-                      } hover:bg-gray-100 dark:hover:bg-gray-600
-                      ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""}`}
-                  >
-                    <td className="border p-3 font-semibold">{player.name}</td>
-                    {player.picks.map((pick, idx) => (
-                      <td
-                        key={idx}
-                        className={`border p-2 text-center font-medium ${results[idx]
-                          ? results[idx] === pick
-                            ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
-                            : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
-                          : "bg-gray-100 dark:bg-gray-600"
-                          }`}
-                      >
-                        {pick}
-                      </td>
-                    ))}
-                    <td className="border p-3 text-center font-bold text-green-700 dark:text-green-300">{record.correct}</td>
-                    <td className="border p-3 text-center font-bold text-red-700 dark:text-red-300">{record.wrong}</td>
-                    <td className="border p-3 text-center font-bold">{player.tiebreaker}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
+  <tr>
+    <th className="border p-3 text-left">Player</th>
+    {Array.from({ length: 16 }).map((_, idx) => (
+      <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
+    ))}
+    <th className="border p-3 text-center">✅ Correct</th>
+    <th className="border p-3 text-center">❌ Wrong</th>
+    <th className="border p-3 text-center">🎯 TieBreaker</th>
+    <th className="border p-3 text-center">#</th> {/* 👈 new column */}
+  </tr>
+</thead>
+<tbody>
+  {leaderboard.map((player, i) => {
+    const record = calculateRecord(player.picks, results);
+    const isTop4 = player.rank <= 1;
+    return (
+      <tr
+        key={player.name}
+        className={`${i % 2 === 0
+          ? "bg-white dark:bg-gray-800"
+          : "bg-gray-50 dark:bg-gray-700"
+          } hover:bg-gray-100 dark:hover:bg-gray-600
+          ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""}`}
+      >
+        <td className="border p-3 font-semibold">{player.name}</td>
+        {player.picks.map((pick, idx) => (
+          <td
+            key={idx}
+            className={`border p-2 text-center font-medium ${results[idx]
+              ? results[idx] === pick
+                ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
+                : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
+              : "bg-gray-100 dark:bg-gray-600"
+              }`}
+          >
+            {pick}
+          </td>
+        ))}
+        <td className="border p-3 text-center font-bold text-green-700 dark:text-green-300">{record.correct}</td>
+        <td className="border p-3 text-center font-bold text-red-700 dark:text-red-300">{record.wrong}</td>
+        <td className="border p-3 text-center font-bold">{player.tiebreaker}</td>
+        <td className="border p-3 text-center font-bold">{i + 1}</td> {/* 👈 number */}
+      </tr>
+    );
+  })}
+</tbody>
+
           </table>
         </div>
       </Card>
