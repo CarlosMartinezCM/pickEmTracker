@@ -174,18 +174,18 @@ export default function PickemTracker() {
           🏈 NFL Pick'em Tracker 2025 - WEEK 4 🏈
         </h1>
         {/* Winner */}
-        {/*winners.length > 0 && (
+        {winners.length > 0 && (
           <div className="mt-4 text-xl font-bold text-yellow-700 dark:text-yellow-300">
             🏆 Winner: {winners.map(p => p.name).join(", ")}
           </div>
-        )*/}
+        )}
 
         {/* Top contenders */}
-        {/*realisticWinners.length > 0 && (
+        {realisticWinners.length > 0 && (
           <div className="mt-2 text-lg font-semibold text-green-700 dark:text-green-300">
             Top contenders: {realisticWinners.map(p => p.name).join(", ")}
           </div>
-        )*/}
+        )}
 
         <div className="overflow-x-auto">
           <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm">
@@ -259,7 +259,7 @@ export default function PickemTracker() {
               </tr>
             </thead>
             <tbody>
-              {/*leaderboard.map(player => {
+              {leaderboard.map(player => {
                 const isTop4 = player.rank <= 4;
                 return (
                   <tr
@@ -277,7 +277,7 @@ export default function PickemTracker() {
                     <td className="border p-3 text-center font-bold">{player.tiebreaker}</td>
                   </tr>
                 );
-              })*/}
+              })}
             </tbody>
           </table>
         </div>
