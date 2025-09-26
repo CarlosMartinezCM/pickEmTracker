@@ -176,14 +176,15 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="mt-4 text-xl font-bold text-yellow-700 dark:text-yellow-300 blink">
-            🏆 Winning: Will be updated by 2pm Sunday
-            {winners.map(p => null /******* p.name when ready set this */).join(", ")}
+            🏆 Leading: Will be updated by 2pm Sunday
+            {winners.map(p => null /******* this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
           </div>
         )}
 
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
           <div className="mt-2 text-lg font-semibold text-green-700 dark:text-green-300">
+              Top contenders: Will be updated by 2pm Sunday
             {/* Top contenders: {realisticWinners.map(p => p.name).join(", ")} */}
           </div>
         )}
