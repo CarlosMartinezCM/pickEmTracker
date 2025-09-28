@@ -53,8 +53,8 @@ type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
 // Week 4 results
-const confirmedResults: (string | null)[] = ["SEA", "PIT"
-];
+const confirmedResults: (string | null)[] = ["SEA", "PIT", "ATL", "BUF",
+                                                "DET", "HOU", "NE", "NYG", "PHI"];
 
 // Week 4 Picks (truncated for brevity, keep your full list)
 const initialPlayers: Player[] = [
@@ -175,16 +175,16 @@ export default function PickemTracker() {
         </h1>
         {/* Winner */}
         {winners.length > 0 && (
-          <div className="mt-4 text-xl font-bold text-yellow-700 dark:text-yellow-300 blink">
-            🏆 Leading: Will be updated by 2pm Sunday
-            {winners.map(p => null /******* this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
+          <div className="mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
+            🏆 Leading:**
+            {winners.map(p => p.name /******* this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}**
           </div>
         )}
 
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
-          <div className="mt-2 text-lg font-semibold text-green-700 dark:text-green-300">
-              Top contenders: Will be updated by 2pm Sunday
+          <div className="mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
+            Top contenders: {realisticWinners.map(p => p.name).join(", ")}
             {/* Top contenders: {realisticWinners.map(p => p.name).join(", ")} */}
           </div>
         )}
