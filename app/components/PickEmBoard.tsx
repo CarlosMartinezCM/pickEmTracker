@@ -53,7 +53,7 @@ type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
 // Week 4 results
-const confirmedResults: (string | null)[] = ["SEA"
+const confirmedResults: (string | null)[] = ["SEA", "PIT"
 ];
 
 // Week 4 Picks (truncated for brevity, keep your full list)
