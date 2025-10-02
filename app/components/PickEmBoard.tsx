@@ -60,7 +60,7 @@ const confirmedResults: (string | null)[] = [/* Week 5 Results */ null, /* Week 
 
 //Week 5 players                                                 
 const initialPlayers = [
-  { name: "Carlos(comish)", picks: ["LAR", "CLE", "HOU", "MIA", "IND", "NO", "NYJ", "PHI", "ARI", "SEA", "DET", "LAC", "NE", "JAX"], tiebreaker: 51 },
+  { name: "Carlos(comish)", picks: ["LAR", "CLE", "HOU", "MIA", "IND", "NO", "NYJ", "PHI", "ARI", "SEA", "DET", "LAC", "BUF", "JAX"], tiebreaker: 51 },
   { name: "J De La R", picks: ["SF", "CLE", "BAL", "CAR", "IND", "NYG", "DAL", "PHI", "ARI", "SEA", "DET", "LAC", "BUF", "KC"], tiebreaker: 47 },
   { name: "Nik", picks: ["LAR", "CLE", "BAL", "CAR", "IND", "NO", "DAL", "DEN", "ARI", "SEA", "DET", "LAC", "BUF", "KC"], tiebreaker: 41 },
   { name: "Erick Escobar", picks: ["LAR", "MIN", "BAL", "CAR", "IND", "NYG", "DAL", "PHI", "ARI", "SEA", "DET", "LAC", "BUF", "KC"], tiebreaker: 45 },
