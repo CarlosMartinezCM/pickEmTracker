@@ -179,20 +179,20 @@ export default function PickemTracker() {
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
           🏈 NFL Pick'em Tracker 2025 - WEEK 5 🏈
         </h1>
-        {/* total players */}
-        <div className="text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
+       {/* total players */}
+        <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
           Total Players: {initialPlayers.length}
         </div>
         {/* Winner */}
         {winners.length > 0 && (
-          <div className="mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
+          <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
             🏆 Winning: {(" ")}
             {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
           </div>
         )}
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
-          <div className="mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
+          <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
             Top contenders: {(" ")}
             {/* Top contenders: {realisticWinners.map(p => p.name).join(", ")} */}
           </div>
