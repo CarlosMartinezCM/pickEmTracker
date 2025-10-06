@@ -54,7 +54,7 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 
 // Week 4 results
 const confirmedResults: (string | null)[] = [/* Week 5 Results */ "SF","MIN", "HOU", "CAR", "IND", 
-                                                "NO", "DAL", "DEN", "TEN", " TB", "DET", "WAS",
+                                                "NO", "DAL", "DEN", "TEN", "TB", "DET", "WAS",
                                                    "NE",/* Week 5 results*/];
 
 
