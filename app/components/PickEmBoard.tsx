@@ -55,7 +55,7 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // Week 4 results
 const confirmedResults: (string | null)[] = [/* Week 5 Results */ "SF","MIN", "HOU", "CAR", "IND", 
                                                 "NO", "DAL", "DEN", "TEN", "TB", "DET", "WAS",
-                                                   "NE",/* Week 5 results*/];
+                                                   "NE", "JAX"/* Week 5 results*/];
 
 
 //Week 5 players                                                 
@@ -186,9 +186,9 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
-            🏆 Winning: {(" ")}
-            {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
-          </div>
+            🏆 Winner:$${(" ")}
+            {winners.map(p => p.name /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
+          $$</div>
         )}
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
