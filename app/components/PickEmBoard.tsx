@@ -200,7 +200,7 @@ export default function PickemTracker() {
               <tr>
                 <th className="border p-3 text-center">#</th>{/* 👈 new column */}
                 <th className="border p-3 text-left">Player</th>
-                {Array.from({ length: 15 {/* 👈 Number of games played this week */}}).map((_, idx) => (
+                {Array.from({ length: 15 }).map((_, idx) => (
                   <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
                 ))}
                 <th className="border p-3 text-center">✅ Correct</th>
