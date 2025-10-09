@@ -183,7 +183,7 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
-            🏆 Winner:{(" ")}
+            🏆 {(" ")}
             {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
           </div>
         )}
@@ -200,7 +200,7 @@ export default function PickemTracker() {
               <tr>
                 <th className="border p-3 text-center">#</th>{/* 👈 new column */}
                 <th className="border p-3 text-left">Player</th>
-                {Array.from({ length: 14 }).map((_, idx) => (
+                {Array.from({ length: 15 {/* 👈 Number of games played this week */}}).map((_, idx) => (
                   <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
                 ))}
                 <th className="border p-3 text-center">✅ Correct</th>
