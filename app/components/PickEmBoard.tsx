@@ -190,7 +190,7 @@ export default function PickemTracker() {
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
           <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
-            Top contenders: {(" ")}
+            🏈 {(" ")}
             {/* Top contenders: {realisticWinners.map(p => p.name).join(", ")} */}
           </div>
         )}
