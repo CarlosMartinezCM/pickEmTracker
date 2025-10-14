@@ -182,7 +182,7 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
-            🏆 {(" ")}
+            🏆 $$ Edgar B $$ {(" ")}
             {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
           </div>
         )}
