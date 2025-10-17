@@ -53,7 +53,7 @@ type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
 // Week 6 results
-const confirmedResults: (string | null)[] = [/* Week  Results */    /*Results*/];
+const confirmedResults: (string | null)[] = [/* Week  Results */  "CIN",  /*Results*/];
 
 //Week 7 players                                                 
 const initialPlayers: Player[] =  [
