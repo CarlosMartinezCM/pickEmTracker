@@ -178,14 +178,14 @@ export default function PickemTracker() {
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
             🏆 {(" ")}
-            {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
+            {winners.map(p => name /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
           </div>
         )}
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
           <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
             🏈 {(" ")}
-            {/* Top contenders: {realisticWinners.map(p => p.name).join(", ")} */}
+            { Top contenders: {realisticWinners.map(p => p.name).join(", ")}}
           </div>
         )}
         <div className="overflow-x-auto">
