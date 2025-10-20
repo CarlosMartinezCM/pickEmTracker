@@ -162,7 +162,7 @@ export default function PickemTracker() {
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
 
   // Top contenders: rank ≤ 3
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 4), [leaderboard]);
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 3), [leaderboard]);
 
 
   return (
