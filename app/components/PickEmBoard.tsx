@@ -53,7 +53,8 @@ type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
 // Week 6 results
-const confirmedResults: (string | null)[] = [/* Week  Results */  "CIN", "LAR", "CHI", "CLE", "NE", "KC", "PHI", "CAR" /*Results*/];
+const confirmedResults: (string | null)[] = [/* Week  Results */  "CIN", "LAR", "CHI", "CLE", "NE", "KC", "PHI", "CAR" ,
+                                            "DEN", "IND", "DAL", "GB", null/*ATL/SF*/, null/*TB/DET*/, null/*HOU/SEA*//*Results*/];
 
 //Week 7 players                                                 
 const initialPlayers: Player[] =  [
@@ -161,7 +162,7 @@ export default function PickemTracker() {
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
 
   // Top contenders: rank ≤ 3
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 6), [leaderboard]);
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 4), [leaderboard]);
 
 
   return (
