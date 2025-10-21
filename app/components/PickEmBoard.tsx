@@ -54,7 +54,7 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 
 // Week 6 results
 const confirmedResults: (string | null)[] = [/* Week  Results */  "CIN", "LAR", "CHI", "CLE", "NE", "KC", "PHI", "CAR" ,
-                                            "DEN", "IND", "DAL", "GB", "SF","DET", null/*HOU/SEA*//*Results*/];
+                                            "DEN", "IND", "DAL", "GB", "SF","DET", "SEA"/*Results*/];
 
 //Week 7 players                                                 
 const initialPlayers: Player[] =  [
@@ -178,7 +178,7 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
-            🏆 {(" ")}
+            🏆 Dennis {(" ")}
             {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
           </div>
         )}
