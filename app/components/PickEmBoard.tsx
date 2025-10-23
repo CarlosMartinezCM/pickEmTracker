@@ -52,33 +52,32 @@ type Player = { name: string; picks: string[]; tiebreaker: number };
 type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
-// Week 6 results
-const confirmedResults: (string | null)[] = [/* Week  Results */  "CIN", "LAR", "CHI", "CLE", "NE", "KC", "PHI", "CAR" ,
-                                            "DEN", "IND", "DAL", "GB", "SF","DET", "SEA"/*Results*/];
+// Week 8 results
+const confirmedResults: (string | null)[] = [/* Week  Results */    /*Results*/];
 
-//Week 7 players                                                 
-const initialPlayers: Player[] =  [
-  { name: "Carlos(comish)", picks: ["PIT","JAX","CHI","MIA","NE","KC","PHI","CAR","DEN","IND","DAL","GB","ATL","TB","SEA"], tiebreaker: 38 },
-  { name: "Bobby", picks: ["PIT","LAR","CHI","CLE","NE","KC","PHI","CAR","DEN","IND","WAS","GB","ATL","DET","SEA"], tiebreaker: 43 },
-  { name: "Sumo", picks: ["PIT","LAR","CHI","CLE","NE","KC","PHI","CAR","NYG","IND","DAL","GB","SF","TB","SEA"], tiebreaker: 35 },
-  { name: "J el De La R", picks: ["CIN","LAR","CHI","CLE","NE","KC","MIN","NYJ","DEN","IND","DAL","ARI","SF","DET","SEA"], tiebreaker: 55 },
-  { name: "RIOS", picks: ["PIT","LAR","NO","MIA","NE","KC","PHI","NYJ","DEN","IND","DAL","GB","SF","DET","SEA"], tiebreaker: 48 },
-  { name: "Erick Escobar", picks: ["PIT","JAX","CHI","CLE","NE","KC","MIN","CAR","DEN","LAC","WAS","GB","SF","TB","SEA"], tiebreaker: 42 },
-  { name: "Eric Rodriguez", picks: ["PIT","JAX","CHI","CLE","NE","KC","PHI","CAR","NYG","IND","WAS","GB","ATL","DET","SEA"], tiebreaker: 48 },
-  { name: "Oso", picks: ["PIT","JAX","CHI","CLE","NE","KC","PHI","CAR","DEN","IND","WAS","GB","ATL","DET","SEA"], tiebreaker: 53 },
-  { name: "Maverick", picks: ["PIT","LAR","CHI","CLE","NE","KC","PHI","NYJ","DEN","LAC","DAL","GB","SF","DET","SEA"], tiebreaker: 40 },
-  { name: "Island Enterprise", picks: ["PIT","LAR","CHI","MIA","NE","KC","PHI","CAR","DEN","IND","DAL","ARI","ATL","DET","SEA"], tiebreaker: 40 },
-  { name: "Candon", picks: ["PIT","LAR","CHI","CLE","NE","KC","MIN","NYJ","DEN","IND","WAS","GB","SF","DET","SEA"], tiebreaker: 48 },
-  { name: "Edgar B", picks: ["PIT","JAX","CHI","CLE","NE","KC","PHI","CAR","DEN","IND","WAS","GB","SF","DET","SEA"], tiebreaker: 34 },
-  { name: "Yolo", picks: ["PIT","JAX","CHI","CLE","NE","KC","PHI","CAR","DEN","IND","WAS","GB","SF","TB","SEA"], tiebreaker: 42 },
-  { name: "Beto", picks: ["PIT","JAX","NO","CLE","NE","KC","MIN","CAR","DEN","IND","DAL","GB","ATL","TB","SEA"], tiebreaker: 50 },
-  { name: "Fay", picks: ["PIT","LAR","CHI","CLE","NE","KC","PHI","CAR","DEN","LAC","DAL","ARI","SF","DET","SEA"], tiebreaker: 48 },
-  { name: "Ernest", picks: ["PIT","LAR","CHI","CLE","NE","KC","PHI","CAR","NYG","LAC","WAS","GB","SF","DET","SEA"], tiebreaker: 44 },
-  { name: "Danny", picks: ["CIN","LAR","CHI","CLE","NE","KC","MIN","CAR","DEN","IND","DAL","GB","ATL","TB","SEA"], tiebreaker: 45 },
-  { name: "Master Chief", picks: ["PIT","LAR","CHI","CLE","NE","KC","PHI","NYJ","DEN","LAC","WAS","GB","ATL","DET","SEA"], tiebreaker: 45 },
-  { name: "Dennis", picks: ["PIT","LAR","CHI","CLE","NE","KC","PHI","CAR","DEN","LAC","DAL","GB","SF","DET","SEA"], tiebreaker: 46 },
-  { name: "Chico", picks: ["PIT","LAR","CHI","MIA","NE","KC","PHI","CAR","NYG","LAC","DAL","GB","SF","TB","SEA"], tiebreaker: 40 }
+//Week 8 players                                                 
+const initialPlayers: Player[] = [
+  { name: "Carlos Comish", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 55 },
+  { name: "Meno", picks: ["LAC", "ATL", "CIN", "NE", "NYG", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 48 },
+  { name: "Edgar B", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 50 },
+  { name: "Chico", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "CHI", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 48 },
+  { name: "Maverick", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 45 },
+  { name: "Bobby", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 45 },
+  { name: "Los", picks: ["MIN", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 45 },
+  { name: "RIOS", picks: ["MIN", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 48 },
+  { name: "Sumo", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 45 },
+  { name: "Sebastian", picks: ["LAC", "ATL", "CIN", "NE", "NYG", "BUF", "CHI", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 34 },
+  { name: "Adrian", picks: ["LAC", "ATL", "CIN", "NE", "NYG", "BUF", "CHI", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 34 },
+  { name: "Oso", picks: ["MIN", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 53 },
+  { name: "J El De La R", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 48 },
+  { name: "Dennis", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 48 },
+  { name: "Eric Rodriguez", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 48 },
+  { name: "Beto", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 44 },
+  { name: "Candon", picks: ["MIN", "MIA", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 44 },
+  { name: "Danny", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "CHI", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 47 },
+  { name: "Erick Escobar", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 42 },
 ];
+
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -162,14 +161,14 @@ export default function PickemTracker() {
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
 
   // Top contenders: rank ≤ 3
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 3), [leaderboard]);
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 1), [leaderboard]);
 
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">      {/* Picks Tracker */}
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
-          🏈 NFL Pick'em Tracker 2025 - WEEK 7 🏈
+          🏈 NFL Pick'em Tracker 2025 - WEEK 8 🏈
         </h1>
        {/* total players */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
@@ -178,15 +177,15 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
-            🏆 Dennis {(" ")}
-            {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(", ")}
+            🏆 {(" ")}
+            {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(" ")}
           </div>
         )}
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
           <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
             🏈 {(" ")}
-            Top contenders: {realisticWinners.map(p => p.name).join(", ")}
+             {realisticWinners.map(p => null).join(" ")}
           </div>
         )}
         <div className="overflow-x-auto">
@@ -195,7 +194,7 @@ export default function PickemTracker() {
               <tr>
                 <th className="border p-3 text-center">#</th>{/* 👈 new column */}
                 <th className="border p-3 text-left">Player</th>
-                {Array.from({ length: 15 }).map((_, idx) => (
+                {Array.from({ length: 13 }).map((_, idx) => (
                   <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
                 ))}
                 <th className="border p-3 text-center">✅ Correct</th>
