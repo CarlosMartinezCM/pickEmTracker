@@ -53,7 +53,7 @@ type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
 // Week 8 results
-const confirmedResults: (string | null)[] = [/* Week  Results */  "LAC"  /*Results*/];
+const confirmedResults: (string | null)[] = [/* Week  Results */  "LAC", "MIA", "NYJ", "NE", "PHI", "BUF", "BAL", "HOU"  /*Results*/];
 
 //Week 8 players                                                 
 const initialPlayers: Player[] = [
@@ -160,9 +160,8 @@ export default function PickemTracker() {
   // Winner(s): players with rank 1
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
 
-  // Top contenders: rank ≤ 3
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 1), [leaderboard]);
-
+  // Top contenders: rank ≤ varies. ** This is where i change the number of top contenders** 
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 4), [leaderboard]);
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">      {/* Picks Tracker */}
@@ -185,7 +184,7 @@ export default function PickemTracker() {
         {realisticWinners.length > 0 && (
           <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
             🏈 {(" ")}
-             {realisticWinners.map(p => null).join(" ")}
+             Top 4 contenders: {realisticWinners.map(p => p.name).join(", ")}
           </div>
         )}
         <div className="overflow-x-auto">
@@ -205,7 +204,7 @@ export default function PickemTracker() {
             <tbody>
               {leaderboard.map((player, i) => {
                 const record = calculateRecord(player.picks, results);
-                const isTop4 = player.rank <= 1;
+                const isTop4 = player.rank <= 4;
                 return (
                   <tr
                     key={player.name}
