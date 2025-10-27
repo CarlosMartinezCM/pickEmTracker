@@ -161,7 +161,7 @@ export default function PickemTracker() {
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
 
   // Top contenders: rank ≤ varies. ** This is where i change the number of top contenders** 
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 4), [leaderboard]);
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 3), [leaderboard]);
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">      {/* Picks Tracker */}
