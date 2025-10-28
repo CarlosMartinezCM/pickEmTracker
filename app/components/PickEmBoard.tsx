@@ -53,7 +53,7 @@ type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
 // Week 8 results
-const confirmedResults: (string | null)[] = [/* Week  Results */  "LAC", "MIA", "NYJ", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "GB"  /*Results*/];
+const confirmedResults: (string | null)[] = [/* Week  Results */  "LAC", "MIA", "NYJ", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "GB", "KC"  /*Results*/];
 
 //Week 8 players                                                 
 const initialPlayers: Player[] = [
@@ -177,7 +177,7 @@ export default function PickemTracker() {
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
             🏆 {(" ")}
-            {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(" ")}
+            {winners.map(p => p.name /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(" ")}
           </div>
         )}
         {/* Top contenders */}
