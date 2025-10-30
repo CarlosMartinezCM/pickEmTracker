@@ -52,32 +52,32 @@ type Player = { name: string; picks: string[]; tiebreaker: number };
 type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
-// Week 8 results
-const confirmedResults: (string | null)[] = [/* Week  Results */  "LAC", "MIA", "NYJ", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "GB", "KC"  /*Results*/];
+// Week 9 results
+const confirmedResults: (string | null)[] = [/* Week  Results */      /*Results*/];
 
-//Week 8 players                                                 
+//Week 9 players                                                 
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 55 },
-  { name: "Meno", picks: ["LAC", "ATL", "CIN", "NE", "NYG", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 48 },
-  { name: "Edgar B", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 50 },
-  { name: "Chico", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "CHI", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 48 },
-  { name: "Maverick", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 45 },
-  { name: "Bobby", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 45 },
-  { name: "Los", picks: ["MIN", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 45 },
-  { name: "RIOS", picks: ["MIN", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 48 },
-  { name: "Sumo", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 45 },
-  { name: "Sebastian", picks: ["LAC", "ATL", "CIN", "NE", "NYG", "BUF", "CHI", "SF", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 34 },
-  { name: "Adrian", picks: ["LAC", "ATL", "CIN", "NE", "NYG", "BUF", "CHI", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 34 },
-  { name: "Oso", picks: ["MIN", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 53 },
-  { name: "J El De La R", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 48 },
-  { name: "Dennis", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 48 },
-  { name: "Eric Rodriguez", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "HOU", "TB", "DAL", "IND", "GB", "KC"], tiebreaker: 48 },
-  { name: "Beto", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 44 },
-  { name: "Candon", picks: ["MIN", "MIA", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 44 },
-  { name: "Danny", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "CHI", "SF", "TB", "DEN", "IND", "PIT", "KC"], tiebreaker: 47 },
-  { name: "Erick Escobar", picks: ["LAC", "ATL", "CIN", "NE", "PHI", "BUF", "BAL", "SF", "TB", "DEN", "IND", "GB", "KC"], tiebreaker: 42 },
+  { name: "Carlos Comish", picks: ["BAL","CHI","DET","GB","LAC","NE","SF","PIT","DEN","LV","LAR","KC","SEA","DAL"], tiebreaker: 45 },
+  { name: "J El De La R", picks: ["MIA","CHI","DET","GB","LAC","NE","SF","PIT","HOU","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 49 },
+  { name: "Sumo", picks: ["BAL","CHI","DET","GB","LAC","NE","NYG","IND","DEN","JAX","LAR","KC","SEA","DAL"], tiebreaker: 49 },
+  { name: "Fay", picks: ["BAL","CHI","DET","GB","LAC","NE","SF","PIT","DEN","LV","LAR","BUF","SEA","DAL"], tiebreaker: 48 },
+  { name: "Oso", picks: ["BAL","CIN","DET","GB","LAC","NE","SF","PIT","DEN","JAX","LAR","BUF","SEA","ARI"], tiebreaker: 53 },
+  { name: "49rs", picks: ["BAL","CHI","DET","GB","LAC","NE","SF","IND","DEN","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 52 },
+  { name: "RIOS", picks: ["BAL","CIN","DET","GB","LAC","ATL","SF","PIT","DEN","JAX","LAR","KC","WAS","DAL"], tiebreaker: 52 },
+  { name: "Candon", picks: ["BAL","CHI","DET","GB","LAC","NE","SF","IND","DEN","JAX","LAR","BUF","WAS","DAL"], tiebreaker: 48 },
+  { name: "Beto", picks: ["BAL","CIN","MIN","GB","LAC","NE","SF","IND","DEN","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 45 },
+  { name: "Bobby", picks: ["BAL","CHI","DET","GB","LAC","ATL","SF","IND","DEN","JAX","LAR","KC","SEA","DAL"], tiebreaker: 50 },
+  { name: "Castro", picks: ["BAL","CIN","DET","GB","LAC","NE","NYG","IND","DEN","JAX","LAR","KC","SEA","DAL"], tiebreaker: 37 },
+  { name: "Dennis", picks: ["BAL","CIN","DET","GB","LAC","NE","SF","PIT","DEN","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 40 },
+  { name: "Erick Rodriguez", picks: ["BAL","CHI","DET","GB","LAC","NE","SF","IND","DEN","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 50 },
+  { name: "Chico", picks: ["MIA","CHI","MIN","CAR","TEN","NE","NYG","PIT","HOU","LV","NO","KC","WAS","DAL"], tiebreaker: 40 },
+  { name: "Polo", picks: ["BAL","CIN","DET","GB","LAC","NE","SF","IND","DEN","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 40 },
+  { name: "Maverick", picks: ["BAL","CIN","DET","GB","LAC","NE","SF","IND","DEN","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 48 },
+  { name: "Edgar B", picks: ["BAL","CHI","DET","GB","LAC","NE","SF","PIT","HOU","JAX","LAR","BUF","SEA","DAL"], tiebreaker: 46 },
+  { name: "YOLO", picks: ["BAL","CHI","DET","GB","LAC","NE","SF","IND","DEN","JAX","LAR","KC","SEA","DAL"], tiebreaker: 44 },
+  { name: "Flash", picks: ["BAL","CIN","DET","GB","LAC","NE","SF","IND","DEN","LV","LAR","BUF","SEA","DAL"], tiebreaker: 48 },
+  { name: "Danny", picks: ["BAL","CIN","DET","GB","LAC","NE","SF","IND","DEN","JAX","LAR","KC","SEA","DAL"], tiebreaker: 60 },
 ];
-
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -161,7 +161,7 @@ export default function PickemTracker() {
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
 
   // Top contenders: rank ≤ varies. ** This is where i change the number of top contenders** 
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 3), [leaderboard]);
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 0), [leaderboard]);
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">      {/* Picks Tracker */}
@@ -177,7 +177,7 @@ export default function PickemTracker() {
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
             🏆 {(" ")}
-            {winners.map(p => p.name /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(" ")}
+            {winners.map(p => null /* p.name ****** this is the winners section so next to rophy add Winning p.name when ready set this */).join(" ")}
           </div>
         )}
         {/* Top contenders */}
@@ -193,12 +193,12 @@ export default function PickemTracker() {
               <tr>
                 <th className="border p-3 text-center">#</th>{/* 👈 new column */}
                 <th className="border p-3 text-left">Player</th>
-                {Array.from({ length: 13 }).map((_, idx) => (
+                {Array.from({ length: 14 }).map((_, idx) => (
                   <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
                 ))}
                 <th className="border p-3 text-center">✅ Correct</th>
                 <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker</th>
+                <th className="border p-3 text-center">🎯 TieBreaker ARI@DAL </th>
               </tr>
             </thead>
             <tbody>
@@ -253,7 +253,7 @@ export default function PickemTracker() {
                 <th className="border p-3 text-left">Player</th>
                 <th className="border p-3 text-center">✅ Correct</th>
                 <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker</th>
+                <th className="border p-3 text-center">🎯 TieBreaker ARI@DAL </th>
               </tr>
             </thead>
             <tbody>
