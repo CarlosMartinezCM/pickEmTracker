@@ -162,13 +162,13 @@ export default function PickemTracker() {
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
 
   // Top contenders: rank ≤ varies. ** This is where i change the number of top contenders** 
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 8), [leaderboard]);
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 7), [leaderboard]);
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">      {/* Picks Tracker */}
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
-          🏈 NFL Pick'em Tracker 2025 - WEEK 8 🏈
+          🏈 NFL Pick'em Tracker 2025 - WEEK 9 🏈
         </h1>
        {/* total players */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
@@ -185,7 +185,7 @@ export default function PickemTracker() {
         {realisticWinners.length > 0 && (
           <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
             🏈 {(" ")}
-             Top 8 contenders: {realisticWinners.map(p => p.name).join(", ")}
+             Top 7 contenders: {realisticWinners.map(p => p.name).join(", ")}
           </div>
         )}
         <div className="overflow-x-auto">
