@@ -52,8 +52,8 @@ type Player = { name: string; picks: string[]; tiebreaker: number };
 type Result = { [gameIndex: number]: string };
 type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number };
 
-// Week 9 results
-const confirmedResults: (string | null)[] = [/* WeekResults */  "DEN", "IND", "CHI", "MIA", "BAL", "NYJ", "NE", "NO", "HOU","SEA","LAR","DET", "LAC"   /*Results*/];
+// Week 10 results
+const confirmedResults: (string | null)[] = [/* WeekResults */  "DEN", "IND", "CHI", "MIA", "BAL", "NYJ", "NE", "NO", "HOU","SEA","LAR","DET", "LAC" , null  /*Results*/];
 
 //Week 10 players                                                 
 const initialPlayers: Player[] = [
@@ -185,7 +185,7 @@ export default function PickemTracker() {
         {/* Top contenders */}
         {realisticWinners.length > 0 && (
           <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
-            🏈 {(" ")}
+            🏈 Beto and Javier {(" ")}
              Top 7 contenders: {realisticWinners.map(p => null).join(", ")}
           </div>
         )}
