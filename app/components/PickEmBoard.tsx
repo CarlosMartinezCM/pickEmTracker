@@ -213,7 +213,7 @@ export default function PickemTracker() {
                 ))}
                 <th className="border p-3 text-center">✅ Correct</th>
                 <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker ARI@DAL </th>
+                <th className="border p-3 text-center">🎯 TieBreaker PHI@GB </th>
               </tr>
             </thead>
             <tbody>
@@ -263,7 +263,7 @@ export default function PickemTracker() {
                 <th className="border p-3 text-left">Player</th>
                 <th className="border p-3 text-center">✅ Correct</th>
                 <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker ARI@DAL </th>
+                <th className="border p-3 text-center">🎯 TieBreaker PHI@GB </th>
               </tr>
             </thead>
             <tbody>
