@@ -183,11 +183,11 @@ export default function PickemTracker() {
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
           Total Players: {initialPlayers.length}
         </div>
-
+        {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
             🏆{" "}
-            {winners.map(p => null).join(", ")}
+            {winners.map(p => p.name).join(", ")}
           </div>
         )}
        {/* Top contenders */}
