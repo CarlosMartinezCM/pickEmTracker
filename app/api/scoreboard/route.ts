@@ -2,29 +2,41 @@
 import { NextResponse } from "next/server";
 
 type ResultArray = (string | null)[];
+type Matchup = {
+  eventId: string | null;
+  awayTeam: string | null;
+  homeTeam: string | null;
+  awayAbbr: string | null;
+  homeAbbr: string | null;
+  date: string | null;
+  status: string | null;
+};
 
-// --- EDIT THIS: expectedMatchups must match your Pick'em column order (G1..G14) ---
-// Put each matchup in the same order as your picks table columns.
-// Format: { away: "LV", home: "DEN" } meaning LV @ DEN.
+// Week 11 expectedMatchups (copy/paste into route.ts)
 const expectedMatchups: { away: string; home: string }[] = [
-  { away: "LV", home: "DEN" }, // G1  -> LV @ DEN
-  { away: "ATL", home: "IND" }, // G2 -> ATL @ IND
-  { away: "NYG", home: "CHI" }, // G3 -> NYG @ CHI
-  { away: "BUF", home: "MIA" }, // G4 -> BUF @ MIA
-  { away: "BAL", home: "MIN" }, // G5 -> BAL @ MIN
-  { away: "CLE", home: "NYJ" }, // G6 -> CLE @ NYJ
-  { away: "NE", home: "TB" },   // G7 -> NE @ TB
-  { away: "NO", home: "CAR" },  // G8 -> NO @ CAR
-  { away: "JAX", home: "HOU" }, // G9 -> JAC @ HOU
-  { away: "ARI", home: "SEA" }, // G10 -> ARI @ SEA
-  { away: "LAR", home: "SF" },  // G11 -> LAR @ SF
-  { away: "DET", home: "WSH" }, // G12 -> DET @ WAS
-  { away: "PIT", home: "LAC" }, // G13 -> PIT @ LAC
-  { away: "PHI", home: "GB" },  // G14 -> PHI @ GB (MNF; will be null until final)
-];
-// -------------------------------------------------------------------------------
+  // Thursday Nov 13
+  { away: "NYJ", home: "NE" },   // NY Jets at New England
 
-let cached: { ts: number; data: ResultArray } | null = null;
+  // Sunday Nov 16 (in the order on your PDF)
+  { away: "WSH", home: "MIA" },  // Washington at Miami
+  { away: "CAR", home: "ATL" },  // Carolina at Atlanta
+  { away: "TB",  home: "BUF" },  // Tampa Bay at Buffalo
+  { away: "HOU", home: "TEN" },  // Houston at Tennessee
+  { away: "CHI", home: "MIN" },  // Chicago at Minnesota
+  { away: "GB",  home: "NYG" },  // Green Bay at NY Giants
+  { away: "CIN", home: "PIT" },  // Cincinnati at Pittsburgh
+  { away: "LAC", home: "JAX" },  // LA Chargers at Jacksonville
+  { away: "SEA", home: "LAR" },  // Seattle at LA Rams
+  { away: "SF",  home: "ARI" },  // San Francisco at Arizona
+  { away: "BAL", home: "CLE" },  // Baltimore at Cleveland
+  { away: "KC",  home: "DEN" },  // Kansas City at Denver
+  { away: "DET", home: "PHI" },  // Detroit at Philadelphia
+
+  // Monday Nov 17
+  { away: "DAL", home: "LV" },   // Dallas at Las Vegas
+];
+
+let cached: { ts: number; data: { results: ResultArray; matchups: Matchup[] } } | null = null;
 const CACHE_TTL = 1000 * 60 * 6; // 6 minutes
 
 function normalizeTeamAbbr(abbr: any): string | null {
@@ -38,9 +50,8 @@ function makeKey(away: string | undefined, home: string | undefined) {
 }
 
 export async function GET() {
-  // return cache quickly if present
   if (cached && Date.now() - cached.ts < CACHE_TTL) {
-    return NextResponse.json({ source: "cache", results: cached.data, fetchedAt: cached.ts });
+    return NextResponse.json({ source: "cache", ...cached.data, fetchedAt: cached.ts });
   }
 
   try {
@@ -52,71 +63,119 @@ export async function GET() {
     const json = await resp.json();
     const events = Array.isArray(json?.events) ? json.events : [];
 
-    // prepare a map of ESPN eventKey -> winnerAbbr OR null if not final
+    // map of eventKey -> winnerAbbr|null
     const eventWinnerMap = new Map<string, string | null>();
 
-    events.forEach((ev: any) => {
+    // also build the raw matchups list from ESPN events
+    const rawMatchups: Matchup[] = events.map((ev: any) => {
       try {
         const comp = ev?.competitions?.[0];
-        if (!comp) return;
-        const competitors = Array.isArray(comp.competitors) ? comp.competitors : [];
+        const competitors = Array.isArray(comp?.competitors) ? comp.competitors : [];
         const home = competitors.find((c: any) => c?.homeAway === "home");
         const away = competitors.find((c: any) => c?.homeAway === "away");
+        const homeAbbr = normalizeTeamAbbr(home?.team?.abbreviation ?? home?.team?.shortDisplayName);
+        const awayAbbr = normalizeTeamAbbr(away?.team?.abbreviation ?? away?.team?.shortDisplayName);
 
-        const homeAbbr = normalizeTeamAbbr(home?.team?.abbreviation);
-        const awayAbbr = normalizeTeamAbbr(away?.team?.abbreviation);
-        const key = makeKey(awayAbbr ?? undefined, homeAbbr ?? undefined);
-        if (!key) return;
-
-        // pick winner if flagged
+        // determine winner if available
         const winner = competitors.find((c: any) => c?.winner === true);
-        if (winner?.team?.abbreviation) {
-          eventWinnerMap.set(key, normalizeTeamAbbr(winner.team.abbreviation));
-          return;
-        }
-
-        // fallback: if status final, use scores
-        const statusName = String(comp?.status?.type?.name || "").toLowerCase();
-        if (statusName.includes("final")) {
+        let winnerAbbr: string | null = null;
+        if (winner?.team?.abbreviation) winnerAbbr = normalizeTeamAbbr(winner.team.abbreviation);
+        else {
+          // fallback compare scores if final
+          const statusName = String(comp?.status?.type?.name || "").toLowerCase();
           const homeScore = parseInt(home?.score ?? "-1", 10);
           const awayScore = parseInt(away?.score ?? "-1", 10);
-          if (homeScore > awayScore) {
-            eventWinnerMap.set(key, homeAbbr);
-          } else if (awayScore > homeScore) {
-            eventWinnerMap.set(key, awayAbbr);
+          if (statusName.includes("final")) {
+            if (homeScore > awayScore) winnerAbbr = homeAbbr;
+            else if (awayScore > homeScore) winnerAbbr = awayAbbr;
+            else winnerAbbr = null;
           } else {
-            eventWinnerMap.set(key, null); // tie/unknown
+            winnerAbbr = null;
           }
-          return;
         }
 
-        // not final
-        eventWinnerMap.set(key, null);
+        // register winner in map under several key formats (away@home and reverse)
+        const key = makeKey(awayAbbr ?? undefined, homeAbbr ?? undefined);
+        if (key) {
+          eventWinnerMap.set(key, winnerAbbr);
+          eventWinnerMap.set(`${homeAbbr}@${awayAbbr}`, winnerAbbr);
+        }
+
+        return {
+          eventId: ev?.id ?? null,
+          awayTeam: away?.team?.displayName ?? away?.team?.shortDisplayName ?? null,
+          homeTeam: home?.team?.displayName ?? home?.team?.shortDisplayName ?? null,
+          awayAbbr,
+          homeAbbr,
+          date: ev?.date ?? null,
+          status: comp?.status?.type?.name ?? null,
+        } as Matchup;
       } catch {
-        // ignore malformed event
+        return {
+          eventId: ev?.id ?? null,
+          awayTeam: null,
+          homeTeam: null,
+          awayAbbr: null,
+          homeAbbr: null,
+          date: null,
+          status: null,
+        } as Matchup;
       }
     });
 
-    // Build results array in the order of expectedMatchups
+    // Build ordered results array (aligned with expectedMatchups)
     const results: ResultArray = expectedMatchups.map((m) => {
       const key = makeKey(m.away, m.home);
-      // If the exact key exists in the map, return it.
       if (key && eventWinnerMap.has(key)) return eventWinnerMap.get(key) ?? null;
-      // If not, try reverse (maybe ESPN used swapped home/away notation)
       const reverseKey = makeKey(m.home, m.away);
       if (reverseKey && eventWinnerMap.has(reverseKey)) return eventWinnerMap.get(reverseKey) ?? null;
-      // Not found — return null (no data)
+      // Try to find a rawMatchups entry that matches tokens loosely
+      const found = rawMatchups.find((r) => {
+        const a = (r.awayAbbr ?? r.awayTeam ?? "").toString().toUpperCase();
+        const h = (r.homeAbbr ?? r.homeTeam ?? "").toString().toUpperCase();
+        return a.includes(m.away.toUpperCase()) && h.includes(m.home.toUpperCase());
+      });
+      if (found) {
+        // key based on found entry
+        const foundKey = makeKey(found.awayAbbr ?? undefined, found.homeAbbr ?? undefined);
+        if (foundKey && eventWinnerMap.has(foundKey)) return eventWinnerMap.get(foundKey) ?? null;
+      }
       return null;
     });
 
-    cached = { ts: Date.now(), data: results };
-    return NextResponse.json({ source: "espn-mapped", results, fetchedAt: cached.ts });
+    // Build "matchups" normalized in the same order as expectedMatchups (so UI ordering is deterministic)
+    const matchups: Matchup[] = expectedMatchups.map((m) => {
+      // try to find a matching raw matchup entry (by tokens or by abbreviations)
+      const match = rawMatchups.find((r) => {
+        const aTokens = `${r.awayAbbr ?? r.awayTeam ?? ""}`.toUpperCase();
+        const hTokens = `${r.homeAbbr ?? r.homeTeam ?? ""}`.toUpperCase();
+        // direct tokens or reverse allowed
+        return (aTokens.includes(m.away.toUpperCase()) && hTokens.includes(m.home.toUpperCase())) ||
+               (aTokens.includes(m.home.toUpperCase()) && hTokens.includes(m.away.toUpperCase()));
+      });
+
+      if (match) return match;
+      // fallback: empty placeholder if not found for that slot
+      return {
+        eventId: null,
+        awayTeam: m.away,
+        homeTeam: m.home,
+        awayAbbr: m.away,
+        homeAbbr: m.home,
+        date: null,
+        status: null,
+      } as Matchup;
+    });
+
+    cached = { ts: Date.now(), data: { results, matchups } };
+    return NextResponse.json({ source: "espn-mapped", results, matchups, fetchedAt: cached.ts });
   } catch (error: any) {
     console.error("scoreboard error:", error);
     if (cached) {
       return NextResponse.json({
         source: "cache-stale",
-        results: cached.data,
+        results: cached.data.results,
+        matchups: cached.data.matchups,
         fetchedAt: cached.ts,
         error: String(error),
       });

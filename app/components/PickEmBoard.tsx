@@ -70,8 +70,9 @@ const calculateRecord = (picks: string[], results: Result) => {
 
 export default function PickemTracker() {
   // scoreboard hook (polls /api/scoreboard)
-  const { results: scoreboardResults, loading } = useScoreboard(1000 * 60 * 5); // 5 minutes
+  const { results: scoreboardResults, matchups, loading } = useScoreboard(1000 * 60 * 5); // 5 minutes
   const displayedConfirmed = scoreboardResults ?? [];
+
 
   // initialize with fallback confirmedResults
   const [results, setResults] = useState<Result>(() =>
@@ -160,7 +161,41 @@ export default function PickemTracker() {
         </h1><h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
           WEEK 11
         </h1>
-        {/* ✅ Confirmed results section */}
+        {/* MATCHUPS SECTION */}
+        <div className="mt-6">
+          <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
+            📅 This week's matchups
+          </h2>
+
+          {matchups && matchups.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-4xl mx-auto">
+              {matchups.map((m, i) => (
+                <div key={m.eventId ?? `m-${i}`} className="flex items-center justify-between p-2 rounded-md border bg-white/60 dark:bg-gray-800/60">
+                  <div className="flex flex-col">
+                    <div className="text-sm font-medium">
+                      <span className="mr-2 text-xs text-gray-500">G{i + 1}</span>
+                      <span className="font-semibold">{m.awayAbbr ?? m.awayTeam ?? "—"}</span>
+                      <span className="mx-2">@</span>
+                      <span className="font-semibold">{m.homeAbbr ?? m.homeTeam ?? "—"}</span>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">
+                      {m.date ? new Date(m.date).toLocaleString() : "TBD"} • {m.status ?? "SCHEDULED"}
+                    </div>
+                  </div>
+
+                  <div className="text-right text-sm">
+                    <div className="text-xs text-gray-500">Result</div>
+                    <div className="font-semibold">{scoreboardResults?.[i] ?? "—"}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center text-sm text-gray-500">Loading matchups...</div>
+          )}
+        </div>
+
+        {/* ✅ Confirmed results section, auto updated games
         <div className="mt-4 w-full flex flex-col items-center">
           <div className="text-sm text-gray-300 dark:text-gray-400 mb-2">
             Confirmed results (live):
@@ -170,8 +205,7 @@ export default function PickemTracker() {
           </div>
           <div className="flex flex-wrap gap-2 justify-center max-w-full">
             {displayedConfirmed.map((team, idx) => (
-              <div
-                key={idx}
+              <div key={idx}
                 className={`px-3 py-1 rounded-lg text-xs font-semibold border ${team
                   ? "bg-white/5 border-white/10"
                   : "bg-gray-700/30 border-gray-600/40"
@@ -182,10 +216,13 @@ export default function PickemTracker() {
               </div>
             ))}
           </div>
-        </div>
+        </div>   */}
+
+        {/* Number of players in for the week */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
           Total Players: {initialPlayers.length}
         </div>
+
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
