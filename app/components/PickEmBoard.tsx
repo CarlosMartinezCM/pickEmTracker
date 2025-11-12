@@ -53,32 +53,10 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 
 // fallback static confirmed results (used while scoreboard loads or on error)
 const confirmedResults: (string | null)[] = [
-  "DEN", "IND", "CHI", "MIA", "BAL", "NYJ", "NE", "NO", "HOU", "SEA", "LAR", "DET", "LAC", null,
 ];
 
-//Week 10 players (unchanged)
+//Week 11 players (unchanged)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["DEN","IND","CHI","BUF","BAL","CLE","NE","CAR","JAX","SEA","LAR","DET","LAC","PHI"], tiebreaker: 58 },
-  { name: "Fay", picks: ["LV","ATL","CHI","BUF","MIN","NYJ","TB","NO","HOU","SEA","SF","DET","PIT","PHI"], tiebreaker: 48 },
-  { name: "Sumo", picks: ["DEN","IND","CHI","BUF","BAL","CLE","TB","CAR","JAX","SEA","LAR","DET","PIT","PHI"], tiebreaker: 49 },
-  { name: "Javier", picks: ["DEN","IND","CHI","BUF","BAL","NYJ","TB","CAR","HOU","SEA","LAR","DET","LAC","PHI"], tiebreaker: 45 },
-  { name: "Rios", picks: ["DEN","IND","CHI","BUF","BAL","CLE","TB","NO","JAX","SEA","LAR","DET","LAC","PHI"], tiebreaker: 52 },
-  { name: "Edgar B", picks: ["DEN","IND","NYG","BUF","MIN","NYJ","TB","CAR","HOU","SEA","LAR","DET","LAC","PHI"], tiebreaker: 45 },
-  { name: "J El De La R", picks: ["DEN","IND","NYG","BUF","MIN","CLE","NE","CAR","HOU","SEA","SF","DET","LAC","GB"], tiebreaker: 50 },
-  { name: "Poki", picks: ["LV","IND","CHI","MIA","MIN","CLE","TB","NO","HOU","ARI","LAR","WAS","LAC","GB"], tiebreaker: 49 },
-  { name: "Chico", picks: ["DEN","ATL","CHI","BUF","BAL","NYJ","NE","CAR","JAX","SEA","SF","DET","PIT","PHI"], tiebreaker: 48 },
-  { name: "Beto", picks: ["DEN","IND","CHI","BUF","BAL","NYJ","NE","CAR","JAX","SEA","SF","DET","LAC","GB"], tiebreaker: 53 },
-  { name: "Sebastian", picks: ["DEN","IND","NYG","BUF","BAL","CLE","TB","CAR","HOU","SEA","LAR","DET","LAC","GB"], tiebreaker: 50 },
-  { name: "Adrian", picks: ["DEN","IND","NYG","BUF","BAL","CLE","NE","CAR","JAX","SEA","LAR","DET","PIT","PHI"], tiebreaker: 50 },
-  { name: "Oso", picks: ["DEN","IND","CHI","BUF","MIN","NYJ","TB","CAR","JAX","SEA","LAR","DET","PIT","GB"], tiebreaker: 53 },
-  { name: "Maveric", picks: ["DEN","IND","CHI","BUF","BAL","NYJ","TB","CAR","HOU","SEA","LAR","DET","PIT","PHI"], tiebreaker: 47 },
-  { name: "Dennis", picks: ["DEN","IND","CHI","BUF","BAL","CLE","TB","CAR","HOU","SEA","LAR","DET","LAC","PHI"], tiebreaker: 56 },
-  { name: "Erick Escobar", picks: ["DEN","IND","CHI","BUF","BAL","CLE","TB","CAR","HOU","SEA","SF","DET","PIT","GB"], tiebreaker: 42 },
-  { name: "Candon", picks: ["DEN","IND","CHI","BUF","MIN","CLE","TB","CAR","JAX","SEA","LAR","DET","LAC","GB"], tiebreaker: 48 },
-  { name: "Danny", picks: ["DEN","IND","CHI","BUF","BAL","CLE","TB","CAR","JAX","SEA","LAR","DET","PIT","PHI"], tiebreaker: 52 },
-  { name: "Eric Rodriguez", picks: ["DEN","IND","CHI","BUF","BAL","CLE","TB","CAR","HOU","SEA","LAR","DET","LAC","PHI"], tiebreaker: 56 },
-  { name: "Bobby", picks: ["DEN","ATL","CHI","BUF","BAL","CLE","TB","CAR","HOU","SEA","LAR","DET","LAC","PHI"], tiebreaker: 45 },
-  { name: "Tito", picks: ["DEN","IND","CHI","BUF","BAL","NYJ","TB","CAR","JAX","SEA","SF","DET","LAC","PHI"], tiebreaker: 54 },
 ];
 
 // Helper: calculate correct/wrong
@@ -93,6 +71,7 @@ const calculateRecord = (picks: string[], results: Result) => {
 export default function PickemTracker() {
   // scoreboard hook (polls /api/scoreboard)
   const { results: scoreboardResults, loading } = useScoreboard(1000 * 60 * 5); // 5 minutes
+  const displayedConfirmed = scoreboardResults ?? [];
 
   // initialize with fallback confirmedResults
   const [results, setResults] = useState<Result>(() =>
@@ -171,15 +150,39 @@ export default function PickemTracker() {
   }, [results]);
 
   const winners = useMemo(() => leaderboard.filter(p => p.rank === 1), [leaderboard]);
-  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 1), [leaderboard]);
+  const realisticWinners = useMemo(() => leaderboard.filter(p => p.rank <= 0), [leaderboard]);
 
   return (
     <div className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
-          🏈 NFL Pick'em Tracker 2025 - WEEK 10 🏈
+          🏈 NFL Pick'em Tracker 2025 🏈
+        </h1><h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
+          WEEK 11
         </h1>
-
+        {/* ✅ Confirmed results section */}
+        <div className="mt-4 w-full flex flex-col items-center">
+          <div className="text-sm text-gray-300 dark:text-gray-400 mb-2">
+            Confirmed results (live):
+            <span className="ml-2 text-xs text-yellow-300">
+              Updated: {loading ? "fetching..." : "last good"}
+            </span>
+          </div>
+          <div className="flex flex-wrap gap-2 justify-center max-w-full">
+            {displayedConfirmed.map((team, idx) => (
+              <div
+                key={idx}
+                className={`px-3 py-1 rounded-lg text-xs font-semibold border ${team
+                  ? "bg-white/5 border-white/10"
+                  : "bg-gray-700/30 border-gray-600/40"
+                  }`}
+                title={`G${idx + 1}`}
+              >
+                {team ?? "—"}
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
           Total Players: {initialPlayers.length}
         </div>
@@ -187,14 +190,14 @@ export default function PickemTracker() {
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
             🏆{" "}
-            {winners.map(p => p.name).join(", ")}
+            {winners.map(p => null).join(", ")}
           </div>
         )}
-       {/* Top contenders */}
+        {/* Top contenders */}
         {realisticWinners.length > 0 && (
           <div className="text-center mt-2 text-lg font-semibold text-green-700 dark:text-blue-200">
             🏈 {(" ")}
-             Top contenders: Beto and Javier {realisticWinners.map(p => null).join(", ")}
+            Top contenders: {realisticWinners.map(p => null).join(", ")}
           </div>
         )}
 
@@ -208,12 +211,12 @@ export default function PickemTracker() {
               <tr>
                 <th className="border p-3 text-center">#</th>
                 <th className="border p-3 text-left">Player</th>
-                {Array.from({ length: 14 }).map((_, idx) => (
+                {Array.from({ length: 15 }).map((_, idx) => (
                   <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
                 ))}
                 <th className="border p-3 text-center">✅ Correct</th>
                 <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker PHI@GB </th>
+                <th className="border p-3 text-center">🎯 TieBreaker DAL@LV </th>
               </tr>
             </thead>
             <tbody>
@@ -263,7 +266,7 @@ export default function PickemTracker() {
                 <th className="border p-3 text-left">Player</th>
                 <th className="border p-3 text-center">✅ Correct</th>
                 <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker PHI@GB </th>
+                <th className="border p-3 text-center">🎯 TieBreaker DAL@LV </th>
               </tr>
             </thead>
             <tbody>
