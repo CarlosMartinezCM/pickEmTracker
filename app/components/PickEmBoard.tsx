@@ -2,125 +2,184 @@
 // e.g. components/PickemTracker.tsx or app/page.tsx depending on your project
 
 "use client";
-
 import React, { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
 import useScoreboard from "../../hooks/useScoreboard"; // <- adjust path to where you put the hook
+let domtoimage: any;
+if (typeof window !== "undefined") {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  domtoimage = require("dom-to-image-more");
+}
 
-// improved exportPDF: uses html2canvas + jsPDF and supports multi-page PDFs
-const exportPDF = async (options?: { elementId?: string; filenamePrefix?: string }) => {
-  const elementId = options?.elementId ?? "leaderboard";
-  const el = document.getElementById(elementId);
-  if (!el) {
-    alert("Could not find the snapshot element.");
-    return;
+/** Helper: replace iframes and videos in a clone so capture doesn't try to access cross-origin frames */
+function sanitizeCloneForCapture(clone: HTMLElement) {
+  const iframes = Array.from(clone.querySelectorAll("iframe"));
+  for (const frame of iframes) {
+    try {
+      const rect = (frame as HTMLElement).getBoundingClientRect();
+      const placeholder = document.createElement("div");
+      placeholder.style.width = rect.width + "px";
+      placeholder.style.height = rect.height + "px";
+      placeholder.style.display = "inline-block";
+      placeholder.style.background = "#111827";
+      placeholder.style.color = "#fff";
+      placeholder.style.fontSize = "12px";
+      placeholder.style.padding = "6px";
+      placeholder.style.boxSizing = "border-box";
+      placeholder.style.overflow = "hidden";
+      placeholder.innerText = `iframe: ${frame.getAttribute("src") ?? "embedded content"}`;
+      frame.parentNode?.replaceChild(placeholder, frame);
+    } catch {
+      frame.parentNode?.removeChild(frame);
+    }
   }
 
-  const scale = 2; // resolution multiplier
-  const padding = 12; // mm
+  const vids = Array.from(clone.querySelectorAll("video"));
+  vids.forEach(v => {
+    const placeholder = document.createElement("div");
+    const rect = (v as HTMLElement).getBoundingClientRect();
+    placeholder.style.width = rect.width + "px";
+    placeholder.style.height = rect.height + "px";
+    placeholder.style.background = "#000";
+    v.parentNode?.replaceChild(placeholder, v);
+  });
+}
 
-  // clone node so we don't mutate live UI
+/** Make a clone, sanitize iframe/video, append offscreen, return clone (caller must remove clone) */
+async function makeClone(elementId = "leaderboard") {
+  const el = document.getElementById(elementId);
+  if (!el) throw new Error("Element not found: " + elementId);
+
   const clone = el.cloneNode(true) as HTMLElement;
   clone.style.position = "fixed";
   clone.style.left = "-9999px";
   clone.style.top = "0";
   clone.style.zIndex = "9999";
-  // ensure body-level background for the clone
+  // keep the page background so colors look the same
   clone.style.background = window.getComputedStyle(document.body).backgroundColor || "#ffffff";
 
-  // create a style tag that forces safe colors and strips problematic styles
-  const forced = document.createElement("style");
-  forced.innerHTML = `
-    /* force simple colors and remove effects that html2canvas may choke on */
-    *, *::before, *::after {
-      color: #111 !important;
-      background: #ffffff !important;
-      background-image: none !important;
-      border-color: #e5e7eb !important;
-      box-shadow: none !important;
-      filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      backdrop-filter: none !important;
-      text-shadow: none !important;
-    }
-    /* images and svgs: keep visible but remove any CSS blend modes */
-    img, svg { mix-blend-mode: normal !important; }
-    /* tables: keep layout */
-    table { border-collapse: collapse !important; }
-  `;
+  sanitizeCloneForCapture(clone);
 
-  // append style to clone so it only affects the clone subtree
-  clone.prepend(forced);
-
-  // append clone to document so styles are computed
   document.body.appendChild(clone);
+  // give browser a tick to apply styles
+  await new Promise((r) => setTimeout(r, 50));
+  return clone;
+}
 
+/** Export PNG — uses dom-to-image-more for robust CSS support */
+export async function exportImage(elementId = "leaderboard") {
+  let clone: HTMLElement | null = null;
   try {
-    const canvas = await html2canvas(clone, {
-      scale,
-      useCORS: true,
-      allowTaint: true,
-      logging: false,
-      backgroundColor: null,
+    clone = await makeClone(elementId);
+
+    const dataUrl = await domtoimage.toPng(clone, {
+      bgcolor: null, // keep transparent if present
+      // you can add width/height or style options here
+      // but default will capture clone's render
     });
 
     // remove clone
-    try { document.body.removeChild(clone); } catch { }
+    try { clone.remove(); } catch { }
 
-    const imgData = canvas.toDataURL("image/png");
-    const pdf = new jsPDF("l", "mm", "a4");
-    const pageWidth = pdf.internal.pageSize.getWidth();
-    const pageHeight = pdf.internal.pageSize.getHeight();
+    // trigger download
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = `pickem_snapshot_${new Date().toISOString().replace(/[:.]/g, "-")}.png`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+  } catch (err) {
+    console.error("exportImage error:", err);
+    try { clone?.remove(); } catch { }
+    alert("Failed to generate image. See console for details.");
+  }
+}
 
-    // px -> mm conversion (approx 96 dpi)
+/** Export PDF via dom-to-image-more PNG -> jsPDF
+ * options: { elementId?: string, filenamePrefix?: string, orientation?: "l"|"p", format?: "a4"|... }
+ */
+export async function exportPDF(options?: { elementId?: string; filenamePrefix?: string; orientation?: "l" | "p"; format?: string }) {
+  const elementId = options?.elementId ?? "leaderboard";
+  const prefix = options?.filenamePrefix ?? "pickem_snapshot";
+  const orientation = options?.orientation ?? "l";
+  const format = options?.format ?? "a4";
+
+  let clone: HTMLElement | null = null;
+  try {
+    clone = await makeClone(elementId);
+
+    // dom-to-image produces a PNG data URL of the clone (robust against lab() colors)
+    const dataUrl = await domtoimage.toPng(clone, { bgcolor: null });
+
+    try { clone.remove(); } catch { }
+
+    // create canvas to measure image size
+    const img = new Image();
+    img.src = dataUrl;
+    await new Promise((res, rej) => {
+      img.onload = () => res(null);
+      img.onerror = (e) => rej(e);
+    });
+
+    // Setup jsPDF
+    const pdf = new jsPDF(orientation, "mm", format);
+    const pageW = pdf.internal.pageSize.getWidth();
+    const pageH = pdf.internal.pageSize.getHeight();
+
+    // convert px -> mm (assume 96 DPI)
     const pxToMm = (px: number) => (px * 25.4) / 96;
-    const imgWidthMm = pxToMm(canvas.width);
-    const imgHeightMm = pxToMm(canvas.height);
+    const imgWmm = pxToMm(img.width);
+    const imgHmm = pxToMm(img.height);
 
-    const usableWidth = pageWidth - padding * 2;
-    const scaleFactor = Math.min(usableWidth / imgWidthMm, 1);
-    const renderWidth = imgWidthMm * scaleFactor;
-    const renderHeight = imgHeightMm * scaleFactor;
+    const margin = 12;
+    const usableW = pageW - margin * 2;
+    const scaleFactor = Math.min(usableW / imgWmm, 1);
+    const renderW = imgWmm * scaleFactor;
+    const renderH = imgHmm * scaleFactor;
 
-    if (renderHeight <= pageHeight - padding * 2) {
-      const x = (pageWidth - renderWidth) / 2;
-      const y = padding;
-      pdf.addImage(imgData, "PNG", x, y, renderWidth, renderHeight);
+    if (renderH <= pageH - margin * 2) {
+      const x = (pageW - renderW) / 2;
+      const y = margin;
+      pdf.addImage(dataUrl, "PNG", x, y, renderW, renderH);
     } else {
-      // multi-page slicing vertically
+      // slice vertically if too tall
+      const canvas = document.createElement("canvas");
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext("2d")!;
+      ctx.drawImage(img, 0, 0);
       const pxPerMm = 96 / 25.4;
-      const sliceHeightPx = Math.floor((pageHeight - padding * 2) * pxPerMm / scaleFactor);
-      let positionY = 0;
+      const slicePx = Math.floor((pageH - margin * 2) * pxPerMm / scaleFactor);
+
+      let yPos = 0;
       let page = 0;
-      while (positionY < canvas.height) {
+      while (yPos < canvas.height) {
         page++;
+        const sliceH = Math.min(slicePx, canvas.height - yPos);
         const sliceCanvas = document.createElement("canvas");
         sliceCanvas.width = canvas.width;
-        sliceCanvas.height = Math.min(sliceHeightPx, canvas.height - positionY);
-        const ctx = sliceCanvas.getContext("2d")!;
-        ctx.drawImage(canvas, 0, positionY, canvas.width, sliceCanvas.height, 0, 0, canvas.width, sliceCanvas.height);
+        sliceCanvas.height = sliceH;
+        const sctx = sliceCanvas.getContext("2d")!;
+        sctx.drawImage(canvas, 0, yPos, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
         const sliceData = sliceCanvas.toDataURL("image/png");
-        const sliceHeightMm = pxToMm(sliceCanvas.height) * scaleFactor;
-        const x = (pageWidth - renderWidth) / 2;
-        const y = padding;
+        const sliceHmm = pxToMm(sliceH) * scaleFactor;
+        const x = (pageW - renderW) / 2;
+        const y = margin;
         if (page > 1) pdf.addPage();
-        pdf.addImage(sliceData, "PNG", x, y, renderWidth, sliceHeightMm);
-        positionY += sliceHeightPx;
+        pdf.addImage(sliceData, "PNG", x, y, renderW, sliceHmm);
+        yPos += slicePx;
       }
     }
 
-    const prefix = options?.filenamePrefix ?? "pickem_snapshot";
-    const ts = new Date().toISOString().replace(/[:.]/g, "-");
-    const filename = `${prefix}_${ts}.pdf`;
+    const filename = `${prefix}_${new Date().toISOString().replace(/[:.]/g, "-")}.pdf`;
     pdf.save(filename);
   } catch (err) {
-    // cleanup clone on error
-    try { document.body.removeChild(clone); } catch { }
-    console.error("exportPDF error", err);
+    console.error("exportPDF error:", err);
+    try { clone?.remove(); } catch { }
     alert("Failed to generate PDF. See console for details.");
   }
-};
+}
+
 
 interface CardProps {
   children: React.ReactNode;
@@ -180,6 +239,11 @@ export default function PickemTracker() {
   const { results: scoreboardResults, matchups, loading } = useScoreboard(1000 * 60 * 5); // 5 minutes
   const displayedConfirmed = scoreboardResults ?? [];
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true); // client-only
+  }, []);
 
   // initialize with fallback confirmedResults
   const [results, setResults] = useState<Result>(() =>
@@ -268,7 +332,6 @@ export default function PickemTracker() {
         </h1><h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
           WEEK 11
         </h1>
-
         {/* Number of players in for the week */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
           Total Players: {initialPlayers.length}
@@ -288,19 +351,37 @@ export default function PickemTracker() {
             Top contenders: {realisticWinners.map(p => null).join(", ")}
           </div>
         )}
-
-           <div className="text-center mt-2 text-sm text-gray-600 dark:text-gray-300">
+        <div className="text-center mt-2 text-sm text-gray-600 dark:text-gray-300">
           {loading ? "Loading latest scores..." : "Scores updated from live scoreboard"}
         </div>
-        {/* Donwload button */}
-        <div className="flex items-center justify-center gap-3 my-4">
+        {/* Download buttons */}
+        <div className="flex justify-center gap-3 my-4">
+          <button
+            onClick={() => exportImage("leaderboard")}
+            className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm"
+          >
+            🖼 Save as Image
+          </button>
           <button
             onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })}
-            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
+            className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm"
           >
-            📸 Save Picks
+            📸 Save as PDF
           </button>
         </div>
+        {/* FINAL WINNERS ROW */}
+        {mounted && scoreboardResults && scoreboardResults.length > 0 && (
+          <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-lg font-bold text-blue-900 dark:text-blue-200">
+            {scoreboardResults.map((winner, i) => (
+              <div
+                key={`winner-${i}`}
+                className="px-3 py-1 bg-white/70 dark:bg-gray-800/70 rounded border shadow-sm"
+              >
+                {winner || "—"}
+              </div>
+            ))}
+          </div>
+        )}
         <div className="overflow-x-auto mt-4">
           <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm">
             <thead className="bg-gradient-to-r from-blue-200 to-blue-100 dark:from-blue-900 dark:to-blue-700 sticky top-0">
@@ -380,15 +461,23 @@ export default function PickemTracker() {
           <div className="text-center text-sm text-gray-500">Loading matchups...</div>
         )}
       </div>
-      {/* Donwload button */}
-      <div className="flex items-center justify-center gap-3 my-4">
-        <button
-          onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
-        >
-          📸 Save Picks
-        </button>
-      </div>
+      {/* Download buttons */}
+        <div className="flex justify-center gap-3 my-4">
+          <button
+            onClick={() => exportImage("leaderboard")}
+            className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm"
+          >
+            🖼 Save as Image
+          </button>
+
+          <button
+            onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })}
+            className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm"
+          >
+            📸 Save as PDF
+          </button>
+        </div>
+
       {/* Leaderboard Card */}
       {/*      
       <Card>
