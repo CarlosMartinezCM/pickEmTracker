@@ -340,8 +340,8 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
-            🏆{" "}
-            {winners.map(p => null).join(" ")}
+            🏆Winner {" "}
+            {winners.map(p => name.p).join(" ")}
           </div>
         )}
         {/* Top contenders */}
