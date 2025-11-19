@@ -55,6 +55,7 @@ async function makeClone(elementId = "leaderboard") {
   clone.style.left = "-9999px";
   clone.style.top = "0";
   clone.style.zIndex = "9999";
+  
   // keep the page background so colors look the same
   clone.style.background = window.getComputedStyle(document.body).backgroundColor || "#ffffff";
 
@@ -202,7 +203,7 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-//Week 11 players (unchanged)
+//Week 12 players (unchanged)
 const initialPlayers: Player[] = [];
 
 // Helper: calculate correct/wrong
@@ -310,7 +311,7 @@ export default function PickemTracker() {
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
           🏈 NFL Pick'em Tracker 2025 🏈
         </h1><h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">
-          WEEK 11
+          WEEK 12
         </h1>
         {/* Number of players in for the week */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
@@ -350,6 +351,9 @@ export default function PickemTracker() {
           </button>
         </div>
         {/* FINAL WINNERS ROW */}
+        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
+          Week 12 🏈 Game Results
+        </h2>
         {mounted && scoreboardResults && scoreboardResults.length > 0 && (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-lg font-bold text-blue-900 dark:text-blue-200">
             {scoreboardResults.map((winner, i) => (
@@ -368,12 +372,12 @@ export default function PickemTracker() {
               <tr>
                 <th className="border p-3 text-center">#</th>
                 <th className="border p-3 text-left">Player</th>
-                {Array.from({ length: 15 }).map((_, idx) => (
+                {Array.from({ length: 14 }).map((_, idx) => (
                   <th key={idx} className="border p-3 text-center">G{idx + 1}</th>
                 ))}
                 <th className="border p-3 text-center">✅ Correct</th>
                 <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker DAL@LV </th>
+                <th className="border p-3 text-center">🎯 TieBreaker CAR @ SF </th>
               </tr>
             </thead>
             <tbody>
@@ -413,7 +417,7 @@ export default function PickemTracker() {
       {/* MATCHUPS SECTION */}
       <div className="mt-6">
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          📅 This week's matchups
+          📅 Week 12 matchups
         </h2>
         {matchups && matchups.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-4xl mx-auto">
@@ -457,44 +461,6 @@ export default function PickemTracker() {
             📸 Save as PDF
           </button>
         </div>
-
-      {/* Leaderboard Card */}
-      {/*      
-      <Card>
-        <h2 className="text-3xl font-bold mb-4 text-yellow-700 dark:text-yellow-300">
-          🏆 Leaderboard
-        </h2>
-        <div className="overflow-x-auto">
-          <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-sm">
-            <thead className="bg-gradient-to-r from-yellow-200 to-yellow-100 dark:from-yellow-900 dark:to-yellow-700">
-              <tr>
-                <th className="border p-3 text-center">Rank</th>
-                <th className="border p-3 text-left">Player</th>
-                <th className="border p-3 text-center">✅ Correct</th>
-                <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker DAL@LV </th>
-              </tr>
-            </thead>
-            <tbody>
-              {leaderboard.map(player => {
-                const isTop4 = player.rank <= 4;
-                return (
-                  <tr
-                    key={player.name}
-                    className={`${player.rank % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-700"} hover:bg-gray-100 dark:hover:bg-gray-600 ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""}`}
-                  >
-                    <td className="border p-3 text-center">{player.rank}</td>
-                    <td className="border p-3 font-semibold">{player.name}</td>
-                    <td className="border p-3 text-center font-bold text-green-700 dark:text-green-300">{player.correct}</td>
-                    <td className="border p-3 text-center font-bold text-red-700 dark:text-red-300">{player.wrong}</td>
-                    <td className="border p-3 text-center font-bold">{player.tiebreaker}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </Card> */}
     </div>
   );
 }
