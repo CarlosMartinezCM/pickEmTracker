@@ -204,25 +204,7 @@ const confirmedResults: (string | null)[] = [
 
 //Week 11 players (unchanged)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "MIN", "GB", "CIN", "JAX", "SEA", "SF", "BAL", "KC", "DET", "LV"], tiebreaker: 52 },
-  { name: "Meno", picks: ["NE", "MIA", "ATL", "BUF", "TEN", "MIN", "GB", "PIT", "LAC", "LAR", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 44 },
-  { name: "Oso", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "MIN", "GB", "PIT", "LAC", "SEA", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 53 },
-  { name: "J El De La R", picks: ["NE", "MIA", "CAR", "BUF", "HOU", "MIN", "GB", "PIT", "LAC", "SEA", "ARI", "BAL", "KC", "PHI", "DAL"], tiebreaker: 50 },
-  { name: "Rios", picks: ["NE", "WAS", "ATL", "BUF", "TEN", "MIN", "GB", "CIN", "LAC", "LAR", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 42 },
-  { name: "Yolo", picks: ["NE", "WAS", "CAR", "BUF", "HOU", "MIN", "GB", "PIT", "LAC", "LAR", "SF", "BAL", "KC", "PHI", "DAL"], tiebreaker: 44 },
-  { name: "Maveric", picks: ["NE", "WAS", "ATL", "BUF", "HOU", "MIN", "GB", "PIT", "LAC", "SEA", "SF", "BAL", "KC", "PHI", "DAL"], tiebreaker: 41 },
-  { name: "Chico", picks: ["NE", "MIA", "ATL", "TB", "HOU", "MIN", "NYG", "PIT", "LAC", "SEA", "SF", "BAL", "KC", "PHI", "DAL"], tiebreaker: 48 },
-  { name: "Edgar", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "MIN", "GB", "PIT", "LAC", "LAR", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 46 },
-  { name: "Sumo", picks: ["NE", "MIA", "ATL", "TB", "HOU", "CHI", "GB", "CIN", "LAC", "SEA", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 45 },
-  { name: "Nik", picks: ["NE", "MIA", "ATL", "TB", "HOU", "CHI", "GB", "CIN", "LAC", "SEA", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 41 },
-  { name: "Beto", picks: ["NE", "MIA", "ATL", "TB", "HOU", "CHI", "GB", "PIT", "JAX", "SEA", "SF", "BAL", "KC", "PHI", "LV"], tiebreaker: 45 },
-  { name: "Eric", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "CHI", "GB", "CIN", "LAC", "SEA", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 40 },
-  { name: "Dennis", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "MIN", "GB", "PIT", "LAC", "LAR", "SF", "BAL", "KC", "PHI", "DAL"], tiebreaker: 44 },
-  { name: "Fay", picks: ["NE", "MIA", "ATL", "BUF", "TEN", "MIN", "GB", "PIT", "LAC", "SEA", "SF", "BAL", "KC", "PHI", "LV"], tiebreaker: 48 },
-  { name: "Erick Escobar", picks: ["NE", "MIA", "ATL", "TB", "HOU", "MIN", "GB", "CIN", "LAC", "SEA", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 42 },
-  { name: "Candon", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "CHI", "GB", "PIT", "LAC", "LAR", "SF", "BAL", "DEN", "DET", "DAL"], tiebreaker: 52 },
-  { name: "Bobby", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "CHI", "GB", "PIT", "LAC", "LAR", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 52 },
-  { name: "Javier", picks: ["NE", "MIA", "ATL", "BUF", "HOU", "CHI", "GB", "PIT", "LAC", "SEA", "SF", "BAL", "KC", "DET", "DAL"], tiebreaker: 40 },
+  { name: "Carlos Comish", picks: [
 ];
 
 // Helper: calculate correct/wrong
@@ -341,7 +323,7 @@ export default function PickemTracker() {
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300 blink">
             🏆 Winner {" "}
-            {winners.map(p => p.name).join(" ")}
+            {winners.map(p => null).join(" ")}
           </div>
         )}
         {/* Top contenders */}
