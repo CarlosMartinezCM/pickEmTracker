@@ -203,9 +203,7 @@ const confirmedResults: (string | null)[] = [
 ];
 
 //Week 11 players (unchanged)
-const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: [
-];
+const initialPlayers: Player[] = [];
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
