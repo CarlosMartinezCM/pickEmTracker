@@ -1,0 +1,20 @@
+{
+  "week": 12,
+  "matchups": [
+    { "away": "BUF", "home": "HOU" },
+    { "away": "NE",  "home": "CIN" },
+    { "away": "TEN", "home": "IND" },
+    { "away": "GB",  "home": "CHI" },
+    { "away": "CAR", "home": "PHI" },
+    { "away": "MIN", "home": "DET" },
+    { "away": "ATL", "home": "DAL" },
+    { "away": "TB",  "home": "SF" },
+    { "away": "LAR", "home": "SEA" },
+    { "away": "NYG", "home": "WAS" },
+    { "away": "KC",  "home": "DEN" },
+    { "away": "JAX", "home": "LAC" },
+    { "away": "MIA", "home": "NYJ" },
+    { "away": "PIT", "home": "CLE" },
+    { "away": "BAL", "home": "LV" }
+  ]
+}
