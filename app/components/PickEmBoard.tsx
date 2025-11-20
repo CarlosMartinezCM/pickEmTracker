@@ -334,8 +334,8 @@ export default function PickemTracker() {
           <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-[10px]">
             <thead className="bg-gradient-to-r from-blue-200 to-blue-100 dark:from-blue-900 dark:to-blue-700 sticky top-0">
               <tr>
-                <th className="border p-3 text-center text-[10px]">#</th>
-                <th className="border p-3 text-left text-[10px]">Player</th>
+                <th className="border p-3 text-center text-sm">#</th>
+                <th className="border p-3 text-left text-sm">Player</th>
 
                 {/* MATCHUPS INSIDE THE GAME COLUMNS */}
                 {Array.from({ length: gameCount }).map((_, idx) => {
@@ -344,17 +344,17 @@ export default function PickemTracker() {
 
                   return (
                     <th key={idx} className="border p-3 text-center leading-tight">
-                      <div className="font-semibold text-[10px]">
+                      <div className="font-semibold text-xs">
                         {m ? `${m.awayAbbr ?? m.awayTeam ?? "—"} @ ${m.homeAbbr ?? m.homeTeam ?? "—"}` : "—"}
                       </div>
-                      <div className="text-xs mt-1 text-blue-900 dark:text-blue-200">{result ?? "—"}</div>
+                      <div className="text-sm mt-1 text-blue-900 dark:text-blue-200">{result ?? "—"}</div>
                     </th>
                   );
                 })}
 
-                <th className="border p-3 text-center">✅ Correct</th>
-                <th className="border p-3 text-center">❌ Wrong</th>
-                <th className="border p-3 text-center">🎯 TieBreaker CAR @ SF</th>
+                <th className="border p-3 text-center text-xs">✅ Correct</th>
+                <th className="border p-3 text-center text-xs">❌ Wrong</th>
+                <th className="border p-3 text-center text-xs">🎯 TieBreaker CAR @ SF</th>
               </tr>
             </thead>
 
