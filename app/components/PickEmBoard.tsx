@@ -3,7 +3,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
 import useScoreboard from "../../hooks/useScoreboard"; // adjust path if needed
-
 // Types
 type Player = { name: string; picks: string[]; tiebreaker: number };
 type Result = { [gameIndex: number]: string };
@@ -290,7 +289,8 @@ export default function PickemTracker() {
       return { ...p, rank };
     });
   }, [results]);
-
+  
+  // Here is where you can set the number of players that are the *Top Contenders
   const winners = useMemo(() => leaderboard.filter((p) => p.rank === 1), [leaderboard]);
 
   return (
@@ -329,7 +329,7 @@ export default function PickemTracker() {
           </div>
         )}
 
-        {/* Table */}
+        {/* Pick'ems Table */}
         <div className="overflow-x-auto mt-4">
           <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-[10px]">
             <thead className="bg-gradient-to-r from-blue-200 to-blue-100 dark:from-blue-900 dark:to-blue-700 sticky top-0">
@@ -361,7 +361,8 @@ export default function PickemTracker() {
             <tbody>
               {leaderboard.map((player, i) => {
                 const record = calculateRecord(player.picks, results);
-                const isTop4 = player.rank <= 4;
+                 {/* Here I can change can make the top players be highlighted in yellow. NO IMPORTANT! */}
+                const isTop4 = player.rank <= 0;
 
                 return (
                   <tr key={player.name} className={`${i % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-700"} hover:bg-gray-100 dark:hover:bg-gray-600 ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""}`}>
@@ -395,13 +396,13 @@ export default function PickemTracker() {
                 <div className="flex flex-col">
                   <div className="text-[10px] font-medium">
                     <span className="mr-2 text-xs text-gray-500">G{i + 1}</span>
-                    <span className="font-semibold">{m.awayAbbr ?? m.awayTeam ?? "—"}</span>
+                    <span className="font-semibold text-sm">{m.awayAbbr ?? m.awayTeam ?? "—"}</span>
                     <span className="mx-2">@</span>
-                    <span className="font-semibold">{m.homeAbbr ?? m.homeTeam ?? "—"}</span>
+                    <span className="font-semibold text-sm">{m.homeAbbr ?? m.homeTeam ?? "—"}</span>
                   </div>
                   <div className="text-xs text-gray-500 mt-1">{m.date ? new Date(m.date).toLocaleString() : "TBD"} • {m.status ?? "SCHEDULED"}</div>
                 </div>
-                <div className="text-right text-sm">
+                <div className="text-right text-[18px]">
                   <div className="text-xs text-gray-500">Result</div>
                   <div className="font-semibold">{scoreboardResults?.[i] ?? "—"}</div>
                 </div>
