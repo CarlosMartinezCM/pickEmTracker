@@ -29,7 +29,9 @@ const initialPlayers: Player[] = [
   { name: "Dennis", picks: ["BUF","CHI","NE","DET","GB","SEA","KC","BAL","LV","JAX","PHI","ATL","LAR","SF"], tiebreaker: 46 },
   { name: "Tito", picks: ["BUF","CHI","NE","DET","GB","SEA","IND","BAL","LV","JAX","PHI","NO","LAR","SF"], tiebreaker: 51 },
   { name: "Eric Rodriguez", picks: ["BUF","CHI","NE","DET","GB","SEA","IND","BAL","CLE","JAX","PHI","ATL","TB","SF"], tiebreaker: 52 },
+  { name: "Danny", picks: ["BUF","PIT","NE","DET","GB","SEA","KC","BAL","CLE","ARI","DAL","NO","LAR","SF"], tiebreaker: 52 },
 ];
+
 
 
 // Helper: calculate correct/wrong
