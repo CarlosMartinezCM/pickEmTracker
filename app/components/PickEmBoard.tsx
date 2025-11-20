@@ -12,7 +12,25 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [];
 
 // Week 12 players (example)
-const initialPlayers: Player[] = [];
+const initialPlayers: Player[] = [
+  { name: "Carlos Comish", picks: ["BUF","CHI","NE","DET","GB","SEA","IND","BAL","LV","JAX","PHI","NO","TB","SF"], tiebreaker: 47 },
+  { name: "Sumo", picks: ["BUF","CHI","NE","DET","GB","SEA","KC","BAL","CLE","JAX","PHI","NO","LAR","SF"], tiebreaker: 45 },
+  { name: "J El De La R", picks: ["BUF","PIT","CIN","DET","GB","SEA","KC","BAL","LV","ARI","PHI","ATL","LAR","SF"], tiebreaker: 45 },
+  { name: "Yolo", picks: ["BUF","CHI","NE","DET","GB","SEA","KC","BAL","CLE","JAX","PHI","ATL","LAR","SF"], tiebreaker: 44 },
+  { name: "Edgar B", picks: ["HOU","CHI","CIN","DET","GB","SEA","KC","BAL","LV","JAX","DAL","NO","LAR","SF"], tiebreaker: 46 },
+  { name: "RIOS", picks: ["BUF","CHI","NE","DET","MIN","SEA","KC","BAL","LV","ARI","PHI","NO","TB","SF"], tiebreaker: 56 },
+  { name: "Maveric", picks: ["BUF","PIT","NE","DET","GB","SEA","KC","BAL","LV","ARI","PHI","ATL","LAR","SF"], tiebreaker: 43 },
+  { name: "Oso", picks: ["BUF","PIT","CIN","DET","GB","SEA","IND","BAL","CLE","JAX","PHI","ATL","TB","SF"], tiebreaker: 53 },
+  { name: "Nik", picks: ["BUF","CHI","CIN","DET","GB","SEA","IND","BAL","CLE","JAX","DAL","NO","TB","SF"], tiebreaker: 45 },
+  { name: "Candon", picks: ["BUF","CHI","NE","DET","GB","SEA","IND","BAL","LV","JAX","PHI","ATL","LAR","SF"], tiebreaker: 52 },
+  { name: "49ers", picks: ["BUF","PIT","NE","DET","GB","SEA","KC","BAL","CLE","JAX","PHI","ATL","LAR","SF"], tiebreaker: 56 },
+  { name: "Bobby", picks: ["BUF","CHI","NE","DET","GB","SEA","KC","BAL","LV","JAX","PHI","ATL","LAR","SF"], tiebreaker: 47 },
+  { name: "Evan", picks: ["HOU","PIT","NE","DET","GB","SEA","IND","BAL","CLE","ARI","DAL","ATL","LAR","SF"], tiebreaker: 50 },
+  { name: "Dennis", picks: ["BUF","CHI","NE","DET","GB","SEA","KC","BAL","LV","JAX","PHI","ATL","LAR","SF"], tiebreaker: 46 },
+  { name: "Tito", picks: ["BUF","CHI","NE","DET","GB","SEA","IND","BAL","LV","JAX","PHI","NO","LAR","SF"], tiebreaker: 51 },
+  { name: "Eric Rodriguez", picks: ["BUF","CHI","NE","DET","GB","SEA","IND","BAL","CLE","JAX","PHI","ATL","TB","SF"], tiebreaker: 52 },
+];
+
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -305,7 +323,7 @@ export default function PickemTracker() {
         {/* Winners */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300">
-            🏆 Winner {winners.map((p) => p.name).join(" ")}
+            🏆 {winners.map((p) => null).join(" ")}
           </div>
         )}
 
