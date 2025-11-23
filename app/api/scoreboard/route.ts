@@ -1,4 +1,5 @@
 // app/api/scoreboard/route.ts
+import fs from "fs";
 import { NextResponse } from "next/server";
 
 type ResultArray = (string | null)[];
@@ -35,12 +36,10 @@ async function tryFetchWeeklyOrder(): Promise<{ away: string; home: string }[] |
     const j = await r.json();
     // if the JSON uses { week: N, matchups: [...] } prefer matchups only when provided
     if (Array.isArray(j?.matchups)) {
-      // optional: check week matching if CURRENT_WEEK set
       const expectedWeek = process.env.CURRENT_WEEK ? Number(process.env.CURRENT_WEEK) : undefined;
       if (expectedWeek && j.week && Number(j.week) !== expectedWeek) {
-        // mismatch: still allow but you can decide to ignore. Here we'll accept it.
+        // mismatch — still accept (optional)
       }
-      // basic validation: all entries have away/home
       const ok = j.matchups.every((m: any) => m && m.away && m.home);
       if (ok) return j.matchups.map((m: any) => ({ away: String(m.away).toUpperCase(), home: String(m.home).toUpperCase() }));
     }
@@ -53,6 +52,31 @@ async function tryFetchWeeklyOrder(): Promise<{ away: string; home: string }[] |
     console.warn("weekly-order fetch failed:", e);
     return null;
   }
+}
+
+// --------------------------- NEW: utility to load weekly order from a local file ---------------------------
+async function tryLoadWeeklyOrderFromFile(): Promise<{ away: string; home: string }[] | null> {
+  try {
+    const filePath = process.env.WEEKLY_ORDER_FILE;
+    if (!filePath) return null;
+    // read file synchronously (server-side only)
+    const raw = fs.readFileSync(filePath, "utf8");
+    const j = JSON.parse(raw);
+
+    // support { matchups: [...] } or plain array of { away, home }
+    if (Array.isArray(j?.matchups)) {
+      const ok = j.matchups.every((m: any) => m && m.away && m.home);
+      if (ok) return j.matchups.map((m: any) => ({ away: String(m.away).toUpperCase(), home: String(m.home).toUpperCase() }));
+    }
+    if (Array.isArray(j) && j.length > 0 && j[0].away && j[0].home) {
+      return j.map((m: any) => ({ away: String(m.away).toUpperCase(), home: String(m.home).toUpperCase() }));
+    }
+    return null;
+  } catch (e: any) {
+    console.warn("Failed to load weekly order from file:", e?.message ?? e);
+    return null;
+  }
+
 }
 
 // --------------------------- main handler ---------------------------
@@ -96,9 +120,13 @@ export async function GET() {
     // Try remote weekly order first (WEEKLY_ORDER_URL)
     let expectedMatchups: { away: string; home: string }[] | null = await tryFetchWeeklyOrder();
 
-    // If no remote/order available, auto-generate by sorting ESPN events by datetime
+    // NEW: if remote was not provided or failed, try to load local weekly order file (WEEKLY_ORDER_FILE)
     if (!expectedMatchups) {
-      // sort events by kickoff date and map to {away, home} (use abbrs if available)
+      expectedMatchups = await tryLoadWeeklyOrderFromFile();
+    }
+
+    // If still no weekly order, auto-generate by sorting ESPN events by datetime (chronological fallback)
+    if (!expectedMatchups) {
       const sorted = rawMatchups
         .slice()
         .sort((a, b) => {
@@ -106,19 +134,17 @@ export async function GET() {
           const tb = b.date ? new Date(b.date).getTime() : 0;
           return ta - tb;
         })
-        .map(r => ({ away: (r.awayAbbr ?? r.awayTeam ?? "").toString().toUpperCase(), home: (r.homeAbbr ?? r.homeTeam ?? "").toString().toUpperCase() }));
-
+        .map((r) => ({ away: (r.awayAbbr ?? r.awayTeam ?? "").toString().toUpperCase(), home: (r.homeAbbr ?? r.homeTeam ?? "").toString().toUpperCase() }));
       expectedMatchups = sorted;
     }
 
     // Build map of winners (existing logic)
     const eventWinnerMap = new Map<string, string | null>();
-    // determine winners for rawMatchups (same logic as before)
     events.forEach((ev: any) => {
       try {
         const comp = ev?.competitions?.[0];
         if (!comp) return;
-        const competitors = Array.isArray(comp.competitors) ? comp.competitors : [];
+        const competitors = Array.isArray(comp?.competitors) ? comp.competitors : [];
         const home = competitors.find((c: any) => c?.homeAway === "home");
         const away = competitors.find((c: any) => c?.homeAway === "away");
         const homeAbbr = normalizeTeamAbbr(home?.team?.abbreviation);
@@ -149,7 +175,7 @@ export async function GET() {
           eventWinnerMap.set(makeKey(awayAbbr ?? undefined, homeAbbr ?? undefined)!, null);
           eventWinnerMap.set(makeKey(homeAbbr ?? undefined, awayAbbr ?? undefined)!, null);
         }
-      } catch {}
+      } catch { }
     });
 
     // Build results in the same order as expectedMatchups
@@ -178,7 +204,7 @@ export async function GET() {
         const aTokens = `${r.awayAbbr ?? r.awayTeam ?? ""}`.toUpperCase();
         const hTokens = `${r.homeAbbr ?? r.homeTeam ?? ""}`.toUpperCase();
         return (aTokens.includes(m.away.toUpperCase()) && hTokens.includes(m.home.toUpperCase())) ||
-               (aTokens.includes(m.home.toUpperCase()) && hTokens.includes(m.away.toUpperCase()));
+          (aTokens.includes(m.home.toUpperCase()) && hTokens.includes(m.away.toUpperCase()));
       });
       if (match) return match;
       return {

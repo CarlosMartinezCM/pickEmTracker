@@ -319,6 +319,8 @@ export default function PickemTracker() {
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">🏈 NFL Pick'em Tracker 2025 🏈</h1>
         <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">WEEK 12</h1>
 
+<h1 className="text-3xl text-center font-bold mb-6 text-red-800 dark:text-red">Website is down, working on a fix!!!!!</h1>
+
         {/* Number of players */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">Total Players: {initialPlayers.length}</div>
 
