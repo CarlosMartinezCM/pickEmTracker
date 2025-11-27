@@ -1,4 +1,8 @@
-/* PickemTracker.tsx */
+/***************** Week 13 Sunday Games*******************************************************************************************************
+***  ready to paste into production picks in components/PickEmBoard.tsx **
+**   I only need to add the players picks in initialPlayers functions **
+**************************DONT FORGET - to change the route.ts file to set the correct games for Sunday!!!!!!!!!!!******************************/
+
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
@@ -12,33 +16,11 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // fallback static confirmed results (used while scoreboard loads or on error)
 const confirmedResults: (string | null)[] = [];
 
-// Week 13 players (Picks Final Thursday morning)
+// Week 13 players (example)
 const initialPlayers: Player[] = [
-  { name: "Carlos (comish)", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 40 },
-  { name: "Fay", picks: ["DET", "DAL", "BAL", "PHI"], tiebreaker: 48 },
-  { name: "Edgar B", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 41 },
-  { name: "Yolo", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 44 },
-  { name: "Eric Rodriguez", picks: ["DET", "DAL", "BAL", "PHI"], tiebreaker: 49 },
-  { name: "Bobby", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 51 },
-  { name: "Sumo", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 44 },
-  { name: "Candon", picks: ["GB", "KC", "BAL", "PHI"], tiebreaker: 52 },
-  { name: "Oso", picks: ["DET", "KC", "CIN", "PHI"], tiebreaker: 53 },
+  { name: "Testing", picks: ["GB", "KC", "BAL", "PHI"], tiebreaker: 67
+  }
 ];
-
-/****************************************************************************************************************
-// Week 13 players (picks hidden)
-const initialPlayers: Player[] = [
-  { name: "Carlos (comish)", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Fay", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Edgar B", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Yolo", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Eric Rodriguez", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Bobby", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Sumo", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Candon", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Oso", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-];
-********************************************************************************************************************/
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -58,18 +40,18 @@ function inlineComputedStyles(root: HTMLElement) {
     try {
       const cs = window.getComputedStyle(node);
       const props = [
-        "width", "height", "boxSizing", "padding", "margin", "border",
-        "borderRadius", "background", "backgroundColor", "backgroundImage",
-        "color", "fontSize", "fontWeight", "fontFamily", "lineHeight", "textAlign",
-        "display", "flexDirection", "justifyContent", "alignItems",
-        "gridTemplateColumns", "gridTemplateRows", "gap", "minWidth", "minHeight",
-        "maxWidth", "maxHeight", "overflow", "whiteSpace", "textDecoration",
-        "boxShadow", "transform", "position", "top", "left", "right", "bottom"
+        "width","height","boxSizing","padding","margin","border",
+        "borderRadius","background","backgroundColor","backgroundImage",
+        "color","fontSize","fontWeight","fontFamily","lineHeight","textAlign",
+        "display","flexDirection","justifyContent","alignItems",
+        "gridTemplateColumns","gridTemplateRows","gap","minWidth","minHeight",
+        "maxWidth","maxHeight","overflow","whiteSpace","textDecoration",
+        "boxShadow","transform","position","top","left","right","bottom"
       ];
       for (const p of props) {
         const v = (cs as any)[p];
         if (v && v !== "initial" && v !== "none") {
-          try { (node.style as any)[p] = v; } catch { }
+          try { (node.style as any)[p] = v; } catch {}
         }
       }
       node.style.overflow = "visible";
@@ -97,7 +79,7 @@ function replaceEmbedsWithPlaceholders(clone: HTMLElement) {
       placeholder.textContent = `iframe`;
       frame.parentNode?.replaceChild(placeholder, frame);
     } catch {
-      try { frame.parentNode?.removeChild(frame); } catch { }
+      try { frame.parentNode?.removeChild(frame); } catch {}
     }
   }
 
@@ -111,7 +93,7 @@ function replaceEmbedsWithPlaceholders(clone: HTMLElement) {
       ph.style.background = "#000";
       v.parentNode?.replaceChild(ph, v);
     } catch {
-      try { v.parentNode?.removeChild(v); } catch { }
+      try { v.parentNode?.removeChild(v); } catch {}
     }
   });
 }
@@ -206,7 +188,7 @@ export async function exportImage(elementId = "leaderboard") {
       height: clone.scrollHeight,
     });
 
-    try { clone.remove(); } catch { }
+    try { clone.remove(); } catch {}
 
     const dataUrl = canvas.toDataURL("image/png");
     const link = document.createElement("a");
@@ -217,7 +199,7 @@ export async function exportImage(elementId = "leaderboard") {
     link.remove();
   } catch (err) {
     console.error("exportImage error:", err);
-    try { clone?.remove(); } catch { }
+    try { clone?.remove(); } catch {}
     alert("Failed to generate image. See console for details.");
   }
 }
@@ -250,7 +232,7 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
       dataUrl = canvas.toDataURL("image/png");
     }
 
-    try { clone.remove(); } catch { }
+    try { clone.remove(); } catch {}
 
     const img = new Image();
     img.src = dataUrl!;
@@ -308,7 +290,7 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
     pdf.save(filename);
   } catch (err) {
     console.error("exportPDF error:", err);
-    try { clone?.remove(); } catch { }
+    try { clone?.remove(); } catch {}
     alert("Failed to generate PDF. See console for details.");
   }
 }
@@ -332,9 +314,10 @@ export default function PickemTracker() {
     }, {} as Result)
   );
 
-  // compute gameCount to keep header, winners row and table aligned
-  //IMPORTANT, this is where the number of games is set!!!
-  const gameCount = (matchups && matchups.length) || (initialPlayers[0]?.picks?.length) || 4;
+  // compute gameCount to keep header, winners row and table aligned**************************************************************************************
+  //IMPORTANT, this is where the number of games is set!!!************************************************************************************************
+  const gameCount = (matchups && matchups.length) || (initialPlayers[0]?.picks?.length) || 12;
+
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
@@ -384,27 +367,16 @@ export default function PickemTracker() {
       return { ...p, rank };
     });
   }, [results]);
-
+  
   // Here is where you can set the number of players that are the *Top Contenders
   const winners = useMemo(() => leaderboard.filter((p) => p.rank === 1), [leaderboard]);
 
   return (
     <div id="leaderboard" className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">
       <Card>
-        <h1 className="text-3xl text-center font-bold mb-6 drop-shadow-lg">
-          🏈
-          <span className="bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-            NFL Pick'em Tracker 2025
-          </span>
-          🏈
-        </h1>
-        <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          WEEK 13
-        </h1>
-
-        <h1 className="text-3xl text-center font-bold mb-6 bg-gradient-to-r from-orange-700 via-amber-600 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg">
-          Special Thanksgiving Matchups
-        </h1>
+        <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">🏈 NFL Pick'em Tracker 2025 🏈</h1>
+        <h1 className="text-3xl text-center font-bold mb-6 text-blue-800 dark:text-blue-300">WEEK 13</h1>
+        <h1 className="text-4xl text-center font-bold mb-6 text-red-800 dark:text-blue-1300">Special Thanksgiving Matchups</h1>
 
         {/* Number of players */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">Total Players: {initialPlayers.length}</div>
@@ -412,24 +384,24 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300">
-            🏆 {winners.map((p) => null).join(" ")}
+            🏆 {winners.map((p) => p.name).join(" ")}
           </div>
         )}
 
-        <div className="text-center mt-2 text-sm text-gray-600 dark:text-gray-300">{loading ? "Loading latest scores..." : "Scores updated from live scoreboard every 5 minutes"}</div>
+        <div className="text-center mt-2 text-sm text-gray-600 dark:text-gray-300">{loading ? "Loading latest scores..." : "Scores updated from live scoreboard"}</div>
 
         {/* Download buttons */}
         <div className="flex justify-center gap-3 my-4">
           <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
           <button onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">📸 Save as PDF</button>
-        </div>
+        </div>  
 
         {/* Final Winners Row */}
-        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">Week 13 Thanksgiving matchup results</h2>
+        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">Week 13 Results</h2>
         {mounted && scoreboardResults && scoreboardResults.length > 0 && (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
             {scoreboardResults.slice(0, gameCount).map((winner, i) => (
-              <div key={`winner-${i}`} className="px-3 py-1 text-green-900 dark:text-green-400 rounded border text-lg">
+              <div key={`winner-${i}`} className="px-3 py-1 bg-white/70 dark:bg-gray-800/70 rounded border shadow-sm">
                 {winner || "—"}
               </div>
             ))}
@@ -438,63 +410,53 @@ export default function PickemTracker() {
 
         {/* Pick'ems Table */}
         <div className="overflow-x-auto mt-4">
-          <table className="min-w-full border-separate border-spacing-0 text-[10px]">
-            <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 text-white">
+          <table className="min-w-full border-collapse border border-gray-300 dark:border-gray-700 text-[10px]">
+            <thead className="bg-gradient-to-r from-blue-200 to-blue-100 dark:from-blue-900 dark:to-blue-700 sticky top-0">
               <tr>
-                <th className="border-b-2 border-white-800 p-3 text-center text-lg border-blue-300">#</th>
-                <th className="border p-3 text-lg text-center font-bold border-blue-400">Player</th>
+                <th className="border p-3 text-center text-sm">#</th>
+                <th className="border p-3 text-left text-sm">Player</th>
 
+                {/* MATCHUPS INSIDE THE GAME COLUMNS */}
                 {Array.from({ length: gameCount }).map((_, idx) => {
                   const m = mounted && matchups ? matchups[idx] : null;
                   const result = mounted && scoreboardResults ? scoreboardResults[idx] : null;
 
                   return (
-                    <th key={idx} className="border p-3 text-lg text-center font-bold border-blue-00">
-                      <div className="font-semibold text-base">
+                    <th key={idx} className="border p-3 text-center leading-tight">
+                      <div className="font-semibold text-xs">
                         {m ? `${m.awayAbbr ?? m.awayTeam ?? "—"} @ ${m.homeAbbr ?? m.homeTeam ?? "—"}` : "—"}
                       </div>
-                      <div className="text-lg mt-1 text-green-900 dark:text-green-400">{result ?? "—"}</div>
+                      <div className="text-sm mt-1 text-blue-900 dark:text-blue-200">{result ?? "—"}</div>
                     </th>
                   );
                 })}
 
-                <th className="border p-3 text-lg text-center font-bold border-blue-300">✅ Correct</th>
-                <th className="border p-3 text-lg text-center font-bold border-blue-300">❌ Wrong</th>
-                <th className="border p-3 text-lg text-center font-bold border-blue-300">🎯 TieBreaker</th>
+                <th className="border p-3 text-center text-xs">✅ Correct</th>
+                <th className="border p-3 text-center text-xs">❌ Wrong</th>
+                <th className="border p-3 text-center text-xs">🎯 TieBreaker CAR @ SF</th>
               </tr>
             </thead>
 
             <tbody>
               {leaderboard.map((player, i) => {
                 const record = calculateRecord(player.picks, results);
+                 {/* Here I can change can make the top players be highlighted in yellow. NO IMPORTANT! */}
                 const isTop4 = player.rank <= 0;
 
                 return (
-                  <tr
-                    key={player.name}
-                    className={`${i % 2 === 0 ? "bg-blue-50 dark:bg-blue-900/30" : "bg-blue-100 dark:bg-blue-800/20"} hover:bg-blue-200 dark:hover:bg-blue-700/40 ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""
-                      }`}
-                  >
-                    <td className="border p-3 text-lg text-center font-bold border-blue-500">{i + 1}</td>
-                    <td className="border p-3 text-lg text-left font-semibold border-blue-500">{player.name}</td>
+                  <tr key={player.name} className={`${i % 2 === 0 ? "bg-white dark:bg-gray-800" : "bg-gray-50 dark:bg-gray-700"} hover:bg-gray-100 dark:hover:bg-gray-600 ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""}`}>
+                    <td className="border p-3 text-center font-bold">{i + 1}</td>
+                    <td className="border p-3 font-semibold">{player.name}</td>
 
                     {player.picks.slice(0, gameCount).map((pick, idx) => (
-                      <td
-                        key={idx}
-                        className={`border p-2 text-center text-lg border-blue-800 ${results[idx]
-                            ? results[idx] === pick
-                              ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
-                              : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
-                            : "bg-blue-50 dark:bg-blue-900/20"
-                          }`}
-                      >
+                      <td key={idx} className={`border p-2 text-center font-medium ${results[idx] ? (results[idx] === pick ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100" : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100") : "bg-gray-100 dark:bg-gray-600"}`}>
                         {pick}
                       </td>
                     ))}
 
-                    <td className="border p-3 text-center font-bold text-green-700 dark:text-green-300 border-blue-300 dark:border-blue-600">{record.correct}</td>
-                    <td className="border p-3 text-center font-bold text-red-700 dark:text-red-300 border-blue-300 dark:border-blue-600">{record.wrong}</td>
-                    <td className="border p-3 text-center font-bold border-blue-300 dark:border-blue-600">{player.tiebreaker}</td>
+                    <td className="border p-3 text-center font-bold text-green-700 dark:text-green-300">{record.correct}</td>
+                    <td className="border p-3 text-center font-bold text-red-700 dark:text-red-300">{record.wrong}</td>
+                    <td className="border p-3 text-center font-bold">{player.tiebreaker}</td>
                   </tr>
                 );
               })}
@@ -502,9 +464,10 @@ export default function PickemTracker() {
           </table>
         </div>
       </Card>
+
       {/* MATCHUPS SECTION */}
       <div className="mt-6">
-        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">📅 Week 13 Thanksgiving matchups</h2>
+        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">📅 Week 12 matchups</h2>
         {matchups && matchups.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-4xl mx-auto">
             {matchups.map((m, i) => (
@@ -520,7 +483,7 @@ export default function PickemTracker() {
                 </div>
                 <div className="text-right text-[18px]">
                   <div className="text-xs text-gray-500">Result</div>
-                  <div className="text-lg mt-1 text-green-900 dark:text-green-400">{scoreboardResults?.[i] ?? "—"}</div>
+                  <div className="font-semibold">{scoreboardResults?.[i] ?? "—"}</div>
                 </div>
               </div>
             ))}
@@ -534,7 +497,7 @@ export default function PickemTracker() {
       <div className="flex justify-center gap-3 my-4">
         <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
         <button onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">📸 Save as PDF</button>
-      </div>
+      </div>  
     </div>
   );
 }

@@ -18,28 +18,18 @@ type Matchup = {
 // --------------------------- HARD-CODED expectedMatchups (Week 12) ---------------------------
 // Replace this array each week with the exact order you want shown on the site.
 //**Ask ChatGPT to do the follwing to hard code the weekly matches: “make the Week 13 version” */ */
+
+// Week 13 expectedMatchups ThanksGiving games (hard-coded)
 const expectedMatchups: { away: string; home: string }[] = [
-  // Thursday (example)
-  { away: "BUF", home: "HOU" },
+  // Thursday (Thanksgiving)
+  { away: "GB", home: "DET" },    // Green Bay @ Detroit  
+  { away: "KC", home: "DAL" },    // Kansas City @ Dallas  
+  { away: "CIN", home: "BAL" },   // Cincinnati @ Baltimore  
 
-  // Sunday editorial order (example based on your pick-sheet)
-  { away: "PIT", home: "CHI" },
-  { away: "NE",  home: "CIN" },
-  { away: "NYG", home: "DET" },
-  { away: "MIN", home: "GB" },
-  { away: "SEA", home: "TEN" },
-  { away: "IND", home: "KC" },
-  { away: "NYJ", home: "BAL" },
-  { away: "CLE", home: "LV" },
-  { away: "JAX", home: "ARI" },
-  { away: "PHI", home: "DAL" },
-  { away: "ATL", home: "NO" },
-  { away: "TB",  home: "LAR" },
+  // Sunday games
+  { away: "CHI", home: "PHI" },   // Chicago @ Philadelphia  
 
-  // Monday
-  { away: "CAR", home: "SF" },
 ];
-
 let cached: { ts: number; data: { results: ResultArray; matchups: Matchup[] } } | null = null;
 const CACHE_TTL = 1000 * 60 * 6; // 6 minutes
 
