@@ -16,17 +16,17 @@ const confirmedResults: (string | null)[] = [];
 
 // Week 13 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["SF","JAX","IND","MIA","ATL","ARI","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 55 },
-{ name: "Edgar B", picks: ["SF","JAX","HOU","MIA","NYJ","TB","LAR","SEA","BUF","LAC","DEN","NYG"], tiebreaker: 40 },
-{ name: "Yolo", picks: ["SF","JAX","HOU","MIA","ATL","TB","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 44 },
-{ name: "Evan", picks: ["CLE","JAX","IND","MIA","ATL","TB","LAR","SEA","PIT","LAC","WAS","NE"], tiebreaker: 47 },
-{ name: "Oso", picks: ["CLE","JAX","HOU","MIA","ATL","TB","CAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 53 },
-{ name: "Nik", picks: ["SF","JAX","HOU","MIA","ATL","TB","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 43 },
-{ name: "Sebastian", picks: ["SF","JAX","IND","MIA","NYJ","TB","LAR","SEA","PIT","LAC","DEN","NE"], tiebreaker: 51 },
-{ name: "Adrian", picks: ["SF","JAX","IND","MIA","ATL","TB","LAR","SEA","PIT","LAC","DEN","NE"], tiebreaker: 36 },
-{ name: "Fay", picks: ["SF","JAX","IND","MIA","NYJ","TB","LAR","SEA","PIT","LV","DEN","NE"], tiebreaker: 48 },
-{ name: "Rios", picks: ["SF","JAX","IND","MIA","ATL","TB","LAR","SEA","BUF","LAC","WAS","NE"], tiebreaker: 52 },
-{ name: "Bobby", picks: ["SF","JAX","IND","MIA","ATL","TB","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 43 },
+  { name: "Carlos Comish", picks: ["SF", "JAX", "IND", "MIA", "ATL", "ARI", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 55 },
+  { name: "Edgar B", picks: ["SF", "JAX", "HOU", "MIA", "NYJ", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NYG"], tiebreaker: 40 },
+  { name: "Yolo", picks: ["SF", "JAX", "HOU", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 44 },
+  { name: "Evan", picks: ["CLE", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "PIT", "LAC", "WAS", "NE"], tiebreaker: 47 },
+  { name: "Oso", picks: ["CLE", "JAX", "HOU", "MIA", "ATL", "TB", "CAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 53 },
+  { name: "Nik", picks: ["SF", "JAX", "HOU", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 43 },
+  { name: "Sebastian", picks: ["SF", "JAX", "IND", "MIA", "NYJ", "TB", "LAR", "SEA", "PIT", "LAC", "DEN", "NE"], tiebreaker: 51 },
+  { name: "Adrian", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "PIT", "LAC", "DEN", "NE"], tiebreaker: 36 },
+  { name: "Fay", picks: ["SF", "JAX", "IND", "MIA", "NYJ", "TB", "LAR", "SEA", "PIT", "LV", "DEN", "NE"], tiebreaker: 48 },
+  { name: "Rios", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "WAS", "NE"], tiebreaker: 52 },
+  { name: "Bobby", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 43 },
 ];
 
 // Helper: calculate correct/wrong
@@ -455,13 +455,24 @@ export default function PickemTracker() {
         {/* Pick'ems Table */}
         <div className="overflow-x-auto mt-4">
           <table className="min-w-full border-separate border-spacing-0 text-[10px]">
-            <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 text-white">
+            <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-700 text-white">
               <tr>
                 <th className="border-b-2 border-white-800 p-3 text-center text-base border-blue-300">#</th>
                 <th className="border p-3 text-base text-center font-bold border-blue-400">Player</th>
+
                 {Array.from({ length: gameCount }).map((_, idx) => {
                   const m = mounted && matchups ? (matchups[idx] as Matchup) : null;
-                  const result = mounted && scoreboardResults ? scoreboardResults[idx] : null;
+
+                  // compute numeric score from matchups when available
+                  const awayScorePresent = typeof m?.awayScore === "number";
+                  const homeScorePresent = typeof m?.homeScore === "number";
+                  const numericScore = (awayScorePresent || homeScorePresent)
+                    ? `${awayScorePresent ? m!.awayScore : "-"} - ${homeScorePresent ? m!.homeScore : "-"}`
+                    : null;
+
+                  // fallback to winner abbreviation if no numeric score
+                  const fallbackResult = mounted && scoreboardResults ? scoreboardResults[idx] ?? null : null;
+                  const displayResult = numericScore ?? fallbackResult ?? "—";
 
                   return (
                     <th key={idx} className="border p-3 text-center font-bold border-blue-00">
@@ -491,8 +502,8 @@ export default function PickemTracker() {
                           <span className="truncate">{m?.homeStanding ?? "—"}</span>
                         </div>
 
-                        {/* Score / result */}
-                        <div className="text-green-900 dark:text-green-400 text-lg mt-1">{result ?? "—"}</div>
+                        {/* Score / result - now shows numeric score when present */}
+                        <div className="text-green-900 dark:text-green-400 text-lg mt-1">{displayResult}</div>
                       </div>
                     </th>
                   );
@@ -541,7 +552,8 @@ export default function PickemTracker() {
             </tbody>
           </table>
         </div>
-      </Card>     
+
+      </Card>
       {/* Download buttons */}
       <div className="flex justify-center gap-3 my-4">
         <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
