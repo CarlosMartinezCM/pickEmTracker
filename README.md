@@ -36,12 +36,10 @@ pickEmTracker/
 └─ tsconfig.json
 
 
-app/
- ├─ page.tsx          <- your main PickemTracker page
- ├─ all-matchups/
- │   └─ page.tsx      <- new page showing all matchups
-components/
- ├─ PickemTracker.tsx
- └─ Card.tsx
-hooks/
- └─ useScoreboard.ts
+1. Using Keyboard Shortcuts
+
+Windows / Linux:
+
+Collapse all: Ctrl + K then Ctrl + 0 (press Ctrl + K, release, then Ctrl + 0)
+
+Expand all: Ctrl + K then Ctrl + J
