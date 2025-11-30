@@ -2,6 +2,8 @@
 // Hard-coded weekly order for Week 13 (editorial pick-sheet order)
 
 import { NextResponse } from "next/server";
+// at the top of app/api/scoreboard/route.ts
+import type { Matchup } from "../../types"; // <-- adjust path as needed
 
 type ResultArray = (string | null)[];
 
