@@ -94,6 +94,7 @@ export default function AllMatchupsPage() {
                 <div className="text-center text-lg font-bold text-green-900 dark:text-green-400">
                   {numericScore}
                 </div>
+                
               </div>
             );
           })}

@@ -523,12 +523,10 @@ export default function PickemTracker() {
                           </div>
                         </div>
 
-                        {/* Standings */}
-                        <div className="flex items-center justify-center gap-1 text-[10px] text-yellow-200 dark:text-yellow-300 w-full">
-                          <span className="truncate">{m?.awayStanding ?? "—"}</span>
-                          <span>-</span>
-                          <span className="truncate">{m?.homeStanding ?? "—"}</span>
-                        </div>
+                        {/* Score */}
+                        <div className="text-center text-lg font-bold text-whites">
+                          {numericScore}
+                        </div>                       
 
                         {/* Live clock + quarter + possession (small) */}
                         {(clockText || quarterText || possessionText) && (
@@ -556,7 +554,7 @@ export default function PickemTracker() {
                         )}
 
                         {/* Score / status */}
-                        <div className="text-green-900 dark:text-green-400 text-lg mt-1">
+                        <div className="text-green-900 dark:text-green-400 text-base mt-1">
                           {mounted && matchups && matchups[idx] ? formatGameStatus(matchups[idx] as Matchup) : "—"}
                         </div>
 
