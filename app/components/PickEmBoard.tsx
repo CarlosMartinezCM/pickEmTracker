@@ -4,7 +4,26 @@ import React, { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
 import useScoreboard from "../api/scoreboard/useScoreboard"; // adjust path if needed
 import { Matchup } from "../types"; // adjust the path
-import Link from "next/link";
+
+function formatGameStatus(m: Matchup) {
+  if (m?.isFinal) return "FINAL"
+
+  if (
+    m?.period === 2 &&
+    (m?.clock === "0:00" || !m?.clock)
+  ) {
+    return "HALFTIME"
+  }
+
+  if (m?.period === 0) return m?.gameTime ?? "PRE-GAME"
+
+  if (m?.period && m?.clock) {
+    return `Q${m.period} ${m.clock}`
+  }
+
+  return "—"
+}
+
 
 // Types
 type Player = { name: string; picks: string[]; tiebreaker: number };
@@ -28,7 +47,6 @@ const initialPlayers: Player[] = [
   { name: "Rios", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "WAS", "NE"], tiebreaker: 52 },
   { name: "Bobby", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 43 },
 ];
-
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
   let correct = 0,
@@ -474,13 +492,23 @@ export default function PickemTracker() {
                   const fallbackResult = mounted && scoreboardResults ? scoreboardResults[idx] ?? null : null;
                   const displayResult = numericScore ?? fallbackResult ?? "—";
 
+                  // prepare situation strings
+                  const clockText = m?.clock ?? null;
+                  const quarterText = m?.period != null ? `Q${m.period}` : null;
+                  const possessionText = m?.possession ?? null; // abbrev, e.g. "DEN"
+                  const downText = m?.down != null ? `${m.down}rd` /* basic */ : null; // keep simple
+                  const yardsToGoText = m?.yardsToGo != null ? `${m.yardsToGo}` : null;
+                  const downDistanceText = m?.down != null && m?.yardsToGo != null ? `${m.down} & ${m.yardsToGo}` : null;
+                  const ballOnText = m?.ballOn ?? null; // e.g. "DEN 35"
+                  const lastPlayText = m?.lastPlayText ?? null;
+
                   return (
                     <th key={idx} className="border p-3 text-center font-bold border-blue-00">
-                      <div className="flex flex-col items-center justify-center gap-1 max-w-[120px]">
+                      <div className="flex flex-col items-center justify-center gap-1 max-w-[140px]">
                         {/* Logos + Team Names */}
                         <div className="flex items-center justify-center gap-1 w-full text-center">
                           {/* Away Team */}
-                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[50px] justify-end">
+                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[60px] justify-end">
                             {m?.awayLogo && <img src={m.awayLogo} alt={m.awayAbbr ?? "Away"} className="w-4 h-4 object-contain" />}
                             <span className="truncate">{m?.awayAbbr ?? m?.awayTeam ?? "—"}</span>
                           </div>
@@ -489,25 +517,54 @@ export default function PickemTracker() {
                           <span className="mx-1 text-sm flex-shrink-0">@</span>
 
                           {/* Home Team */}
-                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[50px] justify-start">
+                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[60px] justify-start">
                             {m?.homeLogo && <img src={m.homeLogo} alt={m.homeAbbr ?? "Home"} className="w-4 h-4 object-contain" />}
                             <span className="truncate">{m?.homeAbbr ?? m?.homeTeam ?? "—"}</span>
                           </div>
                         </div>
 
-                        {/* Standings below */}
+                        {/* Standings */}
                         <div className="flex items-center justify-center gap-1 text-[10px] text-yellow-200 dark:text-yellow-300 w-full">
                           <span className="truncate">{m?.awayStanding ?? "—"}</span>
                           <span>-</span>
                           <span className="truncate">{m?.homeStanding ?? "—"}</span>
                         </div>
 
-                        {/* Score / result - now shows numeric score when present */}
-                        <div className="text-green-900 dark:text-green-400 text-lg mt-1">{displayResult}</div>
+                        {/* Live clock + quarter + possession (small) */}
+                        {(clockText || quarterText || possessionText) && (
+                          <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2">
+                            {clockText && <span className="font-mono">{clockText}</span>}
+                            {quarterText && <span className="px-1 rounded bg-white/20 text-[11px]">{quarterText}</span>}
+                            {possessionText && <span className="text-[11px] italic">Poss: {possessionText}</span>}
+                          </div>
+                        )}
+
+                        {/* Down & distance + ball on */}
+                        {(downDistanceText || ballOnText) && (
+                          <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-2">
+                            {downDistanceText && <span>{downDistanceText}</span>}
+                            {yardsToGoText && !downDistanceText && <span>{yardsToGoText} to go</span>}
+                            {ballOnText && <span>• {ballOnText}</span>}
+                          </div>
+                        )}
+
+                        {/* last play short text */}
+                        {lastPlayText && (
+                          <div className="text-[10px] italic text-gray-500 truncate w-full">
+                            {lastPlayText}
+                          </div>
+                        )}
+
+                        {/* Score / status */}
+                        <div className="text-green-900 dark:text-green-400 text-lg mt-1">
+                          {mounted && matchups && matchups[idx] ? formatGameStatus(matchups[idx] as Matchup) : "—"}
+                        </div>
+
                       </div>
                     </th>
                   );
                 })}
+
 
                 <th className="border p-3 text-xsm text-center font-bold border-blue-300">✅ Correct</th>
                 <th className="border p-3 text-xsm text-center font-bold border-blue-300">❌ Wrong</th>

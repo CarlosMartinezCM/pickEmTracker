@@ -8,15 +8,17 @@ import type { Matchup } from "../../types"; // <-- adjust path as needed
 type ResultArray = (string | null)[];
 
 // --------------------------- HARD-CODED expectedMatchups (Week 13) ---------------------------
-const expectedMatchups: { away: string; home: string }[] = [
+const expectedMatchups = [
+  { away: "SF", home: "CLE" },
+  { away: "JAX", home: "TEN" },
   { away: "HOU", home: "IND" },
-  { away: "MIA", home: "NO" },
+  { away: "NO", home: "MIA" },
   { away: "ATL", home: "NYJ" },
   { away: "ARI", home: "TB" },
   { away: "LAR", home: "CAR" },
   { away: "MIN", home: "SEA" },
   { away: "BUF", home: "PIT" },
-  { away: "LAC", home: "LV" },
+  { away: "LV", home: "LAC" },
   { away: "DEN", home: "WAS" },
   { away: "NYG", home: "NE" },
 ];
@@ -95,77 +97,77 @@ export async function GET() {
 
     const eventWinnerMap = new Map<string, string | null>();
     const rawMatchups: Matchup[] = events.map((ev: any) => {
-  let awayAbbr: string | null = null;
-  let homeAbbr: string | null = null;
-  try {
-    const comp = ev?.competitions?.[0];
-    const competitors = Array.isArray(comp?.competitors) ? comp.competitors : [];
-    const home = competitors.find((c: any) => c?.homeAway === "home");
-    const away = competitors.find((c: any) => c?.homeAway === "away");
-    homeAbbr = normalizeTeamAbbr(home?.team?.abbreviation ?? home?.team?.shortDisplayName);
-    awayAbbr = normalizeTeamAbbr(away?.team?.abbreviation ?? away?.team?.shortDisplayName);
+      let awayAbbr: string | null = null;
+      let homeAbbr: string | null = null;
+      try {
+        const comp = ev?.competitions?.[0];
+        const competitors = Array.isArray(comp?.competitors) ? comp.competitors : [];
+        const home = competitors.find((c: any) => c?.homeAway === "home");
+        const away = competitors.find((c: any) => c?.homeAway === "away");
+        homeAbbr = normalizeTeamAbbr(home?.team?.abbreviation ?? home?.team?.shortDisplayName);
+        awayAbbr = normalizeTeamAbbr(away?.team?.abbreviation ?? away?.team?.shortDisplayName);
 
-    const homeScoreNum = home?.score != null && home?.score !== "" ? parseInt(String(home.score), 10) : null;
-    const awayScoreNum = away?.score != null && away?.score !== "" ? parseInt(String(away.score), 10) : null;
+        const homeScoreNum = home?.score != null && home?.score !== "" ? parseInt(String(home.score), 10) : null;
+        const awayScoreNum = away?.score != null && away?.score !== "" ? parseInt(String(away.score), 10) : null;
 
-    const clock = comp?.status?.displayClock ?? null;
-    const period = comp?.status?.period != null
-      ? (typeof comp.status.period === "number" ? comp.status.period : parseInt(String(comp.status.period), 10))
-      : null;
-    const detailedStatus = comp?.status?.type?.state ?? comp?.status?.type?.name ?? null;
-    const statusName = comp?.status?.type?.name ?? null;
+        const clock = comp?.status?.displayClock ?? null;
+        const period = comp?.status?.period != null
+          ? (typeof comp.status.period === "number" ? comp.status.period : parseInt(String(comp.status.period), 10))
+          : null;
+        const detailedStatus = comp?.status?.type?.state ?? comp?.status?.type?.name ?? null;
+        const statusName = comp?.status?.type?.name ?? null;
 
-    const winner = competitors.find((c: any) => c?.winner === true);
-    let winnerAbbr: string | null = winner?.team?.abbreviation ? normalizeTeamAbbr(winner.team.abbreviation) : null;
-    if (!winnerAbbr) {
-      const sname = String(statusName || "").toLowerCase();
-      const hs = homeScoreNum != null ? homeScoreNum : -1;
-      const as = awayScoreNum != null ? awayScoreNum : -1;
-      if (sname.includes("final")) {
-        if (hs > as) winnerAbbr = homeAbbr;
-        else if (as > hs) winnerAbbr = awayAbbr;
-        else winnerAbbr = null;
-      } else winnerAbbr = null;
-    }
+        const winner = competitors.find((c: any) => c?.winner === true);
+        let winnerAbbr: string | null = winner?.team?.abbreviation ? normalizeTeamAbbr(winner.team.abbreviation) : null;
+        if (!winnerAbbr) {
+          const sname = String(statusName || "").toLowerCase();
+          const hs = homeScoreNum != null ? homeScoreNum : -1;
+          const as = awayScoreNum != null ? awayScoreNum : -1;
+          if (sname.includes("final")) {
+            if (hs > as) winnerAbbr = homeAbbr;
+            else if (as > hs) winnerAbbr = awayAbbr;
+            else winnerAbbr = null;
+          } else winnerAbbr = null;
+        }
 
-    const key = makeKey(awayAbbr ?? undefined, homeAbbr ?? undefined);
-    if (key) {
-      eventWinnerMap.set(key, winnerAbbr);
-      eventWinnerMap.set(makeKey(homeAbbr ?? undefined, awayAbbr ?? undefined)!, winnerAbbr);
-    }
+        const key = makeKey(awayAbbr ?? undefined, homeAbbr ?? undefined);
+        if (key) {
+          eventWinnerMap.set(key, winnerAbbr);
+          eventWinnerMap.set(makeKey(homeAbbr ?? undefined, awayAbbr ?? undefined)!, winnerAbbr);
+        }
 
-    return {
-      eventId: ev?.id ?? null,
-      awayTeam: away?.team?.displayName ?? away?.team?.shortDisplayName ?? null,
-      homeTeam: home?.team?.displayName ?? home?.team?.shortDisplayName ?? null,
-      awayAbbr,
-      homeAbbr,
-      awayScore: awayScoreNum,
-      homeScore: homeScoreNum,
-      clock,
-      period,
-      detailedStatus,
-      date: ev?.date ?? null,
-      status: statusName ?? null,
-    } as Matchup;
-  } catch {
-    // fallback ensures variables exist
-    return {
-      eventId: ev?.id ?? null,
-      awayTeam: null,
-      homeTeam: null,
-      awayAbbr,
-      homeAbbr,
-      awayScore: null,
-      homeScore: null,
-      clock: null,
-      period: null,
-      detailedStatus: null,
-      date: null,
-      status: null,
-    } as Matchup;
-  }
-});
+        return {
+          eventId: ev?.id ?? null,
+          awayTeam: away?.team?.displayName ?? away?.team?.shortDisplayName ?? null,
+          homeTeam: home?.team?.displayName ?? home?.team?.shortDisplayName ?? null,
+          awayAbbr,
+          homeAbbr,
+          awayScore: awayScoreNum,
+          homeScore: homeScoreNum,
+          clock,
+          period,
+          detailedStatus,
+          date: ev?.date ?? null,
+          status: statusName ?? null,
+        } as Matchup;
+      } catch {
+        // fallback ensures variables exist
+        return {
+          eventId: ev?.id ?? null,
+          awayTeam: null,
+          homeTeam: null,
+          awayAbbr,
+          homeAbbr,
+          awayScore: null,
+          homeScore: null,
+          clock: null,
+          period: null,
+          detailedStatus: null,
+          date: null,
+          status: null,
+        } as Matchup;
+      }
+    });
 
 
     // Fetch logos & standings
@@ -194,7 +196,7 @@ export async function GET() {
         const aTokens = `${r.awayAbbr ?? r.awayTeam ?? ""}`.toUpperCase();
         const hTokens = `${r.homeAbbr ?? r.homeTeam ?? ""}`.toUpperCase();
         return (aTokens.includes(m.away.toUpperCase()) && hTokens.includes(m.home.toUpperCase())) ||
-               (aTokens.includes(m.home.toUpperCase()) && hTokens.includes(m.away.toUpperCase()));
+          (aTokens.includes(m.home.toUpperCase()) && hTokens.includes(m.away.toUpperCase()));
       });
 
       if (match) {
