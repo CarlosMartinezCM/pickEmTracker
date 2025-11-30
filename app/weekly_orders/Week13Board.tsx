@@ -440,7 +440,7 @@ export default function PickemTracker() {
             <tbody>
               {leaderboard.map((player, i) => {
                 const record = calculateRecord(player.picks, results);
-                 {/* Here I can change can make the top players be highlighted in yellow. NO IMPORTANT! */}
+                 {/* Here I can change can make the top players be highlighted in yellow. NOT IMPORTANT! */}
                 const isTop4 = player.rank <= 0;
 
                 return (

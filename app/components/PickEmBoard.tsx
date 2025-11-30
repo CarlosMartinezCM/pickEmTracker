@@ -2,7 +2,9 @@
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
-import useScoreboard from "../../hooks/useScoreboard"; // adjust path if needed
+import useScoreboard from "../api/scoreboard/useScoreboard"; // adjust path if needed
+import { Matchup } from "../types"; // adjust the path
+import Link from "next/link";
 
 // Types
 type Player = { name: string; picks: string[]; tiebreaker: number };
@@ -12,37 +14,39 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // fallback static confirmed results (used while scoreboard loads or on error)
 const confirmedResults: (string | null)[] = [];
 
-// Week 13 players (Picks Final Thursday morning)
+// Week 13 players (Picks - Sunday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos (comish)", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 40 },
-  { name: "Fay", picks: ["DET", "DAL", "BAL", "PHI"], tiebreaker: 48 },
-  { name: "Edgar B", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 41 },
-  { name: "Yolo", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 44 },
-  { name: "Eric Rodriguez", picks: ["DET", "DAL", "BAL", "PHI"], tiebreaker: 49 },
-  { name: "Bobby", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 51 },
-  { name: "Sumo", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 44 },
-  { name: "Candon", picks: ["GB", "KC", "BAL", "PHI"], tiebreaker: 52 },
-  { name: "Oso", picks: ["DET", "KC", "CIN", "PHI"], tiebreaker: 53 },
-  { name: "Nik", picks: ["DET", "KC", "BAL", "PHI"], tiebreaker: 45 },
+ { name: "Carlos Comish", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Edgar B", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Yolo", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Evan", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Oso", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Nik", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Sebastian", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Adrian", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Fay", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Rios", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Bobby", picks: ["-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+
 ];
 
-/****************************************************************************************************************
-// Week 13 players (picks hidden)
+/*
+// Week 13 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos (comish)", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Fay", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Edgar B", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Yolo", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Eric Rodriguez", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Bobby", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Sumo", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Candon", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Oso", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Nik", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Carlos Comish", picks: ["SF","JAX","IND","MIA","ATL","ARI","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 55 },
+{ name: "Edgar B", picks: ["SF","JAX","HOU","MIA","NYJ","TB","LAR","SEA","BUF","LAC","DEN","NYG"], tiebreaker: 40 },
+{ name: "Yolo", picks: ["SF","JAX","HOU","MIA","ATL","TB","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 44 },
+{ name: "Evan", picks: ["CLE","JAX","IND","MIA","ATL","TB","LAR","SEA","PIT","LAC","WAS","NE"], tiebreaker: 47 },
+{ name: "Oso", picks: ["CLE","JAX","HOU","MIA","ATL","TB","CAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 53 },
+{ name: "Nik", picks: ["SF","JAX","HOU","MIA","ATL","TB","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 43 },
+{ name: "Sebastian", picks: ["SF","JAX","IND","MIA","NYJ","TB","LAR","SEA","PIT","LAC","DEN","NE"], tiebreaker: 51 },
+{ name: "Adrian", picks: ["SF","JAX","IND","MIA","ATL","TB","LAR","SEA","PIT","LAC","DEN","NE"], tiebreaker: 36 },
+{ name: "Fay", picks: ["SF","JAX","IND","MIA","NYJ","TB","LAR","SEA","PIT","LV","DEN","NE"], tiebreaker: 48 },
+{ name: "Rios", picks: ["SF","JAX","IND","MIA","ATL","TB","LAR","SEA","BUF","LAC","WAS","NE"], tiebreaker: 52 },
+{ name: "Bobby", picks: ["SF","JAX","IND","MIA","ATL","TB","LAR","SEA","BUF","LAC","DEN","NE"], tiebreaker: 43 },
 ];
+*/
 
-/****************************************************************************************************************
- * ********************************************************************************************************************/
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
   let correct = 0,
@@ -336,8 +340,8 @@ export default function PickemTracker() {
   );
 
   // compute gameCount to keep header, winners row and table aligned
-  //IMPORTANT, this is where the number of games is set!!!
-  const gameCount = (matchups && matchups.length) || (initialPlayers[0]?.picks?.length) || 4;
+  //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
+  const gameCount = (matchups && matchups.length) || (initialPlayers[0]?.picks?.length) || 12;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
@@ -393,6 +397,14 @@ export default function PickemTracker() {
 
   return (
     <div id="leaderboard" className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">
+      <div className="flex justify-center my-2">
+        <a
+          href="/all-matchups"
+          className="px-4 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold"
+        >
+          See All Matchups
+        </a>
+      </div>
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 drop-shadow-lg">
           🏈
@@ -405,17 +417,13 @@ export default function PickemTracker() {
           WEEK 13
         </h1>
 
-        <h1 className="text-3xl text-center font-bold mb-6 bg-gradient-to-r from-orange-700 via-amber-600 to-yellow-500 bg-clip-text text-transparent drop-shadow-lg">
-          Special Thanksgiving Matchups
-        </h1>
-
         {/* Number of players */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">Total Players: {initialPlayers.length}</div>
 
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300">
-            🏆 {winners.map((p) => p.name).join(" ")}
+            🏆 {winners.map((p) => null).join(" ")}
           </div>
         )}
 
@@ -428,15 +436,38 @@ export default function PickemTracker() {
         </div>
 
         {/* Final Winners Row */}
-        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">Week 13 Thanksgiving matchup results</h2>
-        {mounted && scoreboardResults && scoreboardResults.length > 0 && (
+        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
+          Week 13 matchup results
+        </h2>
+        {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
-            {scoreboardResults.slice(0, gameCount).map((winner, i) => (
-              <div key={`winner-${i}`} className="px-3 py-1 text-green-900 dark:text-green-400 rounded border text-lg">
-                {winner || "—"}
-              </div>
-            ))}
+            {scoreboardResults.slice(0, gameCount).map((winner, i) => {
+              const m = matchups ? (matchups[i] as Matchup) : null;
+              let winnerLogo: string | null = null;
+              if (winner && m) {
+                if (winner === m.awayAbbr || winner === m.awayTeam) winnerLogo = m.awayLogo ?? null;
+                else if (winner === m.homeAbbr || winner === m.homeTeam) winnerLogo = m.homeLogo ?? null;
+              }
+
+              return (
+                <div
+                  key={`winner-${i}`}
+                  className="flex items-center gap-1 px-3 py-1 text-green-900 dark:text-green-400 rounded border text-lg"
+                >
+                  {winnerLogo && (
+                    <img
+                      src={winnerLogo}
+                      alt={winner ?? "Winner"}
+                      className="w-5 h-5 object-contain"
+                    />
+                  )}
+                  <span>{winner || "—"}</span>
+                </div>
+              );
+            })}
           </div>
+        ) : (
+          <div className="text-center text-sm text-gray-500">Loading winners...</div>
         )}
 
         {/* Pick'ems Table */}
@@ -444,26 +475,50 @@ export default function PickemTracker() {
           <table className="min-w-full border-separate border-spacing-0 text-[10px]">
             <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 text-white">
               <tr>
-                <th className="border-b-2 border-white-800 p-3 text-center text-lg border-blue-300">#</th>
-                <th className="border p-3 text-lg text-center font-bold border-blue-400">Player</th>
-
+                <th className="border-b-2 border-white-800 p-3 text-center text-base border-blue-300">#</th>
+                <th className="border p-3 text-base text-center font-bold border-blue-400">Player</th>
                 {Array.from({ length: gameCount }).map((_, idx) => {
-                  const m = mounted && matchups ? matchups[idx] : null;
+                  const m = mounted && matchups ? (matchups[idx] as Matchup) : null;
                   const result = mounted && scoreboardResults ? scoreboardResults[idx] : null;
 
                   return (
-                    <th key={idx} className="border p-3 text-lg text-center font-bold border-blue-00">
-                      <div className="font-semibold text-base">
-                        {m ? `${m.awayAbbr ?? m.awayTeam ?? "—"} @ ${m.homeAbbr ?? m.homeTeam ?? "—"}` : "—"}
+                    <th key={idx} className="border p-3 text-center font-bold border-blue-00">
+                      <div className="flex flex-col items-center justify-center gap-1 max-w-[120px]">
+                        {/* Logos + Team Names */}
+                        <div className="flex items-center justify-center gap-1 w-full text-center">
+                          {/* Away Team */}
+                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[50px] justify-end">
+                            {m?.awayLogo && <img src={m.awayLogo} alt={m.awayAbbr ?? "Away"} className="w-4 h-4 object-contain" />}
+                            <span className="truncate">{m?.awayAbbr ?? m?.awayTeam ?? "—"}</span>
+                          </div>
+
+                          {/* @ symbol */}
+                          <span className="mx-1 text-sm flex-shrink-0">@</span>
+
+                          {/* Home Team */}
+                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[50px] justify-start">
+                            {m?.homeLogo && <img src={m.homeLogo} alt={m.homeAbbr ?? "Home"} className="w-4 h-4 object-contain" />}
+                            <span className="truncate">{m?.homeAbbr ?? m?.homeTeam ?? "—"}</span>
+                          </div>
+                        </div>
+
+                        {/* Standings below */}
+                        <div className="flex items-center justify-center gap-1 text-[10px] text-yellow-200 dark:text-yellow-300 w-full">
+                          <span className="truncate">{m?.awayStanding ?? "—"}</span>
+                          <span>-</span>
+                          <span className="truncate">{m?.homeStanding ?? "—"}</span>
+                        </div>
+
+                        {/* Score / result */}
+                        <div className="text-green-900 dark:text-green-400 text-lg mt-1">{result ?? "—"}</div>
                       </div>
-                      <div className="text-lg mt-1 text-green-900 dark:text-green-400">{result ?? "—"}</div>
                     </th>
                   );
                 })}
 
-                <th className="border p-3 text-lg text-center font-bold border-blue-300">✅ Correct</th>
-                <th className="border p-3 text-lg text-center font-bold border-blue-300">❌ Wrong</th>
-                <th className="border p-3 text-lg text-center font-bold border-blue-300">🎯 TieBreaker</th>
+                <th className="border p-3 text-xsm text-center font-bold border-blue-300">✅ Correct</th>
+                <th className="border p-3 text-xsm text-center font-bold border-blue-300">❌ Wrong</th>
+                <th className="border p-3 text-xsm text-center font-bold border-blue-300">🎯 TieBreaker</th>
               </tr>
             </thead>
 
@@ -478,61 +533,33 @@ export default function PickemTracker() {
                     className={`${i % 2 === 0 ? "bg-blue-50 dark:bg-blue-900/30" : "bg-blue-100 dark:bg-blue-800/20"} hover:bg-blue-200 dark:hover:bg-blue-700/40 ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""
                       }`}
                   >
-                    <td className="border p-3 text-lg text-center font-bold border-blue-500">{i + 1}</td>
-                    <td className="border p-3 text-lg text-left font-semibold border-blue-500">{player.name}</td>
+                    <td className="border p-3 text-base text-center font-bold border-blue-500">{i + 1}</td>
+                    <td className="border p-3 text-base text-center font-semibold border-blue-500">{player.name}</td>
 
                     {player.picks.slice(0, gameCount).map((pick, idx) => (
                       <td
                         key={idx}
-                        className={`border p-2 text-center text-lg border-blue-800 ${results[idx]
-                            ? results[idx] === pick
-                              ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
-                              : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
-                            : "bg-blue-50 dark:bg-blue-900/20"
+                        className={`border p-2 text-center text-sm border-blue-800 ${results[idx]
+                          ? results[idx] === pick
+                            ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
+                            : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
+                          : "bg-blue-50 dark:bg-blue-900/20"
                           }`}
                       >
                         {pick}
                       </td>
                     ))}
 
-                    <td className="border p-3 text-center font-bold text-green-700 dark:text-green-300 border-blue-300 dark:border-blue-600">{record.correct}</td>
-                    <td className="border p-3 text-center font-bold text-red-700 dark:text-red-300 border-blue-300 dark:border-blue-600">{record.wrong}</td>
-                    <td className="border p-3 text-center font-bold border-blue-300 dark:border-blue-600">{player.tiebreaker}</td>
+                    <td className="border p-3 text-center font-bold text-green-700 text-lg dark:text-green-300 border-blue-300 dark:border-blue-600">{record.correct}</td>
+                    <td className="border p-3 text-center font-bold text-red-700 text-lg dark:text-red-300 border-blue-300 dark:border-blue-600">{record.wrong}</td>
+                    <td className="border p-3 text-center text-lg font-bold border-blue-300 dark:border-blue-600">{player.tiebreaker}</td>
                   </tr>
                 );
               })}
             </tbody>
           </table>
         </div>
-      </Card>
-      {/* MATCHUPS SECTION */}
-      <div className="mt-6">
-        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">📅 Week 13 Thanksgiving matchups</h2>
-        {matchups && matchups.length > 0 ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2 max-w-4xl mx-auto">
-            {matchups.map((m, i) => (
-              <div key={m.eventId ?? `m-${i}`} className="flex items-center justify-between p-2 rounded-md border bg-white/60 dark:bg-gray-800/60">
-                <div className="flex flex-col">
-                  <div className="text-[10px] font-medium">
-                    <span className="mr-2 text-xs text-gray-500">G{i + 1}</span>
-                    <span className="font-semibold text-sm">{m.awayAbbr ?? m.awayTeam ?? "—"}</span>
-                    <span className="mx-2">@</span>
-                    <span className="font-semibold text-sm">{m.homeAbbr ?? m.homeTeam ?? "—"}</span>
-                  </div>
-                  <div className="text-xs text-gray-500 mt-1">{m.date ? new Date(m.date).toLocaleString() : "TBD"} • {m.status ?? "SCHEDULED"}</div>
-                </div>
-                <div className="text-right text-[18px]">
-                  <div className="text-xs text-gray-500">Result</div>
-                  <div className="text-lg mt-1 text-green-900 dark:text-green-400">{scoreboardResults?.[i] ?? "—"}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center text-sm text-gray-500">Loading matchups...</div>
-        )}
-      </div>
-
+      </Card>     
       {/* Download buttons */}
       <div className="flex justify-center gap-3 my-4">
         <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
@@ -540,4 +567,6 @@ export default function PickemTracker() {
       </div>
     </div>
   );
+
 }
+

@@ -22,16 +22,26 @@ pickEmTracker/
 ├─ app/
 │  ├─ components/
 │  │  ├─ PickEmBoard.tsx      <-- update this to use the hook
-│  │  └─ (other components)
+│  │  └─ Page.tsx
 │  ├─ page.tsx
 │  ├─ layout.tsx
 │  └─ globals.css
 ├─ app/api/
 │  └─ scoreboard/
 │     └─ route.ts             <-- NEW: app router API endpoint
-├─ hooks/
-│  └─ useScoreboard.ts       <-- NEW: client hook
+│     └─ UseScoreboard.ts
 ├─ public/
 ├─ next.config.ts
 ├─ package.json
 └─ tsconfig.json
+
+
+app/
+ ├─ page.tsx          <- your main PickemTracker page
+ ├─ all-matchups/
+ │   └─ page.tsx      <- new page showing all matchups
+components/
+ ├─ PickemTracker.tsx
+ └─ Card.tsx
+hooks/
+ └─ useScoreboard.ts

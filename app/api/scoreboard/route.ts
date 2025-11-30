@@ -1,34 +1,22 @@
 // app/api/scoreboard/route.ts
-// Hard-coded weekly order for Week 12 (editorial pick-sheet order)
-// Reference screenshot (for your records): /mnt/data/17a0e197-bfe2-4457-aa9b-d521eca49cc9.png
+// Hard-coded weekly order for Week 13 (editorial pick-sheet order)
 
 import { NextResponse } from "next/server";
 
 type ResultArray = (string | null)[];
-type Matchup = {
-  eventId: string | null;
-  awayTeam: string | null;
-  homeTeam: string | null;
-  awayAbbr: string | null;
-  homeAbbr: string | null;
-  date: string | null;
-  status: string | null;
-};
 
-// --------------------------- HARD-CODED expectedMatchups (Week 12) ---------------------------
-// Replace this array each week with the exact order you want shown on the site.
-//**Ask ChatGPT to do the follwing to hard code the weekly matches: “make the Week 13 version” */ */
-
-// Week 13 expectedMatchups ThanksGiving games (hard-coded)
+// --------------------------- HARD-CODED expectedMatchups (Week 13) ---------------------------
 const expectedMatchups: { away: string; home: string }[] = [
-  // Thursday (Thanksgiving)
-  { away: "GB", home: "DET" },    // Green Bay @ Detroit  
-  { away: "KC", home: "DAL" },    // Kansas City @ Dallas  
-  { away: "CIN", home: "BAL" },   // Cincinnati @ Baltimore  
-
-  // Sunday games
-  { away: "CHI", home: "PHI" },   // Chicago @ Philadelphia  
-
+  { away: "HOU", home: "IND" },
+  { away: "MIA", home: "NO" },
+  { away: "ATL", home: "NYJ" },
+  { away: "ARI", home: "TB" },
+  { away: "LAR", home: "CAR" },
+  { away: "MIN", home: "SEA" },
+  { away: "BUF", home: "PIT" },
+  { away: "LAC", home: "LV" },
+  { away: "DEN", home: "WAS" },
+  { away: "NYG", home: "NE" },
 ];
 
 let cached: { ts: number; data: { results: ResultArray; matchups: Matchup[] } } | null = null;
@@ -44,8 +32,54 @@ function makeKey(away: string | undefined, home: string | undefined) {
   return `${away.toUpperCase()}@${home.toUpperCase()}`;
 }
 
+// --------------------------- LOGOS & STANDINGS ---------------------------
+async function fetchTeamsLogoMap() {
+  try {
+    const teamsResp = await fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams");
+    if (!teamsResp.ok) return {};
+    const teamsJson = await teamsResp.json();
+    const arr = Array.isArray(teamsJson?.teams) ? teamsJson.teams : (teamsJson?.sports?.[0]?.leagues?.[0]?.teams ?? []);
+    const map: Record<string, string | null> = {};
+    for (const t of arr) {
+      const teamObj = t?.team ?? t;
+      if (!teamObj) continue;
+      const abbr = (teamObj.abbreviation || teamObj.shortName || teamObj.displayName || "").toString().toUpperCase();
+      let logo: string | null = null;
+      if (Array.isArray(teamObj.logos) && teamObj.logos.length > 0) {
+        logo = teamObj.logos[0]?.href ?? null;
+      } else if (teamObj.logo) {
+        logo = teamObj.logo;
+      }
+      if (abbr) map[abbr] = logo;
+    }
+    return map;
+  } catch (e) {
+    console.warn("teams fetch failed", e);
+    return {};
+  }
+}
+
+async function fetchStandingsMap() {
+  try {
+    const sResp = await fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/standings");
+    if (!sResp.ok) return {};
+    const sJson = await sResp.json();
+    const map: Record<string, string | null> = {};
+    const entries = (sJson?.records ?? []).flatMap((r: any) => r?.teamRecords ?? []) || [];
+    for (const rec of entries) {
+      const abbr = (rec?.team?.abbreviation || rec?.team?.shortDisplayName || "").toString().toUpperCase();
+      const summary = rec?.summary ?? `${rec?.wins}-${rec?.losses}${rec?.ties ? `-${rec.ties}` : ""}`;
+      map[abbr] = summary ?? null;
+    }
+    return map;
+  } catch (e) {
+    console.warn("standings fetch failed", e);
+    return {};
+  }
+}
+
+// --------------------------- ROUTE HANDLER ---------------------------
 export async function GET() {
-  // Return cached if fresh
   if (cached && Date.now() - cached.ts < CACHE_TTL) {
     return NextResponse.json({ source: "cache", ...cached.data, fetchedAt: cached.ts });
   }
@@ -53,80 +87,94 @@ export async function GET() {
   try {
     const scoreboardUrl = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard";
     const resp = await fetch(scoreboardUrl);
-    if (!resp.ok) {
-      return NextResponse.json({ source: "espn-error", status: resp.status, statusText: resp.statusText });
-    }
+    if (!resp.ok) return NextResponse.json({ source: "espn-error", status: resp.status, statusText: resp.statusText });
     const json = await resp.json();
     const events = Array.isArray(json?.events) ? json.events : [];
 
-    // map of eventKey -> winnerAbbr|null
     const eventWinnerMap = new Map<string, string | null>();
-
-    // build raw matchups list from ESPN events
     const rawMatchups: Matchup[] = events.map((ev: any) => {
-      try {
-        const comp = ev?.competitions?.[0];
-        const competitors = Array.isArray(comp?.competitors) ? comp.competitors : [];
-        const home = competitors.find((c: any) => c?.homeAway === "home");
-        const away = competitors.find((c: any) => c?.homeAway === "away");
-        const homeAbbr = normalizeTeamAbbr(home?.team?.abbreviation ?? home?.team?.shortDisplayName);
-        const awayAbbr = normalizeTeamAbbr(away?.team?.abbreviation ?? away?.team?.shortDisplayName);
+  let awayAbbr: string | null = null;
+  let homeAbbr: string | null = null;
+  try {
+    const comp = ev?.competitions?.[0];
+    const competitors = Array.isArray(comp?.competitors) ? comp.competitors : [];
+    const home = competitors.find((c: any) => c?.homeAway === "home");
+    const away = competitors.find((c: any) => c?.homeAway === "away");
+    homeAbbr = normalizeTeamAbbr(home?.team?.abbreviation ?? home?.team?.shortDisplayName);
+    awayAbbr = normalizeTeamAbbr(away?.team?.abbreviation ?? away?.team?.shortDisplayName);
 
-        // determine winner if available
-        const winner = competitors.find((c: any) => c?.winner === true);
-        let winnerAbbr: string | null = null;
-        if (winner?.team?.abbreviation) winnerAbbr = normalizeTeamAbbr(winner.team.abbreviation);
-        else {
-          const statusName = String(comp?.status?.type?.name || "").toLowerCase();
-          const homeScore = parseInt(home?.score ?? "-1", 10);
-          const awayScore = parseInt(away?.score ?? "-1", 10);
-          if (statusName.includes("final")) {
-            if (homeScore > awayScore) winnerAbbr = homeAbbr;
-            else if (awayScore > homeScore) winnerAbbr = awayAbbr;
-            else winnerAbbr = null;
-          } else {
-            winnerAbbr = null;
-          }
-        }
+    const homeScoreNum = home?.score != null && home?.score !== "" ? parseInt(String(home.score), 10) : null;
+    const awayScoreNum = away?.score != null && away?.score !== "" ? parseInt(String(away.score), 10) : null;
 
-        // register winner under both keys (away@home and home@away)
-        const key = makeKey(awayAbbr ?? undefined, homeAbbr ?? undefined);
-        if (key) {
-          eventWinnerMap.set(key, winnerAbbr);
-          // also register reversed key for lookup flexibility
-          eventWinnerMap.set(makeKey(homeAbbr ?? undefined, awayAbbr ?? undefined)!, winnerAbbr);
-        }
+    const clock = comp?.status?.displayClock ?? null;
+    const period = comp?.status?.period != null
+      ? (typeof comp.status.period === "number" ? comp.status.period : parseInt(String(comp.status.period), 10))
+      : null;
+    const detailedStatus = comp?.status?.type?.state ?? comp?.status?.type?.name ?? null;
+    const statusName = comp?.status?.type?.name ?? null;
 
-        return {
-          eventId: ev?.id ?? null,
-          awayTeam: away?.team?.displayName ?? away?.team?.shortDisplayName ?? null,
-          homeTeam: home?.team?.displayName ?? home?.team?.shortDisplayName ?? null,
-          awayAbbr,
-          homeAbbr,
-          date: ev?.date ?? null,
-          status: comp?.status?.type?.name ?? null,
-        } as Matchup;
-      } catch {
-        return {
-          eventId: ev?.id ?? null,
-          awayTeam: null,
-          homeTeam: null,
-          awayAbbr: null,
-          homeAbbr: null,
-          date: null,
-          status: null,
-        } as Matchup;
-      }
-    });
+    const winner = competitors.find((c: any) => c?.winner === true);
+    let winnerAbbr: string | null = winner?.team?.abbreviation ? normalizeTeamAbbr(winner.team.abbreviation) : null;
+    if (!winnerAbbr) {
+      const sname = String(statusName || "").toLowerCase();
+      const hs = homeScoreNum != null ? homeScoreNum : -1;
+      const as = awayScoreNum != null ? awayScoreNum : -1;
+      if (sname.includes("final")) {
+        if (hs > as) winnerAbbr = homeAbbr;
+        else if (as > hs) winnerAbbr = awayAbbr;
+        else winnerAbbr = null;
+      } else winnerAbbr = null;
+    }
 
-    // Build ordered results array aligned with expectedMatchups
+    const key = makeKey(awayAbbr ?? undefined, homeAbbr ?? undefined);
+    if (key) {
+      eventWinnerMap.set(key, winnerAbbr);
+      eventWinnerMap.set(makeKey(homeAbbr ?? undefined, awayAbbr ?? undefined)!, winnerAbbr);
+    }
+
+    return {
+      eventId: ev?.id ?? null,
+      awayTeam: away?.team?.displayName ?? away?.team?.shortDisplayName ?? null,
+      homeTeam: home?.team?.displayName ?? home?.team?.shortDisplayName ?? null,
+      awayAbbr,
+      homeAbbr,
+      awayScore: awayScoreNum,
+      homeScore: homeScoreNum,
+      clock,
+      period,
+      detailedStatus,
+      date: ev?.date ?? null,
+      status: statusName ?? null,
+    } as Matchup;
+  } catch {
+    // fallback ensures variables exist
+    return {
+      eventId: ev?.id ?? null,
+      awayTeam: null,
+      homeTeam: null,
+      awayAbbr,
+      homeAbbr,
+      awayScore: null,
+      homeScore: null,
+      clock: null,
+      period: null,
+      detailedStatus: null,
+      date: null,
+      status: null,
+    } as Matchup;
+  }
+});
+
+
+    // Fetch logos & standings
+    const logoMap = await fetchTeamsLogoMap();
+    const standingsMap = await fetchStandingsMap();
+
     const results: ResultArray = expectedMatchups.map((m) => {
       const key = makeKey(m.away, m.home);
       if (key && eventWinnerMap.has(key)) return eventWinnerMap.get(key) ?? null;
       const reverseKey = makeKey(m.home, m.away);
       if (reverseKey && eventWinnerMap.has(reverseKey)) return eventWinnerMap.get(reverseKey) ?? null;
-
-      // fallback: try to find a rawMatchups entry that matches tokens loosely
       const found = rawMatchups.find((r) => {
         const a = (r.awayAbbr ?? r.awayTeam ?? "").toString().toUpperCase();
         const h = (r.homeAbbr ?? r.homeTeam ?? "").toString().toUpperCase();
@@ -139,7 +187,6 @@ export async function GET() {
       return null;
     });
 
-    // Build the matchups array to return (normalized and aligned)
     const matchups: Matchup[] = expectedMatchups.map((m) => {
       const match = rawMatchups.find((r) => {
         const aTokens = `${r.awayAbbr ?? r.awayTeam ?? ""}`.toUpperCase();
@@ -147,16 +194,34 @@ export async function GET() {
         return (aTokens.includes(m.away.toUpperCase()) && hTokens.includes(m.home.toUpperCase())) ||
                (aTokens.includes(m.home.toUpperCase()) && hTokens.includes(m.away.toUpperCase()));
       });
-      if (match) return match;
-      // fallback placeholder if not found
+
+      if (match) {
+        return {
+          ...match,
+          awayLogo: logoMap[match.awayAbbr ?? ""] ?? null,
+          homeLogo: logoMap[match.homeAbbr ?? ""] ?? null,
+          awayStanding: standingsMap[match.awayAbbr ?? ""] ?? null,
+          homeStanding: standingsMap[match.homeAbbr ?? ""] ?? null,
+        };
+      }
+
       return {
         eventId: null,
         awayTeam: m.away,
         homeTeam: m.home,
         awayAbbr: m.away,
         homeAbbr: m.home,
+        awayScore: null,
+        homeScore: null,
+        clock: null,
+        period: null,
+        detailedStatus: null,
         date: null,
         status: null,
+        awayLogo: logoMap[m.away] ?? null,
+        homeLogo: logoMap[m.home] ?? null,
+        awayStanding: standingsMap[m.away] ?? null,
+        homeStanding: standingsMap[m.home] ?? null,
       } as Matchup;
     });
 
