@@ -5,23 +5,41 @@ import jsPDF from "jspdf";
 import useScoreboard from "../api/scoreboard/useScoreboard"; // adjust path if needed
 import { Matchup } from "../types"; // adjust the path
 
-function formatGameStatus(m: Matchup) {
-  if (m?.isFinal) return "FINAL"
+export function formatGameStatus(m: Matchup | null) {
+  if (!m) return "";
 
-  if (
-    m?.period === 2 &&
-    (m?.clock === "0:00" || !m?.clock)
-  ) {
-    return "HALFTIME"
+  const detailed = (m.detailedStatus ?? "").toLowerCase();
+  const status = (m.status ?? "").toLowerCase();
+  const clock = (m.clock ?? "").trim();
+
+  const isFinal =
+    detailed.includes("final") ||
+    status.includes("final");
+
+  const isHalftime =
+    detailed.includes("halftime") ||
+    status.includes("halftime");
+  
+  // ✅ PreGame display 
+  if (m?.period === 0 ) return m?.gameTime ?? "PRE-GAME"
+
+  // ✅ FINAL overrides everything
+  if (isFinal) return "FINAL";
+
+  // ✅ HALFTIME overrides clock
+  if (isHalftime) return "HALFTIME";
+
+  // ✅ If Q4 and 0:00 → treat as FINAL
+  if (m.period === 4 && (clock === "0:00" || clock === "")) {
+    return "FINAL";
   }
 
-  if (m?.period === 0) return m?.gameTime ?? "PRE-GAME"
-
-  if (m?.period && m?.clock) {
-    return `Q${m.period} ${m.clock}`
+  // ✅ Normal in-game display
+  if (m.period != null && m.clock != null) {
+    return `Q${m.period} ${m.clock}`;
   }
 
-  return "—"
+  return m.status ?? "SCHEDULED";
 }
 
 
@@ -502,6 +520,11 @@ export default function PickemTracker() {
                   const ballOnText = m?.ballOn ?? null; // e.g. "DEN 35"
                   const lastPlayText = m?.lastPlayText ?? null;
 
+                  // use your helper to determine final/halftime/etc.
+                  const gameStatus = formatGameStatus(m);
+                  // hide the small clock/quarter/possession when FINAL or HALFTIME
+                  const showClock = gameStatus ? !/FINAL|HALFTIME/i.test(gameStatus) : false;
+
                   return (
                     <th key={idx} className="border p-3 text-center font-bold border-blue-00">
                       <div className="flex flex-col items-center justify-center gap-1 max-w-[140px]">
@@ -525,11 +548,11 @@ export default function PickemTracker() {
 
                         {/* Score */}
                         <div className="text-center text-lg font-bold text-whites">
-                          {numericScore}
-                        </div>                       
+                          {displayResult}
+                        </div>
 
                         {/* Live clock + quarter + possession (small) */}
-                        {(clockText || quarterText || possessionText) && (
+                        {showClock && (clockText || quarterText || possessionText) && (
                           <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2">
                             {clockText && <span className="font-mono">{clockText}</span>}
                             {quarterText && <span className="px-1 rounded bg-white/20 text-[11px]">{quarterText}</span>}
@@ -553,11 +576,10 @@ export default function PickemTracker() {
                           </div>
                         )}
 
-                        {/* Score / status */}
+                        {/* Score / status (uses helper; will show FINAL / HALFTIME / Q# mm:ss / SCHEDULED) */}
                         <div className="text-green-900 dark:text-green-400 text-base mt-1">
-                          {mounted && matchups && matchups[idx] ? formatGameStatus(matchups[idx] as Matchup) : "—"}
+                          {mounted && matchups && matchups[idx] ? gameStatus : "—"}
                         </div>
-
                       </div>
                     </th>
                   );
