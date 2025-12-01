@@ -19,7 +19,7 @@ const expectedMatchups = [
   { away: "MIN", home: "SEA" },
   { away: "BUF", home: "PIT" },
   { away: "LV", home: "LAC" },
-  { away: "DEN", home: "WAS" },
+  { away: "DEN", home: "WSH" },
   { away: "NYG", home: "NE" },
 ];
 
