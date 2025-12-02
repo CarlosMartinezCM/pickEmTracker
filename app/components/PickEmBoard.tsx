@@ -441,7 +441,7 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300">
-            🏆 {winners.map((p) => null).join(" ")}
+            🏆 Yolo {winners.map((p) => null).join(" ")}
           </div>
         )}
 
