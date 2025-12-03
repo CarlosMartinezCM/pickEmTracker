@@ -1,5 +1,6 @@
 // app/api/scoreboard/route.ts
-// Hard-coded weekly order for Week 13 (editorial pick-sheet order)
+// Hard-coded weekly order for Week 14
+//  (editorial pick-sheet order)
 
 import { NextResponse } from "next/server";
 // adjust the path to your types file if needed
@@ -7,23 +8,30 @@ import type { Matchup } from "../../types";
 
 type ResultArray = (string | null)[];
 
-// --------------------------- HARD-CODED expectedMatchups (Week 13) ---------------------------
+// --------------------------- HARD-CODED expectedMatchups (Week 14) ---------------------------("for week 15 ask, "make the Week 14 version" in the REVISIT chat ")
 // Replace this each week with the exact order you want shown on the site.
 const expectedMatchups: { away: string; home: string }[] = [
-  { away: "SF", home: "CLE" },
-  { away: "JAX", home: "TEN" },
-  { away: "HOU", home: "IND" },
-  { away: "NO", home: "MIA" },
-  { away: "ATL", home: "NYJ" },
-  { away: "ARI", home: "TB" },
-  { away: "LAR", home: "CAR" },
-  { away: "MIN", home: "SEA" },
-  { away: "BUF", home: "PIT" },
-  { away: "LV", home: "LAC" },
-  // Use ESPN's canonical abbreviation for Washington
-  { away: "DEN", home: "WSH" },
-  { away: "NYG", home: "NE" },
+  // Thursday, Dec 4
+  { away: "DAL", home: "DET" },
+
+  // Sunday, Dec 7
+  { away: "SEA", home: "ATL" },
+  { away: "TEN", home: "CLE" },
+  { away: "CHI", home: "GB" },
+  { away: "WAS", home: "MIN" },
+  { away: "MIA", home: "NYJ" },
+  { away: "NO",  home: "TB" },
+  { away: "IND", home: "JAX" },
+  { away: "PIT", home: "BAL" },
+  { away: "DEN", home: "LV" },
+  { away: "CIN", home: "BUF" },
+  { away: "LAR", home: "ARI" },
+  { away: "HOU", home: "KC" },
+
+  // Monday, Dec 8
+  { away: "PHI", home: "LAC" },
 ];
+
 
 // ----- Small abbreviation alias map (editorial -> ESPN canonical) -----
 const ABBR_ALIASES: Record<string, string> = {

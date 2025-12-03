@@ -51,19 +51,12 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // fallback static confirmed results (used while scoreboard loads or on error)
 const confirmedResults: (string | null)[] = [];
 
-// Week 13 players (Picks Final Sunday Morning)
+// Week 14 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["SF", "JAX", "IND", "MIA", "ATL", "ARI", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 55 },
-  { name: "Edgar B", picks: ["SF", "JAX", "HOU", "MIA", "NYJ", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NYG"], tiebreaker: 40 },
-  { name: "Yolo", picks: ["SF", "JAX", "HOU", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 44 },
-  { name: "Evan", picks: ["CLE", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "PIT", "LAC", "WAS", "NE"], tiebreaker: 47 },
-  { name: "Oso", picks: ["CLE", "JAX", "HOU", "MIA", "ATL", "TB", "CAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 53 },
-  { name: "Nik", picks: ["SF", "JAX", "HOU", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 43 },
-  { name: "Sebastian", picks: ["SF", "JAX", "IND", "MIA", "NYJ", "TB", "LAR", "SEA", "PIT", "LAC", "DEN", "NE"], tiebreaker: 51 },
-  { name: "Adrian", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "PIT", "LAC", "DEN", "NE"], tiebreaker: 36 },
-  { name: "Fay", picks: ["SF", "JAX", "IND", "MIA", "NYJ", "TB", "LAR", "SEA", "PIT", "LV", "DEN", "NE"], tiebreaker: 48 },
-  { name: "Rios", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "WAS", "NE"], tiebreaker: 52 },
-  { name: "Bobby", picks: ["SF", "JAX", "IND", "MIA", "ATL", "TB", "LAR", "SEA", "BUF", "LAC", "DEN", "NE"], tiebreaker: 43 },
+  { name: "Carlos Comish", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Nik", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Edgar B", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Yolo", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
 ];
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -432,7 +425,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          WEEK 13
+          WEEK 14
         </h1>
 
         {/* Number of players */}
@@ -455,7 +448,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 13 matchup results
+          Week 14 matchup results
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">

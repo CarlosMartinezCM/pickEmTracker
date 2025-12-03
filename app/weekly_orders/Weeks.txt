@@ -1,5 +1,27 @@
 
 
+const expectedMatchups: { away: string; home: string }[] = [
+  // Thursday, Dec 4
+  { away: "DAL", home: "DET" },
+
+  // Sunday, Dec 7
+  { away: "SEA", home: "ATL" },
+  { away: "TEN", home: "CLE" },
+  { away: "CHI", home: "GB" },
+  { away: "WAS", home: "MIN" },
+  { away: "MIA", home: "NYJ" },
+  { away: "NO",  home: "TB" },
+  { away: "IND", home: "JAX" },
+  { away: "PIT", home: "BAL" },
+  { away: "DEN", home: "LV" },
+  { away: "CIN", home: "BUF" },
+  { away: "LAR", home: "ARI" },
+  { away: "HOU", home: "KC" },
+
+  // Monday, Dec 8
+  { away: "PHI", home: "LAC" },
+];
+
 
 // --------------------------- HARD-CODED expectedMatchups (Week 13) ---------------------------
 const expectedMatchupsOrder = [
