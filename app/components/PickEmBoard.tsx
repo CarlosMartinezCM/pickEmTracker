@@ -42,7 +42,6 @@ export function formatGameStatus(m: Matchup | null) {
   return m.status ?? "SCHEDULED";
 }
 
-
 // Types
 type Player = { name: string; picks: string[]; tiebreaker: number };
 type Result = { [gameIndex: number]: string };
@@ -53,11 +52,18 @@ const confirmedResults: (string | null)[] = [];
 
 // Week 14 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+ { name: "Carlos Comish", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
 { name: "Nik", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
 { name: "Edgar B", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
 { name: "Yolo", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+{ name: "Eric Rodriguez", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
+
 ];
+
+/*
+
+*/
+
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
   let correct = 0,
@@ -434,7 +440,7 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300">
-            🏆 Yolo {winners.map((p) => null).join(" ")}
+            🏆 {winners.map((p) => null).join(" ")}
           </div>
         )}
 
