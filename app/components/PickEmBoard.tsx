@@ -19,9 +19,9 @@ export function formatGameStatus(m: Matchup | null) {
   const isHalftime =
     detailed.includes("halftime") ||
     status.includes("halftime");
-  
+
   // ✅ PreGame display 
-  if (m?.period === 0 ) return m?.gameTime ?? "PRE-GAME"
+  if (m?.period === 0) return m?.gameTime ?? "PRE-GAME"
 
   // ✅ FINAL overrides everything
   if (isFinal) return "FINAL";
@@ -52,17 +52,21 @@ const confirmedResults: (string | null)[] = [];
 
 // Week 14 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
- { name: "Carlos Comish", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
-{ name: "Nik", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
-{ name: "Edgar B", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
-{ name: "Yolo", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
-{ name: "Eric Rodriguez", picks: ["-","-","-","-","-","-","-","-","-","-","-","-","-","-"], tiebreaker: 0 },
-
+  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Edgar B", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Eric Rodriguez", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Rios", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
 
-/*
+// Example previous winners — replace with real source if you have one
+const previousWinners = [
+  //{ week: 12, winner: "test" },
+  { week: 13, winner: "Thanksgiving Games: Fay" },
+  { week: 13.1, winner: "Yolo" },
+];
 
-*/
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -635,8 +639,33 @@ export default function PickemTracker() {
         <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
         <button onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">📸 Save as PDF</button>
       </div>
+
+      {/* Centered Previous Winners Box */}
+      <div className="w-full flex justify-center mt-6">
+        <div className="w-150 bg-white/10 dark:bg-black/20 rounded-md p-3 text-sm text-gray-800 dark:text-gray-100 shadow-inner">
+          <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
+          Previous weeks Winners!
+        </h1>
+        <h2 className="text-center font-bold mb-6 dark:text-red-600">
+                  Currently working on adding the full history of previous week’s winners and matchups!</h2>
+          <div className="space-y-2">
+            {previousWinners.map((p, idx) => (
+              <div
+                key={`pw-${p.week}-${idx}`}
+                className="flex justify-between text-[14px]">
+                <span className="text-gray-600 dark:text-gray-300">
+                  Week {p.week} Winner:
+                </span>
+                <span className="text-xl font-semibold text-green-300 dark:text-green-600 ml-2">
+                  {p.winner}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
+
   );
 
 }
-
