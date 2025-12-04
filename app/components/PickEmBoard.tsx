@@ -58,13 +58,86 @@ const initialPlayers: Player[] = [
   { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Eric Rodriguez", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Rios", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Fay", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Oso", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Castro", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Sumo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Erick Escobar", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
+
+/*
+{ 
+  name: "Carlos Comish", 
+  picks: ["DET","SEA","CLE","CHI","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
+  tiebreaker: 42 
+},
+{ 
+  name: "Nik", 
+  picks: ["DAL","SEA","CLE","CHI","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
+  tiebreaker: 44 
+},
+{ 
+  name: "Edgar B", 
+  picks: ["DAL","SEA","CLE","GB","MIN","MIA","TB","JAX","BAL","DEN","BUF","LAR","KC","PHI"], 
+  tiebreaker: 47 
+},
+{ 
+  name: "Yolo", 
+  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
+  tiebreaker: 44 
+},
+{ 
+  name: "Eric Rodriguez", 
+  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","HOU","PHI"], 
+  tiebreaker: 48 
+},
+{ 
+  name: "Rios", 
+  picks: ["DET","SEA","CLE","GB","MIN","NYJ","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
+  tiebreaker: 52 
+},
+{ 
+  name: "Fay", 
+  picks: ["DAL","SEA","TEN","CHI","WAS","NYJ","TB","IND","PIT","LV","BUF","LAR","KC","PHI"], 
+  tiebreaker: 48 
+},
+{ 
+  name: "Oso", 
+  picks: ["DET","SEA","CLE","GB","MIN","NYJ","TB","IND","PIT","DEN","CIN","LAR","HOU","LAC"], 
+  tiebreaker: 53 
+},
+
+{ 
+  name: "Castro", 
+  picks: ["DAL","SEA","CLE","CHI","WAS","NYJ","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
+  tiebreaker: 49 
+},
+{ 
+  name: "J El De La R", 
+  picks: ["DET","SEA","CLE","GB","MIN","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
+  tiebreaker: 50 
+},
+{ 
+  name: "Sumo", 
+  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","JAX","BAL","DEN","BUF","LAR","HOU","LAC"], 
+  tiebreaker: 44 
+},
+
+{ name: "Erick Escobar", picks: ["DET","SEA","CLE","GB","WAS","MIA","TB","JAX","BAL","DEN","CIN","LAR","KC","LAC"], tiebreaker: 43 },
+
+{ name: "Bobby", picks: ["DET","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], tiebreaker: 45 },
+
+
+*/
 
 // Example previous winners — replace with real source if you have one
 const previousWinners = [
-  //{ week: 12, winner: "test" },
-  { week: 13, winner: "Thanksgiving Games: Fay" },
   { week: 13.1, winner: "Yolo" },
+  { week: 13, winner: "Thanksgiving Games: Fay" },
+
+  //{ week: 12, winner: "test" },
 ];
 
 
@@ -644,10 +717,10 @@ export default function PickemTracker() {
       <div className="w-full flex justify-center mt-6">
         <div className="w-150 bg-white/10 dark:bg-black/20 rounded-md p-3 text-sm text-gray-800 dark:text-gray-100 shadow-inner">
           <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Previous weeks Winners!
-        </h1>
-        <h2 className="text-center font-bold mb-6 dark:text-red-600">
-                  Currently working on adding the full history of previous week’s winners and matchups!</h2>
+            Previous weeks Winners!
+          </h1>
+          <h2 className="text-center font-bold mb-6 dark:text-red-600">
+            Currently working on adding the full history of previous week’s winners and matchups!</h2>
           <div className="space-y-2">
             {previousWinners.map((p, idx) => (
               <div
