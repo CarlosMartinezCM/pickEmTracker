@@ -115,77 +115,23 @@ const initialPlayers: Player[] = [
 
 ];
 
-/*
-{ 
-  name: "Carlos Comish", 
-  picks: ["DET","SEA","CLE","CHI","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 42 
-},
-{ 
-  name: "Nik", 
-  picks: ["DAL","SEA","CLE","CHI","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 44 
-},
-{ 
-  name: "Edgar B", 
-  picks: ["DAL","SEA","CLE","GB","MIN","MIA","TB","JAX","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 47 
-},
-{ 
-  name: "Yolo", 
-  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 44 
-},
-{ 
-  name: "Eric Rodriguez", 
-  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","HOU","PHI"], 
-  tiebreaker: 48 
-},
-{ 
-  name: "Rios", 
-  picks: ["DET","SEA","CLE","GB","MIN","NYJ","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 52 
-},
-{ 
-  name: "Fay", 
-  picks: ["DAL","SEA","TEN","CHI","WAS","NYJ","TB","IND","PIT","LV","BUF","LAR","KC","PHI"], 
-  tiebreaker: 48 
-},
-{ 
-  name: "Oso", 
-  picks: ["DET","SEA","CLE","GB","MIN","NYJ","TB","IND","PIT","DEN","CIN","LAR","HOU","LAC"], 
-  tiebreaker: 53 
-},
-
-{ 
-  name: "Castro", 
-  picks: ["DAL","SEA","CLE","CHI","WAS","NYJ","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 49 
-},
-{ 
-  name: "J El De La R", 
-  picks: ["DET","SEA","CLE","GB","MIN","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 50 
-},
-{ 
-  name: "Sumo", 
-  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","JAX","BAL","DEN","BUF","LAR","HOU","LAC"], 
-  tiebreaker: 44 
-},
-
-{ name: "Erick Escobar", picks: ["DET","SEA","CLE","GB","WAS","MIA","TB","JAX","BAL","DEN","CIN","LAR","KC","LAC"], tiebreaker: 43 },
-
-{ name: "Bobby", picks: ["DET","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], tiebreaker: 45 },
-
-
-*/
-
 // Example previous winners — replace with real source if you have one
 const previousWinners = [
+  { week: 14, winner: "Sumo" },
   { week: 13.1, winner: "Yolo" },
   { week: 13, winner: "Thanksgiving Games: Fay" },
-
-  //{ week: 12, winner: "test" },
+  { week: 12, winner: "Yolo" },
+  { week: 11, winner: "Candon" },  
+  { week: 10, winner: "Javier" },
+  { week: 9, winner: "Oso" },
+  { week: 8, winner: "Maverick" },
+  { week: 7, winner: "Dennis" },  
+  { week: 6, winner: "Edgar" },
+  { week: 5, winner: "Candon" },  
+  { week: 4, winner: "Bobby" },
+  { week: 3, winner: "Edgar" },
+  { week: 2, winner: "Erick Escobar" },
+  { week: 1, winner: "Candon" },  
 ];
 
 
@@ -564,8 +510,8 @@ export default function PickemTracker() {
 
         {/* Winner */}
         {winners.length > 0 && (
-          <div className="text-center mt-4 text-xl font-bold text-yellow-700 dark:text-green-300">
-            🏆 {winners.map((p) =>name.p).join(" ")}
+          <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
+            🏆 {winners.map((p) =>p.name).join(" ")}
           </div>
         )}
 
@@ -763,21 +709,19 @@ export default function PickemTracker() {
 
       {/* Centered Previous Winners Box */}
       <div className="w-full flex justify-center mt-6">
-        <div className="w-150 bg-white/10 dark:bg-black/20 rounded-md p-3 text-sm text-gray-800 dark:text-gray-100 shadow-inner">
+        <div className="w-175 bg-white/10 dark:bg-black/20 rounded-md p-3 text-sm text-gray-800 dark:text-gray-100 shadow-inner">
           <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
             Previous weeks Winners!
           </h1>
-          <h2 className="text-center font-bold mb-6 dark:text-red-600">
-            Currently working on adding the full history of previous week’s winners and matchups!</h2>
           <div className="space-y-2">
             {previousWinners.map((p, idx) => (
               <div
                 key={`pw-${p.week}-${idx}`}
                 className="flex justify-between text-[14px]">
-                <span className="text-gray-600 dark:text-gray-300">
-                  Week {p.week} Winner:
+                <span className="text-3xl text-gray-600 dark:text-gray-300">
+                  Week {p.week}
                 </span>
-                <span className="text-xl font-semibold text-green-300 dark:text-green-600 ml-2">
+                <span className="text-3xl font-semibold text-green-300 dark:text-green-600 ml-2">
                   {p.winner}
                 </span>
               </div>
