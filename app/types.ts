@@ -28,5 +28,5 @@ export type Matchup = {
     // ✅ NEW — add these
   isFinal?: boolean
   gameTime?: string
-  
+  winner?: string; 
 };

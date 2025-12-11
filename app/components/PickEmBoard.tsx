@@ -50,90 +50,17 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // fallback static confirmed results (used while scoreboard loads or on error)
 const confirmedResults: (string | null)[] = [];
 
-// Week 14 players (Picks Final Sunday Morning)
+// Week 15 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
-  { 
-  name: "Carlos Comish", 
-  picks: ["DET","SEA","CLE","CHI","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 42 
-},
-{ 
-  name: "Nik", 
-  picks: ["DAL","SEA","CLE","CHI","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 44 
-},
-{ 
-  name: "Edgar B", 
-  picks: ["DAL","SEA","CLE","GB","MIN","MIA","TB","JAX","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 47 
-},
-{ 
-  name: "Yolo", 
-  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 44 
-},
-{ 
-  name: "Eric Rodriguez", 
-  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","HOU","PHI"], 
-  tiebreaker: 48 
-},
-{ 
-  name: "Rios", 
-  picks: ["DET","SEA","CLE","GB","MIN","NYJ","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 52 
-},
-{ 
-  name: "Fay", 
-  picks: ["DAL","SEA","TEN","CHI","WAS","NYJ","TB","IND","PIT","LV","BUF","LAR","KC","PHI"], 
-  tiebreaker: 48 
-},
-{ 
-  name: "Oso", 
-  picks: ["DET","SEA","CLE","GB","MIN","NYJ","TB","IND","PIT","DEN","CIN","LAR","HOU","LAC"], 
-  tiebreaker: 53 
-},
-
-{ 
-  name: "Castro", 
-  picks: ["DAL","SEA","CLE","CHI","WAS","NYJ","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 49 
-},
-{ 
-  name: "J El De La R", 
-  picks: ["DET","SEA","CLE","GB","MIN","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], 
-  tiebreaker: 50 
-},
-{ 
-  name: "Sumo", 
-  picks: ["DAL","SEA","CLE","GB","WAS","MIA","TB","JAX","BAL","DEN","BUF","LAR","HOU","LAC"], 
-  tiebreaker: 44 
-},
-
-{ name: "Erick Escobar", picks: ["DET","SEA","CLE","GB","WAS","MIA","TB","JAX","BAL","DEN","CIN","LAR","KC","LAC"], tiebreaker: 43 },
-
-{ name: "Bobby", picks: ["DET","SEA","CLE","GB","WAS","MIA","TB","IND","BAL","DEN","BUF","LAR","KC","PHI"], tiebreaker: 45 },
-
+  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Edgar B", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Oso", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+   { name: "Sumo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Fay", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
-
-// Example previous winners — replace with real source if you have one
-const previousWinners = [
-  { week: 14, winner: "Sumo" },
-  { week: 13.1, winner: "Yolo" },
-  { week: 13, winner: "Thanksgiving Games: Fay" },
-  { week: 12, winner: "Yolo" },
-  { week: 11, winner: "Candon" },  
-  { week: 10, winner: "Javier" },
-  { week: 9, winner: "Oso" },
-  { week: 8, winner: "Maverick" },
-  { week: 7, winner: "Dennis" },  
-  { week: 6, winner: "Edgar" },
-  { week: 5, winner: "Candon" },  
-  { week: 4, winner: "Bobby" },
-  { week: 3, winner: "Edgar" },
-  { week: 2, winner: "Erick Escobar" },
-  { week: 1, winner: "Candon" },  
-];
-
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -485,14 +412,21 @@ export default function PickemTracker() {
 
   return (
     <div id="leaderboard" className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">
-      <div className="flex justify-center my-2">
+      <div className="flex justify-center text-center space-x-4 mb-6">
         <a
           href="/all-matchups"
           className="px-4 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold"
         >
-          See All Matchups
+          NFL Games
+        </a>
+        <a
+          href="/pastWinners"
+          className="px-4 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-semibold"
+        >
+          Past Winners
         </a>
       </div>
+
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 drop-shadow-lg">
           🏈
@@ -502,7 +436,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          WEEK 14
+          WEEK 15
         </h1>
 
         {/* Number of players */}
@@ -511,7 +445,7 @@ export default function PickemTracker() {
         {/* Winner */}
         {winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {winners.map((p) =>p.name).join(" ")}
+            🏆 {winners.map((p) => null).join(" ")}
           </div>
         )}
 
@@ -525,7 +459,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 14 matchup results
+          Week 15 matchup results
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
@@ -560,68 +494,83 @@ export default function PickemTracker() {
 
         {/* Pick'ems Table */}
         <div className="overflow-x-auto mt-4">
-          <table className="min-w-full border-separate border-spacing-0 text-[10px]">
+          <table className="max-w-full border-separate border-spacing-0 text-[10px]">
+
             <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-700 text-white">
               <tr>
+                {/* Rank # */}
                 <th className="border-b-2 border-white-800 p-3 text-center text-base border-blue-300">#</th>
+
+                {/* Player */}
                 <th className="border p-3 text-base text-center font-bold border-blue-400">Player</th>
 
+                {/* Matchup columns */}
                 {Array.from({ length: gameCount }).map((_, idx) => {
                   const m = mounted && matchups ? (matchups[idx] as Matchup) : null;
 
-                  // compute numeric score from matchups when available
                   const awayScorePresent = typeof m?.awayScore === "number";
                   const homeScorePresent = typeof m?.homeScore === "number";
                   const numericScore = (awayScorePresent || homeScorePresent)
                     ? `${awayScorePresent ? m!.awayScore : "-"} - ${homeScorePresent ? m!.homeScore : "-"}`
                     : null;
 
-                  // fallback to winner abbreviation if no numeric score
                   const fallbackResult = mounted && scoreboardResults ? scoreboardResults[idx] ?? null : null;
                   const displayResult = numericScore ?? fallbackResult ?? "—";
 
-                  // prepare situation strings
-                  const clockText = m?.clock ?? null;
-                  const quarterText = m?.period != null ? `Q${m.period}` : null;
-                  const possessionText = m?.possession ?? null; // abbrev, e.g. "DEN"
-                  const downText = m?.down != null ? `${m.down}rd` /* basic */ : null; // keep simple
-                  const yardsToGoText = m?.yardsToGo != null ? `${m.yardsToGo}` : null;
-                  const downDistanceText = m?.down != null && m?.yardsToGo != null ? `${m.down} & ${m.yardsToGo}` : null;
-                  const ballOnText = m?.ballOn ?? null; // e.g. "DEN 35"
-                  const lastPlayText = m?.lastPlayText ?? null;
+                  const winner = scoreboardResults ? scoreboardResults[idx] : null;
 
-                  // use your helper to determine final/halftime/etc.
+                  // Decide winner logo
+                  let winnerLogo: string | null = null;
+                  if (winner && m) {
+                    if (winner === m.awayAbbr || winner === m.awayTeam) winnerLogo = m.awayLogo ?? null;
+                    else if (winner === m.homeAbbr || winner === m.homeTeam) winnerLogo = m.homeLogo ?? null;
+                  }
+
                   const gameStatus = formatGameStatus(m);
-                  // hide the small clock/quarter/possession when FINAL or HALFTIME
                   const showClock = gameStatus ? !/FINAL|HALFTIME/i.test(gameStatus) : false;
 
+                  // Small info
+                  const clockText = m?.clock ?? null;
+                  const quarterText = m?.period != null ? `Q${m.period}` : null;
+                  const possessionText = m?.possession ?? null;
+                  const downDistanceText = m?.down != null && m?.yardsToGo != null ? `${m.down} & ${m.yardsToGo}` : null;
+                  const ballOnText = m?.ballOn ?? null;
+                  const lastPlayText = m?.lastPlayText ?? null;
+
                   return (
-                    <th key={idx} className="border p-3 text-center font-bold border-blue-00">
-                      <div className="flex flex-col items-center justify-center gap-1 max-w-[140px]">
+                    <th key={idx} className="border p-2 text-center font-bold border-blue-00">
+                      <div className="flex flex-col items-center gap-1 max-w-[180px]"> {/* increased from 140px */}
+
                         {/* Logos + Team Names */}
                         <div className="flex items-center justify-center gap-1 w-full text-center">
                           {/* Away Team */}
-                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[60px] justify-end">
+                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-end"> {/* wider */}
                             {m?.awayLogo && <img src={m.awayLogo} alt={m.awayAbbr ?? "Away"} className="w-4 h-4 object-contain" />}
-                            <span className="truncate">{m?.awayAbbr ?? m?.awayTeam ?? "—"}</span>
+                            <span className="truncate text-xs">{m?.awayAbbr ?? m?.awayTeam ?? "—"}</span>
                           </div>
 
                           {/* @ symbol */}
-                          <span className="mx-1 text-sm flex-shrink-0">@</span>
+                          <span className="mx-1 text-xs flex-shrink-0">@</span>
 
                           {/* Home Team */}
-                          <div className="flex items-center gap-0.5 min-w-[40px] max-w-[60px] justify-start">
+                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-start"> {/* wider */}
                             {m?.homeLogo && <img src={m.homeLogo} alt={m.homeAbbr ?? "Home"} className="w-4 h-4 object-contain" />}
-                            <span className="truncate">{m?.homeAbbr ?? m?.homeTeam ?? "—"}</span>
+                            <span className="truncate text-xs">{m?.homeAbbr ?? m?.homeTeam ?? "—"}</span>
                           </div>
                         </div>
 
                         {/* Score */}
-                        <div className="text-center text-lg font-bold text-whites">
-                          {displayResult}
-                        </div>
+                        <div className="text-center text-sm font-bold text-whites">{displayResult}</div>
 
-                        {/* Live clock + quarter + possession (small) */}
+                        {/* Winner box under score */}
+                        {winner && (
+                          <div className="flex items-center gap-1 mt-1 px-2 py-0.5 text-green-900 dark:text-green-400 rounded border text-xs">
+                            {winnerLogo && <img src={winnerLogo} alt={winner} className="w-4 h-4 object-contain" />}
+                            <span>{winner}</span>
+                          </div>
+                        )}
+
+                        {/* Live clock / quarter / possession */}
                         {showClock && (clockText || quarterText || possessionText) && (
                           <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2">
                             {clockText && <span className="font-mono">{clockText}</span>}
@@ -634,31 +583,30 @@ export default function PickemTracker() {
                         {(downDistanceText || ballOnText) && (
                           <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-2">
                             {downDistanceText && <span>{downDistanceText}</span>}
-                            {yardsToGoText && !downDistanceText && <span>{yardsToGoText} to go</span>}
+                            {!downDistanceText && m?.yardsToGo != null && <span>{m.yardsToGo} to go</span>}
                             {ballOnText && <span>• {ballOnText}</span>}
                           </div>
                         )}
 
-                        {/* last play short text */}
+                        {/* Last play text */}
                         {lastPlayText && (
-                          <div className="text-[10px] italic text-gray-500 truncate w-full">
-                            {lastPlayText}
-                          </div>
+                          <div className="text-[10px] italic text-gray-500 truncate w-full">{lastPlayText}</div>
                         )}
 
-                        {/* Score / status (uses helper; will show FINAL / HALFTIME / Q# mm:ss / SCHEDULED) */}
-                        <div className="text-green-900 dark:text-green-400 text-base mt-1">
+                        {/* Game status */}
+                        <div className="text-green-900 dark:text-green-400 text-sm mt-1">
                           {mounted && matchups && matchups[idx] ? gameStatus : "—"}
                         </div>
                       </div>
                     </th>
+
                   );
                 })}
 
-
-                <th className="border p-3 text-xsm text-center font-bold border-blue-300">✅ Correct</th>
-                <th className="border p-3 text-xsm text-center font-bold border-blue-300">❌ Wrong</th>
-                <th className="border p-3 text-xsm text-center font-bold border-blue-300">🎯 TieBreaker</th>
+                {/* Correct / Wrong / TieBreaker headers */}
+                <th className="border p-2 text-center font-bold text-xs border-blue-300">✅ Correct</th>
+                <th className="border p-2 text-center font-bold text-xs border-blue-300">❌ Wrong</th>
+                <th className="border p-2 text-center font-bold text-xs border-blue-300">🎯 TieBreaker</th>
               </tr>
             </thead>
 
@@ -705,29 +653,6 @@ export default function PickemTracker() {
       <div className="flex justify-center gap-3 my-4">
         <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
         <button onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">📸 Save as PDF</button>
-      </div>
-
-      {/* Centered Previous Winners Box */}
-      <div className="w-full flex justify-center mt-6">
-        <div className="w-175 bg-white/10 dark:bg-black/20 rounded-md p-3 text-sm text-gray-800 dark:text-gray-100 shadow-inner">
-          <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-            Previous weeks Winners!
-          </h1>
-          <div className="space-y-2">
-            {previousWinners.map((p, idx) => (
-              <div
-                key={`pw-${p.week}-${idx}`}
-                className="flex justify-between text-[14px]">
-                <span className="text-3xl text-gray-600 dark:text-gray-300">
-                  Week {p.week}
-                </span>
-                <span className="text-3xl font-semibold text-green-300 dark:text-green-600 ml-2">
-                  {p.winner}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
 

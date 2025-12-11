@@ -11,27 +11,28 @@ type ResultArray = (string | null)[];
 // --------------------------- HARD-CODED expectedMatchups (Week 14) ---------------------------("for week 15 ask, "make the Week 14 version" in the REVISIT chat ")
 // Replace this each week with the exact order you want shown on the site.
 const expectedMatchups: { away: string; home: string }[] = [
-  // Thursday, Dec 4
-  { away: "DAL", home: "DET" },
+  // Thursday, Dec 11
+  { away: "ATL", home: "TB" },
 
-  // Sunday, Dec 7
-  { away: "SEA", home: "ATL" },
-  { away: "TEN", home: "CLE" },
-  { away: "CHI", home: "GB" },
-  { away: "WAS", home: "MIN" },
-  { away: "MIA", home: "NYJ" },
-  { away: "NO",  home: "TB" },
-  { away: "IND", home: "JAX" },
-  { away: "PIT", home: "BAL" },
-  { away: "DEN", home: "LV" },
-  { away: "CIN", home: "BUF" },
-  { away: "LAR", home: "ARI" },
-  { away: "HOU", home: "KC" },
+  // Sunday, Dec 14
+  { away: "CLE", home: "CHI" },
+  { away: "BAL", home: "CIN" },
+  { away: "LAC", home: "KC" },
+  { away: "BUF", home: "NE" },
+  { away: "WAS", home: "NYG" },
+  { away: "LV",  home: "PHI" },
+  { away: "NYJ", home: "JAX" },
+  { away: "ARI", home: "HOU" },
+  { away: "GB",  home: "DEN" },
+  { away: "DET", home: "LAR" },
+  { away: "CAR", home: "NO" },
+  { away: "TEN", home: "SF" },
+  { away: "IND", home: "SEA" },
+  { away: "MIN", home: "DAL" },
 
-  // Monday, Dec 8
-  { away: "PHI", home: "LAC" },
+  // Monday, Dec 15
+  { away: "MIA", home: "PIT" },
 ];
-
 
 // ----- Small abbreviation alias map (editorial -> ESPN canonical) -----
 const ABBR_ALIASES: Record<string, string> = {

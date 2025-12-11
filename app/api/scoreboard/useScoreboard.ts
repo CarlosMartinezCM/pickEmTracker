@@ -20,6 +20,7 @@ type Matchup = {
   detailedStatus: string | null;
   date: string | null;
   status: string | null;
+  winner?: string; // <--- add this
 };
 
 type ScoreboardResponse = {
