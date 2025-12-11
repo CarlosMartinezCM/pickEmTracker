@@ -65,7 +65,29 @@ const initialPlayers: Player[] = [
   { name: "Dennis", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Candon", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Danny", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
+
+/*
+// Week 15 players (Picks Final Sunday Morning)
+const initialPlayers: Player[] = [
+  { name: "Carlos Comish", picks: ["TB","CHI","CIN","KC","NE","WAS","PHI","JAX","HOU","GB","DET","CAR","SF","SEA","DAL","PIT"], tiebreaker: 39 },
+  { name: "Nik", picks: ["TB","CHI","CIN","KC","NE","WAS","PHI","JAX","HOU","GB","LAR","CAR","SF","SEA","DAL","PIT"], tiebreaker: 37 },
+  { name: "J El De La R", picks: ["TB","CHI","BAL","KC","NE","NYG","PHI","JAX","HOU","GB","LAR","CAR","SF","SEA","DAL","PIT"], tiebreaker: 45 },
+  { name: "Edgar B", picks: ["TB","CLE","BAL","KC","BUF","WAS","PHI","JAX","HOU","GB","LAR","NO","SF","SEA","DAL","MIA"], tiebreaker: 45 },
+  { name: "Yolo", picks: ["TB","CHI","CIN","KC","NE","NYG","PHI","JAX","HOU","GB","DET","CAR","SF","SEA","DAL","PIT"], tiebreaker: 44 },
+  { name: "Oso", picks: ["ATL","CLE","CIN","LAC","BUF","NYG","PHI","JAX","HOU","GB","DET","CAR","SF","SEA","MIN","PIT"], tiebreaker: 53 },
+  { name: "Sumo", picks: ["TB","CHI","CIN","KC","BUF","NYG","PHI","JAX","HOU","GB","DET","CAR","SF","SEA","DAL","PIT"], tiebreaker: 49 },
+  { name: "Fay", picks: ["TB","CHI","BAL","KC","BUF","NYG","PHI","JAX","HOU","GB","DET","NO","SF","SEA","DAL","PIT"], tiebreaker: 48 },
+  { name: "Rios", picks: ["TB","CHI","BAL","KC","BUF","NYG","PHI","JAX","HOU","GB","DET","CAR","SF","IND","DAL","PIT"], tiebreaker: 45 },
+  { name: "Erick Escobar", picks: ["TB","CHI","CIN","LAC","NE","NYG","PHI","JAX","HOU","GB","DET","CAR","SF","SEA","DAL","PIT"], tiebreaker: 42 },
+  { name: "Dennis", picks: ["TB","CHI","CIN","KC","BUF","NYG","PHI","JAX","HOU","DEN","LAR","CAR","SF","SEA","DAL","PIT"], tiebreaker: 50 },
+  { name: "Candon", picks: ["TB","CHI","BAL","LAC","BUF","NYG","PHI","JAX","HOU","GB","LAR","NO","SF","SEA","DAL","PIT"], tiebreaker: 48 },
+  { name: "Bobby", picks: ["TB","CHI","BAL","KC","BUF","NYG","PHI","JAX","HOU","GB","LAR","CAR","SF","SEA","DAL","PIT"], tiebreaker: 41 },
+  { name: "Danny", picks: ["TB","CHI","CIN","KC","NE","NYG","PHI","JAX","HOU","DEN","DET","CAR","SF","SEA","DAL","PIT"], tiebreaker: 54 },
+];
+
+*/
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
