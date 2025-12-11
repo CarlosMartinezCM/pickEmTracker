@@ -140,12 +140,6 @@ export default function WinnerDetailPage() {
               }}
             />
           </div>
-
-          <div className="mt-4 text-xs text-gray-500 max-w-xl text-center">
-            <div>Attempted candidate URLs (check browser console for full list):</div>
-            <pre className="text-left bg-black/5 dark:bg-white/5 p-2 rounded text-[11px] mt-2">{tried.join("\n")}</pre>
-            <p className="mt-2">If none of these load on the deployed site, check that the files exist in <code>public/images</code> and are committed to git (and that casing matches exactly).</p>
-          </div>
         </>
       ) : (
         <p className="text-xl text-gray-700">Winner not found for week {week}.</p>
