@@ -50,6 +50,7 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // fallback static confirmed results (used while scoreboard loads or on error)
 const confirmedResults: (string | null)[] = [];
 
+/*
 // Week 15 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
   { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
@@ -67,8 +68,8 @@ const initialPlayers: Player[] = [
   { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Danny", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
+*/
 
-/*
 // Week 15 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
   { name: "Carlos Comish", picks: ["TB","CHI","CIN","KC","NE","WAS","PHI","JAX","HOU","GB","DET","CAR","SF","SEA","DAL","PIT"], tiebreaker: 39 },
@@ -87,7 +88,7 @@ const initialPlayers: Player[] = [
   { name: "Danny", picks: ["TB","CHI","CIN","KC","NE","NYG","PHI","JAX","HOU","DEN","DET","CAR","SF","SEA","DAL","PIT"], tiebreaker: 54 },
 ];
 
-*/
+
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
