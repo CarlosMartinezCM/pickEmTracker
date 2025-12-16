@@ -6,6 +6,7 @@ import Link from "next/link";
 type PreviousWinner = { week: number; winner: string };
 
 const previousWinners: PreviousWinner[] = [
+  { week: 15, winner: "Candon" },
   { week: 14, winner: "Sumo" },
   { week: 13.1, winner: "Yolo" },
   { week: 13, winner: "Thanksgiving_Games_Fay" },
