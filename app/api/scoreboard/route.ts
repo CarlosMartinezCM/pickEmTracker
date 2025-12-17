@@ -9,32 +9,31 @@ import type { Matchup } from "../../types";
 
 type ResultArray = Array<string | null>;
 
-/* ------------------------------------------------------------------ */
-/* HARD-CODED MATCHUP ORDER (EDITORIAL FORMAT — Week 14) */
-/* ------------------------------------------------------------------ */
-
+// Week 16 expectedMatchups (NFL 2025)
 const expectedMatchups: { away: string; home: string }[] = [
-  // Thursday, Dec 11
-  { away: "ATL", home: "TB" },
+  // Thursday, Dec 18
+  { away: "LAR", home: "SEA" },
 
-  // Sunday, Dec 14
-  { away: "CLE", home: "CHI" },
-  { away: "BAL", home: "CIN" },
-  { away: "LAC", home: "KC" },
-  { away: "BUF", home: "NE" },
-  { away: "WAS", home: "NYG" },
-  { away: "LV", home: "PHI" },
-  { away: "NYJ", home: "JAX" },
-  { away: "ARI", home: "HOU" },
-  { away: "GB", home: "DEN" },
-  { away: "DET", home: "LAR" },
-  { away: "CAR", home: "NO" },
-  { away: "TEN", home: "SF" },
-  { away: "IND", home: "SEA" },
-  { away: "MIN", home: "DAL" },
+  // Saturday, Dec 20
+  { away: "GB",  home: "CHI" },
+  { away: "PHI", home: "WAS" },
 
-  // Monday, Dec 15
-  { away: "MIA", home: "PIT" },
+  // Sunday, Dec 21
+  { away: "TB",  home: "CAR" },
+  { away: "BUF", home: "CLE" },
+  { away: "LAC", home: "DAL" },
+  { away: "CIN", home: "MIA" },
+  { away: "NYJ", home: "NO" },
+  { away: "MIN", home: "NYG" },
+  { away: "KC",  home: "TEN" },
+  { away: "ATL", home: "ARI" },
+  { away: "JAX", home: "DEN" },
+  { away: "PIT", home: "DET" },
+  { away: "LV",  home: "HOU" },
+  { away: "NE",  home: "BAL" },
+
+  // Monday, Dec 22
+  { away: "SF",  home: "IND" },
 ];
 
 /* ------------------------------------------------------------------ */
