@@ -52,15 +52,119 @@ const confirmedResults: (string | null)[] = [];
 
 // Week 16 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+   {
+    name: "Carlos Comish",
+    picks: ["SEA","PHI","GB","BUF","LAC","KC","NO","MIN","CAR","CIN","JAX","ARI","DET","HOU","NE","IND"],
+    tiebreaker: 56,
+  },
+  {
+    name: "J El De La R",
+    picks: ["SEA","PHI","CHI","BUF","DAL","TEN","NYJ","MIN","CAR","CIN","DEN","ARI","DET","HOU","NE","IND"],
+    tiebreaker: 50,
+  },
+  {
+    name: "Rios",
+    picks: ["SEA","PHI","CHI","BUF","DAL","KC","NO","MIN","TB","CIN","JAX","ARI","DET","HOU","BAL","SF"],
+    tiebreaker: 52,
+  },
+  {
+    name: "Bobby",
+    picks: ["LAR","PHI","GB","BUF","LAC","TEN","NO","MIN","TB","CIN","DEN","ATL","DET","HOU","NE","SF"],
+    tiebreaker: 42,
+  },
+  {
+    name: "49rs",
+    picks: ["LAR","PHI","GB","BUF","DAL","KC","NO","MIN","TB","CIN","DEN","ATL","DET","HOU","BAL","SF"],
+    tiebreaker: 52,
+  },
+  {
+    name: "Fay",
+    picks: ["SEA","PHI","GB","BUF","DAL","TEN","NYJ","NYG","TB","MIA","DEN","ATL","PIT","LV","NE","SF"],
+    tiebreaker: 48,
+  },
+  {
+    name: "Candon",
+    picks: ["LAR","PHI","GB","BUF","LAC","TEN","NO","MIN","TB","CIN","DEN","ATL","DET","HOU","NE","SF"],
+    tiebreaker: 52,
+  },
+  {
+    name: "Sumo",
+    picks: ["SEA","PHI","GB","BUF","DAL","KC","NO","MIN","TB","CIN","JAX","ATL","DET","HOU","BAL","SF"],
+    tiebreaker: 38,
+  },
+  {
+    name: "Beto",
+    picks: ["SEA","PHI","CHI","BUF","DAL","TEN","NO","MIN","CAR","CIN","JAX","ATL","DET","HOU","BAL","IND"],
+    tiebreaker: 35,
+  },
+  {
+    name: "Edagr B",
+    picks: ["LAR","PHI","GB","BUF","DAL","KC","NO","MIN","TB","MIA","DEN","ATL","DET","HOU","BAL","SF"],
+    tiebreaker: 47,
+  },
+  {
+    name: "Sebastian",
+    picks: ["SEA","PHI","GB","BUF","DAL","KC","NYJ","MIN","TB","MIA","DEN","ARI","DET","HOU","NE","IND"],
+    tiebreaker: 38,
+  },
+  {
+    name: "Adrian",
+    picks: ["LAR","PHI","GB","BUF","DAL","KC","NYJ","NYG","TB","MIA","DEN","ARI","DET","HOU","NE","SF"],
+    tiebreaker: 28,
+  },
+  {
+    name: "Yolo",
+    picks: ["SEA","PHI","CHI","BUF","LAC","TEN","NYJ","NYG","CAR","CIN","DEN","ATL","DET","HOU","NE","SF"],
+    tiebreaker: 44,
+  },
+  {
+    name: "Oso",
+    picks: ["SEA","PHI","GB","BUF","LAC","TEN","NO","MIN","CAR","CIN","JAX","ATL","DET","HOU","NE","SF"],
+    tiebreaker: 53,
+  },
+  {
+    name: "Evan",
+    picks: ["SEA","PHI","GB","BUF","DAL","KC","NO","MIN","TB","CIN","DEN","ARI","DET","HOU","BAL","SF"],
+    tiebreaker: 41,
+  },
+  {
+    name: "Nik",
+    picks: ["SEA","PHI","CHI","BUF","DAL","TEN","NYJ","NYG","TB","CIN","DEN","ATL","DET","HOU","NE","SF"],
+    tiebreaker: 45,
+  },
+  {
+    name: "Javier",
+    picks: ["SEA","PHI","CHI","BUF","DAL","TEN","NO","MIN","CAR","CIN","JAX","ATL","DET","HOU","NE","SF"],
+    tiebreaker: 35,
+  },
+  {
+    name: "Erick Escobar",
+    picks: ["SEA","PHI","GB","BUF","LAC","TEN","NYJ","MIN","CAR","CIN","DEN","ARI","DET","HOU","NE","SF"],
+    tiebreaker: 42,
+  },
+];
+/**
+ const initialPlayers: Player[] = [
+ { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Rios", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "49rs", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Fay", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Candon", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Sumo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Beto", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Edgar B", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Sebastian", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Adrian", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Oso", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Evan", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Javier", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Erick Escobar", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
-
+ */
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
