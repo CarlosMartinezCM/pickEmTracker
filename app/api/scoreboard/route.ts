@@ -15,25 +15,27 @@ const expectedMatchups: { away: string; home: string }[] = [
   { away: "LAR", home: "SEA" },
 
   // Saturday, Dec 20
-  { away: "GB",  home: "CHI" },
   { away: "PHI", home: "WAS" },
+  { away: "GB",  home: "CHI" },
 
-  // Sunday, Dec 21
-  { away: "TB",  home: "CAR" },
+  // Sunday, Dec 21 — 1:00 pm
   { away: "BUF", home: "CLE" },
   { away: "LAC", home: "DAL" },
-  { away: "CIN", home: "MIA" },
+  { away: "KC",  home: "TEN" },
   { away: "NYJ", home: "NO" },
   { away: "MIN", home: "NYG" },
-  { away: "KC",  home: "TEN" },
-  { away: "ATL", home: "ARI" },
-  { away: "JAX", home: "DEN" },
-  { away: "PIT", home: "DET" },
-  { away: "LV",  home: "HOU" },
-  { away: "NE",  home: "BAL" },
+  { away: "TB",  home: "CAR" },
+  { away: "CIN", home: "MIA" },
+
+  // Sunday late window
+  { away: "JAX", home: "DEN" }, // 4:05
+  { away: "ATL", home: "ARI" }, // 4:05
+  { away: "PIT", home: "DET" }, // 4:25
+  { away: "LV",  home: "HOU" }, // 4:25
+  { away: "NE",  home: "BAL" }, // 8:20
 
   // Monday, Dec 22
-  { away: "SF",  home: "IND" },
+  { away: "SF",  home: "IND" }, // 8:15
 ];
 
 /* ------------------------------------------------------------------ */
