@@ -7,6 +7,7 @@ type PreviousWinner = {
 };
 
 const previousWinners: PreviousWinner[] = [
+  { week: 16, winner: "Oso_" },
   { week: 15, winner: "Candon" },
   { week: 14, winner: "Sumo" },
   { week: 13.1, winner: "Yolo" },
