@@ -6,23 +6,23 @@ import Link from "next/link";
 type PreviousWinner = { week: number; winner: string };
 
 const previousWinners: PreviousWinner[] = [
-  { week: 16, winner: "Oso_" },
-  { week: 15, winner: "Candon" },
-  { week: 14, winner: "Sumo" },
+  { week: 16, winner: "Oso_W9_2025" },
+  { week: 15, winner: "Candon_W15_2025" },
+  { week: 14, winner: "Sumo_W14_2025" },
   { week: 13.1, winner: "Yolo" },
   { week: 13, winner: "Thanksgiving_Games_Fay" },
-  { week: 12, winner: "Yolo" },
-  { week: 11, winner: "Candon" },
-  { week: 10, winner: "Javier" },
-  { week: 9, winner: "Oso" },
-  { week: 8, winner: "Maverick" },
-  { week: 7, winner: "Dennis" },
-  { week: 6, winner: "Edgar" },
-  { week: 5, winner: "Candon" },
-  { week: 4, winner: "Bobby" },
-  { week: 3, winner: "Edgar" },
-  { week: 2, winner: "Erick_Escobar" },
-  { week: 1, winner: "Candon" },
+  { week: 12, winner: "Yolo_W12_2025" },
+  { week: 11, winner: "Candon_W11_2025" },
+  { week: 10, winner: "Javier_W10_2025" },
+  { week: 9, winner: "Oso_W9_2025" },
+  { week: 8, winner: "Maverick_W8_2025" },
+  { week: 7, winner: "Dennis_W7_2025" },
+  { week: 6, winner: "EdgarB_W6_2025" },
+  { week: 5, winner: "Candon_W5_2025" },
+  { week: 4, winner: "Bobby_W4_2025" },
+  { week: 3, winner: "EdgarB_W3_2025" },
+  { week: 2, winner: "Erick_Escobar_W2_2025" },
+  { week: 1, winner: "Candon_W1_2025" },
 ];
 
 const TRY_EXT = [".png", ".jpg", ".jpeg", ".webp"];
