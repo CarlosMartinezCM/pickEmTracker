@@ -67,7 +67,7 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 // fallback static confirmed results (used while scoreboard loads or on error)
 const confirmedResults: (string | null)[] = [
 ];
-
+/**
 // Week 17 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
   { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
@@ -86,7 +86,7 @@ const initialPlayers: Player[] = [
   { name: "Jayden", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Aiden", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
-/** 
+ */
 
 // Week 17 players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
@@ -166,7 +166,7 @@ const initialPlayers: Player[] = [
     tiebreaker: 50,
   },
 ];
-*/
+
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
