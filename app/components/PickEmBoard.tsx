@@ -69,74 +69,104 @@ const confirmedResults: (string | null)[] = [
 ];
 
 // Week 17 players (Picks Final Sunday Morning)
-const initialPlayers: Player[] =  [
+const initialPlayers: Player[] = [
+  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Fay", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Sumo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Beto", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Oso", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Eric Rodriguez", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Rios", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Danny", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Adrian", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Javier", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Jayden", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Aiden", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+];
+/** 
+
+// Week 17 players (Picks Final Sunday Morning)
+const initialPlayers: Player[] = [
   {
     name: "Carlos Comish",
-    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","JAX","TB","CIN","NE","SEA","LV","PHI","CHI","LAR"],
+    picks: ["DAL", "DET", "DEN", "LAC", "GB", "PIT", "NO", "JAX", "TB", "CIN", "NE", "SEA", "LV", "PHI", "CHI", "LAR"],
     tiebreaker: 56,
   },
   {
     name: "J El De La R",
-    picks: ["DAL","MIN","DEN","LAC","GB","PIT","TEN","IND","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    picks: ["DAL", "MIN", "DEN", "LAC", "GB", "PIT", "TEN", "IND", "TB", "CIN", "NE", "SEA", "NYG", "BUF", "SF", "LAR"],
     tiebreaker: 48,
   },
   {
     name: "Nik",
-    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    picks: ["DAL", "DET", "DEN", "LAC", "GB", "PIT", "NO", "JAX", "TB", "CIN", "NE", "SEA", "NYG", "BUF", "SF", "LAR"],
     tiebreaker: 48,
   },
   {
     name: "Fay",
-    picks: ["DAL","DET","DEN","LAC","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","LV","PHI","CHI","ATL"],
+    picks: ["DAL", "DET", "DEN", "LAC", "GB", "PIT", "TEN", "JAX", "TB", "CIN", "NE", "SEA", "LV", "PHI", "CHI", "ATL"],
     tiebreaker: 48,
   },
   {
     name: "Sumo",
-    picks: ["DAL","DET","DEN","HOU","BAL","PIT","NO","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    picks: ["DAL", "DET", "DEN", "HOU", "BAL", "PIT", "NO", "JAX", "TB", "CIN", "NE", "SEA", "NYG", "BUF", "SF", "LAR"],
     tiebreaker: 49,
   },
   {
     name: "Beto",
-    picks: ["DAL","MIN","DEN","LAC","GB","PIT","TEN","JAX","MIA","CIN","NE","SEA","LV","PHI","SF","LAR"],
+    picks: ["DAL", "MIN", "DEN", "LAC", "GB", "PIT", "TEN", "JAX", "MIA", "CIN", "NE", "SEA", "LV", "PHI", "SF", "LAR"],
     tiebreaker: 50,
   },
   {
     name: "Oso",
-    picks: ["DAL","DET","DEN","LAC","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","NYG","BUF","CHI","LAR"],
+    picks: ["DAL", "DET", "DEN", "LAC", "GB", "PIT", "TEN", "JAX", "TB", "CIN", "NE", "SEA", "NYG", "BUF", "CHI", "LAR"],
     tiebreaker: 53,
   },
   {
     name: "Eric Rodriguez",
-    picks: ["DAL","DET","DEN","HOU","BAL","PIT","NO","JAX","TB","CIN","NE","SEA","LV","BUF","CHI","LAR"],
+    picks: ["DAL", "DET", "DEN", "HOU", "BAL", "PIT", "NO", "JAX", "TB", "CIN", "NE", "SEA", "LV", "BUF", "CHI", "LAR"],
     tiebreaker: 54,
   },
   {
     name: "Bobby",
-    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    picks: ["DAL", "DET", "DEN", "LAC", "GB", "PIT", "NO", "JAX", "TB", "CIN", "NE", "SEA", "NYG", "BUF", "SF", "LAR"],
     tiebreaker: 51,
   },
   {
     name: "Rios",
-    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","IND","TB","CIN","NE","SEA","NYG","PHI","SF","LAR"],
+    picks: ["DAL", "DET", "DEN", "LAC", "GB", "PIT", "NO", "IND", "TB", "CIN", "NE", "SEA", "NYG", "PHI", "SF", "LAR"],
     tiebreaker: 52,
   },
   {
     name: "Danny",
-    picks: ["DAL","DET","DEN","HOU","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    picks: ["DAL", "DET", "DEN", "HOU", "GB", "PIT", "TEN", "JAX", "TB", "CIN", "NE", "SEA", "NYG", "BUF", "SF", "LAR"],
     tiebreaker: 54,
   },
   {
     name: "Adrian",
-    picks: ["DAL","DET","DEN","HOU","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","NYG","BUF","CHI","LAR"],
+    picks: ["DAL", "DET", "DEN", "HOU", "GB", "PIT", "TEN", "JAX", "TB", "CIN", "NE", "SEA", "NYG", "BUF", "CHI", "LAR"],
     tiebreaker: 45,
   },
   {
     name: "Javier",
-    picks: ["DAL","DET","DEN","HOU","GB","PIT","NO","JAX","TB","CIN","NE","SEA","LV","BUF","SF","LAR"],
+    picks: ["DAL", "DET", "DEN", "HOU", "GB", "PIT", "NO", "JAX", "TB", "CIN", "NE", "SEA", "LV", "BUF", "SF", "LAR"],
     tiebreaker: 54,
   },
+  {
+    name: "Jayden",
+    picks: ["DAL", "DET", "DEN", "HOU", "GB", "CLE", "NO", "JAX", "TB", "CIN", "NE", "SEA", "LV", "PHI", "CHI", "LAR"],
+    tiebreaker: 53,
+  },
+  {
+    name: "Aiden",
+    picks: ["DAL", "DET", "DEN", "HOU", "BAL", "CLE", "NO", "JAX", "TB", "CIN", "NE", "SEA", "LV", "BUF", "SF", "LAR"],
+    tiebreaker: 50,
+  },
 ];
-
+*/
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
