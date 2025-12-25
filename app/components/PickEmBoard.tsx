@@ -42,6 +42,23 @@ export function formatGameStatus(m: Matchup | null) {
   return m.status ?? "SCHEDULED";
 }
 
+function kickoffToPT(dateString: string | null | undefined) {
+  if (!dateString) return "TBD";
+  try {
+    const d = new Date(dateString);
+    return d.toLocaleString("en-US", {
+      timeZone: "America/Los_Angeles",
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
+  } catch {
+    return "TBD";
+  }
+}
+
 // Types
 type Player = { name: string; picks: string[]; tiebreaker: number };
 type Result = { [gameIndex: number]: string };
@@ -52,13 +69,72 @@ const confirmedResults: (string | null)[] = [
 ];
 
 // Week 17 players (Picks Final Sunday Morning)
-const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Fay", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Sumo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Beto", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+const initialPlayers: Player[] =  [
+  {
+    name: "Carlos Comish",
+    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","JAX","TB","CIN","NE","SEA","LV","PHI","CHI","LAR"],
+    tiebreaker: 56,
+  },
+  {
+    name: "J El De La R",
+    picks: ["DAL","MIN","DEN","LAC","GB","PIT","TEN","IND","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    tiebreaker: 48,
+  },
+  {
+    name: "Nik",
+    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    tiebreaker: 48,
+  },
+  {
+    name: "Fay",
+    picks: ["DAL","DET","DEN","LAC","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","LV","PHI","CHI","ATL"],
+    tiebreaker: 48,
+  },
+  {
+    name: "Sumo",
+    picks: ["DAL","DET","DEN","HOU","BAL","PIT","NO","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    tiebreaker: 49,
+  },
+  {
+    name: "Beto",
+    picks: ["DAL","MIN","DEN","LAC","GB","PIT","TEN","JAX","MIA","CIN","NE","SEA","LV","PHI","SF","LAR"],
+    tiebreaker: 50,
+  },
+  {
+    name: "Oso",
+    picks: ["DAL","DET","DEN","LAC","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","NYG","BUF","CHI","LAR"],
+    tiebreaker: 53,
+  },
+  {
+    name: "Eric Rodriguez",
+    picks: ["DAL","DET","DEN","HOU","BAL","PIT","NO","JAX","TB","CIN","NE","SEA","LV","BUF","CHI","LAR"],
+    tiebreaker: 54,
+  },
+  {
+    name: "Bobby",
+    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    tiebreaker: 51,
+  },
+  {
+    name: "Rios",
+    picks: ["DAL","DET","DEN","LAC","GB","PIT","NO","IND","TB","CIN","NE","SEA","NYG","PHI","SF","LAR"],
+    tiebreaker: 52,
+  },
+  {
+    name: "Danny",
+    picks: ["DAL","DET","DEN","HOU","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","NYG","BUF","SF","LAR"],
+    tiebreaker: 54,
+  },
+  {
+    name: "Adrian",
+    picks: ["DAL","DET","DEN","HOU","GB","PIT","TEN","JAX","TB","CIN","NE","SEA","NYG","BUF","CHI","LAR"],
+    tiebreaker: 45,
+  },
+  {
+    name: "Javier",
+    picks: ["DAL","DET","DEN","HOU","GB","PIT","NO","JAX","TB","CIN","NE","SEA","LV","BUF","SF","LAR"],
+    tiebreaker: 54,
+  },
 ];
 
 
@@ -536,31 +612,42 @@ export default function PickemTracker() {
                   const downDistanceText = m?.down != null && m?.yardsToGo != null ? `${m.down} & ${m.yardsToGo}` : null;
                   const ballOnText = m?.ballOn ?? null;
                   const lastPlayText = m?.lastPlayText ?? null;
-
+                  //const gameStatus = formatGameStatus(m);
                   return (
                     <th key={idx} className="border p-2 text-center font-bold border-blue-00">
-                      <div className="flex flex-col items-center gap-1 max-w-[180px]"> {/* increased from 140px */}
+                      <div className="flex flex-col items-center gap-1 max-w-[180px]">
 
                         {/* Logos + Team Names */}
                         <div className="flex items-center justify-center gap-1 w-full text-center">
                           {/* Away Team */}
-                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-end"> {/* wider */}
+                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-end">
                             {m?.awayLogo && <img src={m.awayLogo} alt={m.awayAbbr ?? "Away"} className="w-4 h-4 object-contain" />}
                             <span className="truncate text-xs">{m?.awayAbbr ?? m?.awayTeam ?? "—"}</span>
                           </div>
 
-                          {/* @ symbol */}
                           <span className="mx-1 text-xs flex-shrink-0">@</span>
 
                           {/* Home Team */}
-                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-start"> {/* wider */}
+                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-start">
                             {m?.homeLogo && <img src={m.homeLogo} alt={m.homeAbbr ?? "Home"} className="w-4 h-4 object-contain" />}
                             <span className="truncate text-xs">{m?.homeAbbr ?? m?.homeTeam ?? "—"}</span>
                           </div>
                         </div>
 
-                        {/* Score */}
-                        <div className="text-center text-sm font-bold text-whites">{displayResult}</div>
+                        {/* Kickoff time (PRE-GAME only) */}
+                        {gameStatus === "PRE-GAME" && (
+                          <div className="text-[16px] text-blue-300 dark:text-blue-300 mt-1">
+                            {kickoffToPT(m?.date ?? null)}
+                          </div>
+                        )}
+
+                        {/* Score Revert BACK if error during games ***************************************************************/}
+                        {/* <div className="text-center text-sm font-bold text-whites">{displayResult}</div> */}
+                        {gameStatus !== "PRE-GAME" && (
+                          <div className="text-center text-sm font-bold text-whites">
+                            {displayResult}
+                          </div>
+                        )}
 
                         {/* Winner box under score */}
                         {winner && (
@@ -570,8 +657,9 @@ export default function PickemTracker() {
                           </div>
                         )}
 
-                        {/* Live clock / quarter / possession */}
-                        {showClock && (clockText || quarterText || possessionText) && (
+                        {/* Live clock / quarter / possession * Added code to hide until kickoff, revert to below if issues happen *************/}
+                        {/* {showClock && (clockText || quarterText || possessionText) && (    **************************************************/}
+                        {gameStatus !== "PRE-GAME" && showClock && (clockText || quarterText || possessionText) && (
                           <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2">
                             {clockText && <span className="font-mono">{clockText}</span>}
                             {quarterText && <span className="px-1 rounded bg-white/20 text-[11px]">{quarterText}</span>}
@@ -579,7 +667,7 @@ export default function PickemTracker() {
                           </div>
                         )}
 
-                        {/* Down & distance + ball on */}
+                        {/* Down & distance */}
                         {(downDistanceText || ballOnText) && (
                           <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-2">
                             {downDistanceText && <span>{downDistanceText}</span>}
@@ -588,12 +676,12 @@ export default function PickemTracker() {
                           </div>
                         )}
 
-                        {/* Last play text */}
+                        {/* Last play */}
                         {lastPlayText && (
                           <div className="text-[10px] italic text-gray-500 truncate w-full">{lastPlayText}</div>
                         )}
 
-                        {/* Game status */}
+                        {/* Status box */}
                         <div className="text-green-900 dark:text-green-400 text-sm mt-1">
                           {mounted && matchups && matchups[idx] ? gameStatus : "—"}
                         </div>
