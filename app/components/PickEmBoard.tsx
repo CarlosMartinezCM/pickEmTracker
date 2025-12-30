@@ -489,29 +489,63 @@ export default function PickemTracker() {
 
   // Leaderboard (rank calculation)
   const leaderboard: LeaderboardPlayer[] = useMemo(() => {
-    const playersWithRecord = initialPlayers.map((p) => ({
-      ...p,
-      ...calculateRecord(p.picks, results),
-    }));
+    // ⬇ Get final game to compute total points
+    const finalGame = matchups?.[matchups.length - 1];
+    const actualTotal =
+      typeof finalGame?.awayScore === "number" &&
+        typeof finalGame?.homeScore === "number"
+        ? finalGame.awayScore + finalGame.homeScore
+        : null;
 
-    playersWithRecord.sort((a, b) => {
-      if (b.correct !== a.correct) return b.correct - a.correct;
-      return a.tiebreaker - b.tiebreaker;
+    const playersWithRecord = initialPlayers.map((p) => {
+      const { correct, wrong } = calculateRecord(p.picks, results);
+
+      // ⬇ Correct tiebreaker logic: closest to total wins (even over)
+      const tiebreakDiff =
+        actualTotal !== null
+          ? Math.abs(p.tiebreaker - actualTotal)
+          : Infinity; // If last game not final yet, do NOT break ties
+
+      return {
+        ...p,
+        correct,
+        wrong,
+        tiebreakDiff,
+      };
     });
 
+    // ⬇ Sorting logic: MOST correct → CLOSEST tiebreaker diff
+    playersWithRecord.sort((a, b) => {
+      if (b.correct !== a.correct) return b.correct - a.correct;
+
+      // smaller diff = better
+      return a.tiebreakDiff - b.tiebreakDiff;
+    });
+
+    // ⬇ Assign final ranks
     let rank = 1;
     let lastCorrect: number | null = null;
-    let lastTiebreaker: number | null = null;
+    let lastDiff: number | null = null;
 
     return playersWithRecord.map((p, idx) => {
-      if (lastCorrect !== null && (p.correct !== lastCorrect || p.tiebreaker !== lastTiebreaker)) {
+      if (
+        lastCorrect !== null &&
+        (p.correct !== lastCorrect || p.tiebreakDiff !== lastDiff)
+      ) {
         rank = idx + 1;
       }
       lastCorrect = p.correct;
-      lastTiebreaker = p.tiebreaker;
+      lastDiff = p.tiebreakDiff;
+
       return { ...p, rank };
     });
-  }, [results]);
+  }, [results, matchups]);
+  
+  const finalGame = matchups?.[matchups.length - 1];
+  const isFinalGameDone =
+    typeof finalGame?.awayScore === "number" &&
+    typeof finalGame?.homeScore === "number";
+
 
   // Here is where you can set the number of players that are the *Top Contenders
   const winners = useMemo(() => leaderboard.filter((p) => p.rank === 1), [leaderboard]);
@@ -549,10 +583,10 @@ export default function PickemTracker() {
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">Total Players: {initialPlayers.length}</div>
 
         {/* Winner */}
-        {winners.length > 0 && (
-          <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 Aiden {winners.map((p) => null).join(" ")}
-          </div>
+        {isFinalGameDone && winners.length > 0 && (
+          <div  className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
+            🏆 {winners.map((p) => p.name).join(", ")}
+            </div>
         )}
 
         <div className="text-center mt-2 text-sm text-gray-600 dark:text-gray-300">{loading ? "Loading latest scores..." : "Scores updated from live scoreboard every 5 minutes"}</div>
