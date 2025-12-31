@@ -9,33 +9,31 @@ import type { Matchup } from "../../types";
 
 type ResultArray = Array<string | null>;
 
-// Week 17 expectedMatchups (NFL 2025)
+// Week 18 expectedMatchups (NFL 2025)
 const expectedMatchups: { away: string; home: string }[] = [
-  // Thursday, Dec 25
-  { away: "DAL", home: "WAS" }, // 1:00 pm
-  { away: "DET", home: "MIN" }, // 4:30 pm
-  { away: "DEN", home: "KC"  }, // 8:15 pm
+  // Saturday, Jan. 3
+  { away: "CAR", home: "TB" },   // 4:30 pm
+  { away: "SEA", home: "SF" },   // 8:00 pm
 
-  // Saturday, Dec 27
-  { away: "HOU", home: "LAC" }, // 4:30 pm
-  { away: "BAL", home: "GB"  }, // 8:00 pm
+  // Sunday, Jan. 4 — 1:00 pm
+  { away: "CLE", home: "CIN" },
+  { away: "NO",  home: "ATL" },
+  { away: "GB",  home: "MIN" },
+  { away: "DAL", home: "NYG" },
+  { away: "TEN", home: "JAX" },
+  { away: "IND", home: "HOU" },
 
-  // Sunday, Dec 28 — 1:00 pm
-  { away: "PIT", home: "CLE" },
-  { away: "NO",  home: "TEN" },
-  { away: "JAX", home: "IND" },
-  { away: "TB",  home: "MIA" },
-  { away: "ARI", home: "CIN" },
-  { away: "NE",  home: "NYJ" },
-  { away: "SEA", home: "CAR" },
+  // Sunday late window — 4:25 pm
+  { away: "NYJ", home: "BUF" },
+  { away: "DET", home: "CHI" },
+  { away: "LAC", home: "DEN" },
+  { away: "KC",  home: "LV" },
+  { away: "ARI", home: "LAR" },
+  { away: "MIA", home: "NE" },
+  { away: "WAS", home: "PHI" },
 
-  // Sunday late window
-  { away: "NYG", home: "LV"  }, // 4:05 pm
-  { away: "PHI", home: "BUF" }, // 4:25 pm
-  { away: "CHI", home: "SF"  }, // 8:20 pm
-
-  // Monday, Dec 29
-  { away: "LAR", home: "ATL" }, // 8:15 pm
+  // Sunday Night Football — 8:20 pm
+  { away: "BAL", home: "PIT" },
 ];
 
 /* ------------------------------------------------------------------ */

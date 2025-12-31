@@ -67,7 +67,7 @@ export default function AllMatchupsPage() {
 
       <Card>
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-700 dark:text-gray-300">
-          📅 Week 17 Matchups
+          📅 week 18 Matchups
         </h2>
 
         {matchups?.length ? (
