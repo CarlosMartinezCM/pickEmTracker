@@ -9,32 +9,21 @@ import type { Matchup } from "../../types";
 
 type ResultArray = Array<string | null>;
 
-// Week 18 expectedMatchups (NFL 2025)
+// Wild Card Weekend expectedMatchups (NFL 2025)
 const expectedMatchups: { away: string; home: string }[] = [
-  // Saturday, Jan. 3
-  { away: "CAR", home: "TB" },   // 4:30 pm
-  { away: "SEA", home: "SF" },   // 8:00 pm
+  // Saturday, Jan. 10
+  { away: "LAR", home: "CAR" }, // 4:30 pm
+  { away: "GB",  home: "CHI" }, // 8:00 pm
 
-  // Sunday, Jan. 4 — 1:00 pm
-  { away: "CLE", home: "CIN" },
-  { away: "NO",  home: "ATL" },
-  { away: "GB",  home: "MIN" },
-  { away: "DAL", home: "NYG" },
-  { away: "TEN", home: "JAX" },
-  { away: "IND", home: "HOU" },
+  // Sunday, Jan. 11
+  { away: "BUF", home: "JAX" }, // 1:00 pm
+  { away: "SF",  home: "PHI" }, // 4:30 pm
+  { away: "LAC", home: "NE"  }, // 8:00 pm
 
-  // Sunday late window — 4:25 pm
-  { away: "NYJ", home: "BUF" },
-  { away: "DET", home: "CHI" },
-  { away: "LAC", home: "DEN" },
-  { away: "KC",  home: "LV" },
-  { away: "ARI", home: "LAR" },
-  { away: "MIA", home: "NE" },
-  { away: "WAS", home: "PHI" },
-
-  // Sunday Night Football — 8:20 pm
-  { away: "BAL", home: "PIT" },
+  // Monday, Jan. 12
+  { away: "HOU", home: "PIT" }, // 8:00 pm
 ];
+
 
 /* ------------------------------------------------------------------ */
 /* ABBREVIATION NORMALIZATION (ESPN → EDITORIAL) */
