@@ -476,8 +476,8 @@ export default function PickemTracker() {
 
 
   // Here is where you can set the number of players that are the *Top Contenders
-  //Set to 1 when ready to display winner*************************************************************************************** ;) *******************************
-  const winners = useMemo(() => leaderboard.filter((p) => p.rank === 1), [leaderboard]);
+  //Set to 1 when ready to display winner, otherwise set to 0 to display nothing******************************* ;) *******************************
+  const winners = useMemo(() => leaderboard.filter((p) => p.rank === 0), [leaderboard]);
 
   return (
     <div id="leaderboard" className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">
@@ -562,7 +562,7 @@ export default function PickemTracker() {
         )}
 
         {/* Pick'ems Table */}
-        <div className="overflow-x-auto mt-4">
+        <div className="flex justify-center text-center space-x-4 mb-6 overflow-x-auto mt-4">
           <table className="max-w-full border-separate border-spacing-0 text-[10px]">
 
             <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-700 text-white">
