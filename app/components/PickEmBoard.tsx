@@ -69,13 +69,13 @@ const confirmedResults: (string | null)[] = [
 ];
 
 
-// week 18 players (Picks Final Sunday Morning)
+// Wild Card Weekend players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
 { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   ];
 
   /**
-// week 18 players (Picks Final Sunday Morning)
+// Wild Card Weekend players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
   { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
@@ -505,7 +505,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          week 18
+          Wild Card Weekend
         </h1>
 
         {/* Number of players */}
@@ -528,7 +528,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          week 18 matchup results
+          Wild Card Weekend matchup results
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
