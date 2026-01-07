@@ -71,31 +71,10 @@ const confirmedResults: (string | null)[] = [
 
 // Wild Card Weekend players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
-{ name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  ];
-
-  /**
-// Wild Card Weekend players (Picks Final Sunday Morning)
-const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Eric Rodriguez", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "J Rios", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Fay", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Edgar B", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Javier", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Oso", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Rios", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Erick Escobar", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Sumo", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Beto", picks: ["-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-", "-"], tiebreaker: 0 }
+  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
 
- **/
- 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
   let correct = 0,
@@ -468,7 +447,7 @@ export default function PickemTracker() {
       return { ...p, rank };
     });
   }, [results, matchups]);
-  
+
   const finalGame = matchups?.[matchups.length - 1];
   const isFinalGameDone =
     typeof finalGame?.awayScore === "number" &&
@@ -513,9 +492,9 @@ export default function PickemTracker() {
 
         {/* Winner */}
         {isFinalGameDone && winners.length > 0 && (
-          <div  className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
+          <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
             🏆 {winners.map((p) => p.name).join(", ")}
-            </div>
+          </div>
         )}
 
         <div className="text-center mt-2 text-sm text-gray-600 dark:text-gray-300">{loading ? "Loading latest scores..." : "Scores updated from live scoreboard every 5 minutes"}</div>
