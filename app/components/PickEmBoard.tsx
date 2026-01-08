@@ -73,6 +73,11 @@ const confirmedResults: (string | null)[] = [
 const initialPlayers: Player[] = [
   { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Nik", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Chulito R", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Edgar B", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Evan", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
 
 // Helper: calculate correct/wrong
