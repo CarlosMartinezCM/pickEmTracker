@@ -78,7 +78,81 @@ const initialPlayers: Player[] = [
   { name: "Edgar B", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Evan", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Oso", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Fay", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Rios", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
+
+/**
+ * const initialPlayers: Player[] = [
+{
+  name: "Carlos_Comish",
+  picks: ["LAR","CHI","JAX","PHI","NE","HOU"],
+  tiebreaker: 44,
+},
+
+{
+  name: "Nik",
+  picks: ["LAR","CHI","BUF","SF","LAC","HOU"],
+  tiebreaker: 27,
+},
+
+{
+  name: "J el de la R",
+  picks: ["LAR","CHI","BUF","PHI","NE","HOU"],
+  tiebreaker: 50,
+},
+
+{
+  name: "Chulito R",
+  picks: ["LAR","CHI","BUF","SF","LAC","HOU"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Edgar B",
+  picks: ["LAR","GB","BUF","SF","LAC","PIT"],
+  tiebreaker: 39,
+},
+
+{
+  name: "Yolo",
+  picks: ["LAR","CHI","JAX","SF","NE","PIT"],
+  tiebreaker: 30,
+},
+
+{
+  name: "Evan",
+  picks: ["LAR","GB","JAX","SF","LAC","PIT"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Oso",
+  picks: ["CAR","GB","BUF","PHI","LAC","PIT"],
+  tiebreaker: 53,
+},
+
+{
+  name: "Bobby",
+  picks: ["LAR","CHI","BUF","PHI","NE","PIT"],
+  tiebreaker: 37,
+},
+
+{
+  name: "Fay",
+  picks: ["LAR","GB","BUF","PHI","NE","PIT"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Rios",
+  picks: ["LAR","CHI","BUF","SF","NE","HOU"],
+  tiebreaker: 38,
+},
+];
+ */
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -719,8 +793,34 @@ export default function PickemTracker() {
         <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
         <button onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">📸 Save as PDF</button>
       </div>
+      <Card>
+        <h1 className="text-3xl text-center font-bold mb-6 drop-shadow-lg"></h1>
+        <p className="text-center text-sm font-bold drop-shadow-lg text-blue-700">
+          Created by Carlos Comish 2025
+          <br />
+          Built with help from{" "}
+          <a
+            href="https://chat.openai.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-blue-900"
+          >
+            ChatGPT
+          </a>
+          <br />
+          Deployed for FREE on {" "}
+          <a
+            href="https://vercel.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline hover:text-blue-900"
+          >
+           Vercel
+          </a>
+           
+        </p>
+      </Card>
     </div>
-
   );
 
 }
