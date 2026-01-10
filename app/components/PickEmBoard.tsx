@@ -69,6 +69,8 @@ const confirmedResults: (string | null)[] = [
 ];
 
 
+/**
+
 // Wild Card Weekend players (Picks Final Sunday Morning)
 const initialPlayers: Player[] = [
   { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
@@ -84,75 +86,76 @@ const initialPlayers: Player[] = [
   { name: "Rios", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
 ];
 
-/**
- * const initialPlayers: Player[] = [
-{
-  name: "Carlos_Comish",
-  picks: ["LAR","CHI","JAX","PHI","NE","HOU"],
-  tiebreaker: 44,
-},
+*/
 
-{
-  name: "Nik",
-  picks: ["LAR","CHI","BUF","SF","LAC","HOU"],
-  tiebreaker: 27,
-},
+const initialPlayers: Player[] = [
+  {
+    name: "Carlos_Comish",
+    picks: ["LAR", "CHI", "JAX", "PHI", "NE", "HOU"],
+    tiebreaker: 44,
+  },
 
-{
-  name: "J el de la R",
-  picks: ["LAR","CHI","BUF","PHI","NE","HOU"],
-  tiebreaker: 50,
-},
+  {
+    name: "Nik",
+    picks: ["LAR", "CHI", "BUF", "SF", "LAC", "HOU"],
+    tiebreaker: 27,
+  },
 
-{
-  name: "Chulito R",
-  picks: ["LAR","CHI","BUF","SF","LAC","HOU"],
-  tiebreaker: 48,
-},
+  {
+    name: "J el de la R",
+    picks: ["LAR", "CHI", "BUF", "PHI", "NE", "HOU"],
+    tiebreaker: 50,
+  },
 
-{
-  name: "Edgar B",
-  picks: ["LAR","GB","BUF","SF","LAC","PIT"],
-  tiebreaker: 39,
-},
+  {
+    name: "Chulito R",
+    picks: ["LAR", "CHI", "BUF", "SF", "LAC", "HOU"],
+    tiebreaker: 48,
+  },
 
-{
-  name: "Yolo",
-  picks: ["LAR","CHI","JAX","SF","NE","PIT"],
-  tiebreaker: 30,
-},
+  {
+    name: "Edgar B",
+    picks: ["LAR", "GB", "BUF", "SF", "LAC", "PIT"],
+    tiebreaker: 39,
+  },
 
-{
-  name: "Evan",
-  picks: ["LAR","GB","JAX","SF","LAC","PIT"],
-  tiebreaker: 42,
-},
+  {
+    name: "Yolo",
+    picks: ["LAR", "CHI", "JAX", "SF", "NE", "PIT"],
+    tiebreaker: 30,
+  },
 
-{
-  name: "Oso",
-  picks: ["CAR","GB","BUF","PHI","LAC","PIT"],
-  tiebreaker: 53,
-},
+  {
+    name: "Evan",
+    picks: ["LAR", "GB", "JAX", "SF", "LAC", "PIT"],
+    tiebreaker: 42,
+  },
 
-{
-  name: "Bobby",
-  picks: ["LAR","CHI","BUF","PHI","NE","PIT"],
-  tiebreaker: 37,
-},
+  {
+    name: "Oso",
+    picks: ["CAR", "GB", "BUF", "PHI", "LAC", "PIT"],
+    tiebreaker: 53,
+  },
 
-{
-  name: "Fay",
-  picks: ["LAR","GB","BUF","PHI","NE","PIT"],
-  tiebreaker: 48,
-},
+  {
+    name: "Bobby",
+    picks: ["LAR", "CHI", "BUF", "PHI", "NE", "PIT"],
+    tiebreaker: 37,
+  },
 
-{
-  name: "Rios",
-  picks: ["LAR","CHI","BUF","SF","NE","HOU"],
-  tiebreaker: 38,
-},
+  {
+    name: "Fay",
+    picks: ["LAR", "GB", "BUF", "PHI", "NE", "PIT"],
+    tiebreaker: 48,
+  },
+
+  {
+    name: "Rios",
+    picks: ["LAR", "CHI", "BUF", "SF", "NE", "HOU"],
+    tiebreaker: 38,
+  },
 ];
- */
+ 
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
@@ -815,9 +818,9 @@ export default function PickemTracker() {
             rel="noopener noreferrer"
             className="underline hover:text-blue-900"
           >
-           Vercel
+            Vercel
           </a>
-           
+
         </p>
       </Card>
     </div>
