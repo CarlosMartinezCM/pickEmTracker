@@ -9,21 +9,18 @@ import type { Matchup } from "../../types";
 
 type ResultArray = Array<string | null>;
 
-// Wild Card Weekend expectedMatchups (NFL 2025)
+// Divisional Round (NFL 2025-2026)
+// Saturday, Jan. 17
+// Sunday, Jan. 18
 const expectedMatchups: { away: string; home: string }[] = [
-  // Saturday, Jan. 10
-  { away: "LAR", home: "CAR" }, // 4:30 pm
-  { away: "GB",  home: "CHI" }, // 8:00 pm
+  // Saturday
+  { away: "BUF", home: "DEN" }, // 4:30 PM
+  { away: "SF", home: "SEA" },  // 8:00 PM
 
-  // Sunday, Jan. 11
-  { away: "BUF", home: "JAX" }, // 1:00 pm
-  { away: "SF",  home: "PHI" }, // 4:30 pm
-  { away: "LAC", home: "NE"  }, // 8:00 pm
-
-  // Monday, Jan. 12
-  { away: "HOU", home: "PIT" }, // 8:00 pm
+  // Sunday
+  { away: "HOU", home: "NE" },  // 3:00 PM
+  { away: "LAR", home: "CHI" }, // 6:30 PM
 ];
-
 
 /* ------------------------------------------------------------------ */
 /* ABBREVIATION NORMALIZATION (ESPN → EDITORIAL) */

@@ -68,94 +68,14 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-
-/**
-
-// Wild Card Weekend players (Picks Final Sunday Morning)
+// Divisional Round players (Picks Final Saturday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Nik", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "J El De La R", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Chulito R", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Edgar B", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Yolo", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Evan", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Oso", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Bobby", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Fay", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Rios", picks: ["-", "-", "-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Carlos Comish", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Oso", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Edgar B", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Chuyito R", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "J El De La R", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
 ];
-
-*/
-
-const initialPlayers: Player[] = [
-  {
-    name: "Carlos_Comish",
-    picks: ["LAR", "CHI", "JAX", "PHI", "NE", "HOU"],
-    tiebreaker: 44,
-  },
-
-  {
-    name: "Nik",
-    picks: ["LAR", "CHI", "BUF", "SF", "LAC", "HOU"],
-    tiebreaker: 27,
-  },
-
-  {
-    name: "J el de la R",
-    picks: ["LAR", "CHI", "BUF", "PHI", "NE", "HOU"],
-    tiebreaker: 50,
-  },
-
-  {
-    name: "Chulito R",
-    picks: ["LAR", "CHI", "BUF", "SF", "LAC", "HOU"],
-    tiebreaker: 48,
-  },
-
-  {
-    name: "Edgar B",
-    picks: ["LAR", "GB", "BUF", "SF", "LAC", "PIT"],
-    tiebreaker: 39,
-  },
-
-  {
-    name: "Yolo",
-    picks: ["LAR", "CHI", "JAX", "SF", "NE", "PIT"],
-    tiebreaker: 30,
-  },
-
-  {
-    name: "Evan",
-    picks: ["LAR", "GB", "JAX", "SF", "LAC", "PIT"],
-    tiebreaker: 42,
-  },
-
-  {
-    name: "Oso",
-    picks: ["CAR", "GB", "BUF", "PHI", "LAC", "PIT"],
-    tiebreaker: 53,
-  },
-
-  {
-    name: "Bobby",
-    picks: ["LAR", "CHI", "BUF", "PHI", "NE", "PIT"],
-    tiebreaker: 37,
-  },
-
-  {
-    name: "Fay",
-    picks: ["LAR", "GB", "BUF", "PHI", "NE", "PIT"],
-    tiebreaker: 48,
-  },
-
-  {
-    name: "Rios",
-    picks: ["LAR", "CHI", "BUF", "SF", "NE", "HOU"],
-    tiebreaker: 38,
-  },
-];
- 
 
 // Helper: calculate correct/wrong
 const calculateRecord = (picks: string[], results: Result) => {
