@@ -77,6 +77,7 @@ const initialPlayers: Player[] = [
   { name: "J El De La R", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Eric Rodriguez", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Rios", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Bobby", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
 ];
 
 // Helper: calculate correct/wrong
