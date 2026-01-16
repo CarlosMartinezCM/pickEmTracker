@@ -75,6 +75,8 @@ const initialPlayers: Player[] = [
   { name: "Edgar B", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
   { name: "Chuyito R", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
   { name: "J El De La R", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Eric Rodriguez", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  { name: "Rios", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
 ];
 
 // Helper: calculate correct/wrong
@@ -458,7 +460,7 @@ export default function PickemTracker() {
 
   // Here is where you can set the number of players that are the *Top Contenders
   //Set to 1 when ready to display winner, otherwise set to 0 to display nothing******************************* ;) *******************************
-  const winners = useMemo(() => leaderboard.filter((p) => p.rank === 1), [leaderboard]);
+  const winners = useMemo(() => leaderboard.filter((p) => p.rank === 0), [leaderboard]);
 
   return (
     <div id="leaderboard" className="p-8 bg-gray-100 dark:bg-gray-900 min-h-screen space-y-8 transition-colors duration-300">
