@@ -488,7 +488,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Wild Card Weekend
+          Playoffs Divisional Round Weekend
         </h1>
 
         {/* Number of players */}
