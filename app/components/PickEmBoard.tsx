@@ -70,14 +70,53 @@ const confirmedResults: (string | null)[] = [
 
 // Divisional Round players (Picks Final Saturday Morning)
 const initialPlayers: Player[] = [
-  { name: "Carlos Comish", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Oso", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Edgar B", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Chuyito R", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "J El De La R", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Eric Rodriguez", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Rios", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
-  { name: "Bobby", picks: ["-", "-", "-", "-"], tiebreaker: 0 },
+  {
+  name: "Carlos_Comish",
+  picks: ["BUF","SEA","NE","CHI"],
+  tiebreaker: 38,
+},
+
+{
+  name: "Oso",
+  picks: ["BUF","SEA","NE","CHI"],
+  tiebreaker: 53,
+},
+
+{
+  name: "Edgar B",
+  picks: ["BUF","SEA","HOU","LAR"],
+  tiebreaker: 45,
+},
+
+{
+  name: "Chuyito R",
+  picks: ["DEN","SEA","NE","CHI"],
+  tiebreaker: 40,
+},
+
+{
+  name: "J El de La R",
+  picks: ["DEN","SEA","HOU","CHI"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Eric Rodriguez",
+  picks: ["BUF","SEA","NE","CHI"],
+  tiebreaker: 56,
+},
+
+{
+  name: "Rios",
+  picks: ["BUF","SF","NE","LAR"],
+  tiebreaker: 52,
+},
+
+{
+  name: "Bobby",
+  picks: ["BUF","SEA","NE","LAR"],
+  tiebreaker: 47,
+},
 ];
 
 // Helper: calculate correct/wrong
