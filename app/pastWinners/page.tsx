@@ -7,14 +7,15 @@ type PreviousWinner = {
 };
 
 const previousWinners: PreviousWinner[] = [
-  { week: 19, winner: "Rios" },
+  { week: 20, winner: "Chuyito R - Divisinal Round" },
+  { week: 19, winner: "Rios - WildCard weekend" },
   { week: 18, winner: "Carlos Comish" },
   { week: 17, winner: "Aiden" },
   { week: 16, winner: "Oso" },
   { week: 15, winner: "Candon" },
   { week: 14, winner: "Sumo" },
   { week: 13.1, winner: "Yolo" },
-  { week: 13, winner: "Thanksgiving_Games_Fay" },
+  { week: 13, winner: "Fay - Thanksgiving" },
   { week: 12, winner: "Yolo" },
   { week: 11, winner: "Candon" },
   { week: 10, winner: "Javier" },
