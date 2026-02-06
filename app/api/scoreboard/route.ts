@@ -9,17 +9,12 @@ import type { Matchup } from "../../types";
 
 type ResultArray = Array<string | null>;
 
-// Divisional Round (NFL 2025-2026)
-// Saturday, Jan. 17
-// Sunday, Jan. 18
+// Super Bowl
+// Sunday, Feb 8th, 2026
 const expectedMatchups: { away: string; home: string }[] = [
-  // Saturday
-  { away: "BUF", home: "DEN" }, // 4:30 PM
-  { away: "SF", home: "SEA" },  // 8:00 PM
-
   // Sunday
-  { away: "HOU", home: "NE" },  // 3:00 PM
-  { away: "LAR", home: "CHI" }, // 6:30 PM
+  { away: "SEA", home: "NE" }, // 3:30 PM
+  
 ];
 
 /* ------------------------------------------------------------------ */

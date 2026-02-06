@@ -68,55 +68,9 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-// Divisional Round players (Picks Final Saturday Morning)
+// Superbowl LX  Round players (Picks Final Saturday Morning)
 const initialPlayers: Player[] = [
-  {
-  name: "Carlos_Comish",
-  picks: ["BUF","SEA","NE","CHI"],
-  tiebreaker: 38,
-},
-
-{
-  name: "Oso",
-  picks: ["BUF","SEA","NE","CHI"],
-  tiebreaker: 53,
-},
-
-{
-  name: "Edgar B",
-  picks: ["BUF","SEA","HOU","LAR"],
-  tiebreaker: 45,
-},
-
-{
-  name: "Chuyito R",
-  picks: ["DEN","SEA","NE","CHI"],
-  tiebreaker: 40,
-},
-
-{
-  name: "J El de La R",
-  picks: ["DEN","SEA","HOU","CHI"],
-  tiebreaker: 42,
-},
-
-{
-  name: "Eric Rodriguez",
-  picks: ["BUF","SEA","NE","CHI"],
-  tiebreaker: 56,
-},
-
-{
-  name: "Rios",
-  picks: ["BUF","SF","NE","LAR"],
-  tiebreaker: 52,
-},
-
-{
-  name: "Bobby",
-  picks: ["BUF","SEA","NE","LAR"],
-  tiebreaker: 47,
-},
+  
 ];
 
 // Helper: calculate correct/wrong
@@ -528,7 +482,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Playoffs Divisional Round Weekend
+          Superbowl LX
         </h1>
 
         {/* Number of players */}
@@ -551,7 +505,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Divisional Round Weekend matchup results
+          Superbowl LX 
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
