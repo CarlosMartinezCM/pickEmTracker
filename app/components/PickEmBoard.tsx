@@ -1,4 +1,8 @@
 /* PickemTracker.tsx */
+/* 
+Things to do before game start automate later. Line 510 winners section, take of the block comment to display 
+the current top winners and then the final winner that week. 
+*/
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
 import jsPDF from "jspdf";
@@ -68,9 +72,28 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-// Superbowl LX  Round players (Picks Final Saturday Morning)
+// Week 1 2026
 const initialPlayers: Player[] = [
-  
+  {
+    name: "Carlos_Comish",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 44,
+  },
+  {
+    name: "Edgar B",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 44,
+  },
+  {
+    name: "Fay",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 44,
+  },
+  {
+    name: "Meño",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 44,
+  },
 ];
 
 // Helper: calculate correct/wrong
@@ -477,12 +500,12 @@ export default function PickemTracker() {
         <h1 className="text-3xl text-center font-bold mb-6 drop-shadow-lg">
           🏈
           <span className="bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-            NFL Pick'em Tracker 2025
+            NFL Pick'em Tracker 2026
           </span>
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Superbowl LX
+          Week 1
         </h1>
 
         {/* Number of players */}
@@ -491,7 +514,7 @@ export default function PickemTracker() {
         {/* Winner */}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {winners.map((p) => p.name).join(", ")}
+            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -505,7 +528,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Superbowl LX 
+          Week 1 
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
@@ -539,172 +562,350 @@ export default function PickemTracker() {
         )}
 
         {/* Pick'ems Table */}
-        <div className="flex justify-center text-center space-x-4 mb-6 overflow-x-auto mt-4">
-          <table className="max-w-full border-separate border-spacing-0 text-[10px]">
+<div className="w-full overflow-x-auto mt-4 mb-6">
+  <div className="w-max min-w-full flex justify-center">
 
-            <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-700 text-white">
-              <tr>
-                {/* Rank # */}
-                <th className="border-b-2 border-white-800 p-3 text-center text-base border-blue-300">#</th>
+    <table className="border-separate border-spacing-0 text-[10px]">
 
-                {/* Player */}
-                <th className="border p-3 text-base text-center font-bold border-blue-400">Player</th>
+      <thead className="sticky top-0 z-30 bg-gradient-to-r from-blue-800 via-blue-500 to-blue-700 text-white">
+        <tr>
+          {/* Rank # */}
+          <th className="border-b-2 border-white-800 p-3 text-center text-base border-blue-300">
+            #
+          </th>
 
-                {/* Matchup columns */}
-                {Array.from({ length: gameCount }).map((_, idx) => {
-                  const m = mounted && matchups ? (matchups[idx] as Matchup) : null;
+          {/* Player */}
+          <th className="border p-3 text-base text-center font-bold border-blue-400">
+            Player
+          </th>
 
-                  const awayScorePresent = typeof m?.awayScore === "number";
-                  const homeScorePresent = typeof m?.homeScore === "number";
-                  const numericScore = (awayScorePresent || homeScorePresent)
-                    ? `${awayScorePresent ? m!.awayScore : "-"} - ${homeScorePresent ? m!.homeScore : "-"}`
-                    : null;
+          {/* Matchup columns */}
+          {Array.from({ length: gameCount }).map((_, idx) => {
+            const m =
+              mounted && matchups
+                ? (matchups[idx] as Matchup)
+                : null;
 
-                  const fallbackResult = mounted && scoreboardResults ? scoreboardResults[idx] ?? null : null;
-                  const displayResult = numericScore ?? fallbackResult ?? "—";
+            const awayScorePresent =
+              typeof m?.awayScore === "number";
 
-                  const winner = scoreboardResults ? scoreboardResults[idx] : null;
+            const homeScorePresent =
+              typeof m?.homeScore === "number";
 
-                  // Decide winner logo
-                  let winnerLogo: string | null = null;
-                  if (winner && m) {
-                    if (winner === m.awayAbbr || winner === m.awayTeam) winnerLogo = m.awayLogo ?? null;
-                    else if (winner === m.homeAbbr || winner === m.homeTeam) winnerLogo = m.homeLogo ?? null;
-                  }
+            const numericScore =
+              awayScorePresent || homeScorePresent
+                ? `${awayScorePresent ? m!.awayScore : "-"} - ${
+                    homeScorePresent ? m!.homeScore : "-"
+                  }`
+                : null;
 
-                  const gameStatus = formatGameStatus(m);
-                  const showClock = gameStatus ? !/FINAL|HALFTIME/i.test(gameStatus) : false;
+            const fallbackResult =
+              mounted && scoreboardResults
+                ? scoreboardResults[idx] ?? null
+                : null;
 
-                  // Small info
-                  const clockText = m?.clock ?? null;
-                  const quarterText = m?.period != null ? `Q${m.period}` : null;
-                  const possessionText = m?.possession ?? null;
-                  const downDistanceText = m?.down != null && m?.yardsToGo != null ? `${m.down} & ${m.yardsToGo}` : null;
-                  const ballOnText = m?.ballOn ?? null;
-                  const lastPlayText = m?.lastPlayText ?? null;
-                  //const gameStatus = formatGameStatus(m);
-                  return (
-                    <th key={idx} className="border p-2 text-center font-bold border-blue-00">
-                      <div className="flex flex-col items-center gap-1 max-w-[180px]">
+            const displayResult =
+              numericScore ??
+              fallbackResult ??
+              "—";
 
-                        {/* Logos + Team Names */}
-                        <div className="flex items-center justify-center gap-1 w-full text-center">
-                          {/* Away Team */}
-                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-end">
-                            {m?.awayLogo && <img src={m.awayLogo} alt={m.awayAbbr ?? "Away"} className="w-4 h-4 object-contain" />}
-                            <span className="truncate text-xs">{m?.awayAbbr ?? m?.awayTeam ?? "—"}</span>
-                          </div>
+            const winner =
+              scoreboardResults
+                ? scoreboardResults[idx]
+                : null;
 
-                          <span className="mx-1 text-xs flex-shrink-0">@</span>
+            // Decide winner logo
+            let winnerLogo: string | null = null;
 
-                          {/* Home Team */}
-                          <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-start">
-                            {m?.homeLogo && <img src={m.homeLogo} alt={m.homeAbbr ?? "Home"} className="w-4 h-4 object-contain" />}
-                            <span className="truncate text-xs">{m?.homeAbbr ?? m?.homeTeam ?? "—"}</span>
-                          </div>
-                        </div>
+            if (winner && m) {
+              if (
+                winner === m.awayAbbr ||
+                winner === m.awayTeam
+              ) {
+                winnerLogo = m.awayLogo ?? null;
+              } else if (
+                winner === m.homeAbbr ||
+                winner === m.homeTeam
+              ) {
+                winnerLogo = m.homeLogo ?? null;
+              }
+            }
 
-                        {/* Kickoff time (PRE-GAME only) */}
-                        {gameStatus === "PRE-GAME" && (
-                          <div className="text-[16px] text-blue-300 dark:text-blue-300 mt-1">
-                            {kickoffToPT(m?.date ?? null)}
-                          </div>
+            const gameStatus =
+              formatGameStatus(m);
+
+            const showClock = gameStatus
+              ? !/FINAL|HALFTIME/i.test(gameStatus)
+              : false;
+
+            // Small info
+            const clockText =
+              m?.clock ?? null;
+
+            const quarterText =
+              m?.period != null
+                ? `Q${m.period}`
+                : null;
+
+            const possessionText =
+              m?.possession ?? null;
+
+            const downDistanceText =
+              m?.down != null &&
+              m?.yardsToGo != null
+                ? `${m.down} & ${m.yardsToGo}`
+                : null;
+
+            const ballOnText =
+              m?.ballOn ?? null;
+
+            const lastPlayText =
+              m?.lastPlayText ?? null;
+
+            return (
+              <th
+                key={idx}
+                className="border p-2 text-center font-bold border-blue-00"
+              >
+                <div className="flex flex-col items-center gap-1 max-w-[180px]">
+
+                  {/* Logos + Team Names */}
+                  <div className="flex items-center justify-center gap-1 w-full text-center">
+
+                    {/* Away Team */}
+                    <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-end">
+                      {m?.awayLogo && (
+                        <img
+                          src={m.awayLogo}
+                          alt={m.awayAbbr ?? "Away"}
+                          className="w-4 h-4 object-contain"
+                        />
+                      )}
+
+                      <span className="truncate text-xs">
+                        {m?.awayAbbr ??
+                          m?.awayTeam ??
+                          "—"}
+                      </span>
+                    </div>
+
+                    <span className="mx-1 text-xs flex-shrink-0">
+                      @
+                    </span>
+
+                    {/* Home Team */}
+                    <div className="flex items-center gap-0.5 min-w-[50px] max-w-[70px] justify-start">
+                      {m?.homeLogo && (
+                        <img
+                          src={m.homeLogo}
+                          alt={m.homeAbbr ?? "Home"}
+                          className="w-4 h-4 object-contain"
+                        />
+                      )}
+
+                      <span className="truncate text-xs">
+                        {m?.homeAbbr ??
+                          m?.homeTeam ??
+                          "—"}
+                      </span>
+                    </div>
+
+                  </div>
+
+                  {/* Kickoff time (PRE-GAME only) */}
+                  {gameStatus === "PRE-GAME" && (
+                    <div className="text-[16px] text-blue-300 dark:text-blue-300 mt-1">
+                      {kickoffToPT(
+                        m?.date ?? null
+                      )}
+                    </div>
+                  )}
+
+                  {/* Score */}
+                  {gameStatus !== "PRE-GAME" && (
+                    <div className="text-center text-sm font-bold text-whites">
+                      {displayResult}
+                    </div>
+                  )}
+
+                  {/* Winner box under score */}
+                  {winner && (
+                    <div className="flex items-center gap-1 mt-1 px-2 py-0.5 text-green-900 dark:text-green-400 rounded border text-xs">
+                      {winnerLogo && (
+                        <img
+                          src={winnerLogo}
+                          alt={winner}
+                          className="w-4 h-4 object-contain"
+                        />
+                      )}
+
+                      <span>{winner}</span>
+                    </div>
+                  )}
+
+                  {/* Live clock / quarter / possession */}
+                  {gameStatus !== "PRE-GAME" &&
+                    showClock &&
+                    (clockText ||
+                      quarterText ||
+                      possessionText) && (
+                      <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2">
+
+                        {clockText && (
+                          <span className="font-mono">
+                            {clockText}
+                          </span>
                         )}
 
-                        {/* Score Revert BACK if error during games ***************************************************************/}
-                        {/* <div className="text-center text-sm font-bold text-whites">{displayResult}</div> */}
-                        {gameStatus !== "PRE-GAME" && (
-                          <div className="text-center text-sm font-bold text-whites">
-                            {displayResult}
-                          </div>
+                        {quarterText && (
+                          <span className="px-1 rounded bg-white/20 text-[11px]">
+                            {quarterText}
+                          </span>
                         )}
 
-                        {/* Winner box under score */}
-                        {winner && (
-                          <div className="flex items-center gap-1 mt-1 px-2 py-0.5 text-green-900 dark:text-green-400 rounded border text-xs">
-                            {winnerLogo && <img src={winnerLogo} alt={winner} className="w-4 h-4 object-contain" />}
-                            <span>{winner}</span>
-                          </div>
+                        {possessionText && (
+                          <span className="text-[11px] italic">
+                            Poss: {possessionText}
+                          </span>
                         )}
 
-                        {/* Live clock / quarter / possession * Added code to hide until kickoff, revert to below if issues happen *************/}
-                        {/* {showClock && (clockText || quarterText || possessionText) && (    **************************************************/}
-                        {gameStatus !== "PRE-GAME" && showClock && (clockText || quarterText || possessionText) && (
-                          <div className="text-xs text-gray-700 dark:text-gray-300 flex items-center gap-2">
-                            {clockText && <span className="font-mono">{clockText}</span>}
-                            {quarterText && <span className="px-1 rounded bg-white/20 text-[11px]">{quarterText}</span>}
-                            {possessionText && <span className="text-[11px] italic">Poss: {possessionText}</span>}
-                          </div>
-                        )}
-
-                        {/* Down & distance */}
-                        {(downDistanceText || ballOnText) && (
-                          <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-2">
-                            {downDistanceText && <span>{downDistanceText}</span>}
-                            {!downDistanceText && m?.yardsToGo != null && <span>{m.yardsToGo} to go</span>}
-                            {ballOnText && <span>• {ballOnText}</span>}
-                          </div>
-                        )}
-
-                        {/* Last play */}
-                        {lastPlayText && (
-                          <div className="text-[10px] italic text-gray-500 truncate w-full">{lastPlayText}</div>
-                        )}
-
-                        {/* Status box */}
-                        <div className="text-green-900 dark:text-green-400 text-sm mt-1">
-                          {mounted && matchups && matchups[idx] ? gameStatus : "—"}
-                        </div>
                       </div>
-                    </th>
+                    )}
 
-                  );
-                })}
+                  {/* Down & distance */}
+                  {(downDistanceText ||
+                    ballOnText) && (
+                    <div className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-2">
 
-                {/* Correct / Wrong / TieBreaker headers */}
-                <th className="border p-2 text-center font-bold text-xs border-blue-300">✅ Correct</th>
-                <th className="border p-2 text-center font-bold text-xs border-blue-300">❌ Wrong</th>
-                <th className="border p-2 text-center font-bold text-xs border-blue-300">🎯 TieBreaker</th>
-              </tr>
-            </thead>
+                      {downDistanceText && (
+                        <span>
+                          {downDistanceText}
+                        </span>
+                      )}
 
-            <tbody>
-              {leaderboard.map((player, i) => {
-                const record = calculateRecord(player.picks, results);
-                const isTop4 = player.rank <= 0;
+                      {!downDistanceText &&
+                        m?.yardsToGo != null && (
+                          <span>
+                            {m.yardsToGo} to go
+                          </span>
+                        )}
 
-                return (
-                  <tr
-                    key={player.name}
-                    className={`${i % 2 === 0 ? "bg-blue-50 dark:bg-blue-900/30" : "bg-blue-100 dark:bg-blue-800/20"} hover:bg-blue-200 dark:hover:bg-blue-700/40 ${isTop4 ? "ring-2 ring-yellow-400 dark:ring-yellow-500" : ""
-                      }`}
+                      {ballOnText && (
+                        <span>
+                          • {ballOnText}
+                        </span>
+                      )}
+
+                    </div>
+                  )}
+
+                  {/* Last play */}
+                  {lastPlayText && (
+                    <div className="text-[10px] italic text-gray-500 truncate w-full">
+                      {lastPlayText}
+                    </div>
+                  )}
+
+                  {/* Status box */}
+                  <div className="text-green-900 dark:text-green-400 text-sm mt-1">
+                    {mounted &&
+                    matchups &&
+                    matchups[idx]
+                      ? gameStatus
+                      : "—"}
+                  </div>
+
+                </div>
+              </th>
+            );
+          })}
+
+          {/* Correct / Wrong / TieBreaker headers */}
+          <th className="border p-2 text-center font-bold text-xs border-blue-300">
+            ✅ Correct
+          </th>
+
+          <th className="border p-2 text-center font-bold text-xs border-blue-300">
+            ❌ Wrong
+          </th>
+
+          <th className="border p-2 text-center font-bold text-xs border-blue-300">
+            🎯 TieBreaker
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {leaderboard.map((player, i) => {
+          const record =
+            calculateRecord(
+              player.picks,
+              results
+            );
+
+          const isTop4 =
+            player.rank <= 0;
+
+          return (
+            <tr
+              key={player.name}
+              className={`${
+                i % 2 === 0
+                  ? "bg-blue-50 dark:bg-blue-900/30"
+                  : "bg-blue-100 dark:bg-blue-800/20"
+              } hover:bg-blue-200 dark:hover:bg-blue-700/40 ${
+                isTop4
+                  ? "ring-2 ring-yellow-400 dark:ring-yellow-500"
+                  : ""
+              }`}
+            >
+
+              <td className="border p-3 text-base text-center font-bold border-blue-500">
+                {i + 1}
+              </td>
+
+              <td className="border p-3 text-base text-center font-semibold border-blue-500">
+                {player.name}
+              </td>
+
+              {player.picks
+                .slice(0, gameCount)
+                .map((pick, idx) => (
+                  <td
+                    key={idx}
+                    className={`border p-2 text-center text-sm border-blue-800 ${
+                      results[idx]
+                        ? results[idx] === pick
+                          ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
+                          : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
+                        : "bg-blue-50 dark:bg-blue-900/20"
+                    }`}
                   >
-                    <td className="border p-3 text-base text-center font-bold border-blue-500">{i + 1}</td>
-                    <td className="border p-3 text-base text-center font-semibold border-blue-500">{player.name}</td>
+                    {pick}
+                  </td>
+                ))}
 
-                    {player.picks.slice(0, gameCount).map((pick, idx) => (
-                      <td
-                        key={idx}
-                        className={`border p-2 text-center text-sm border-blue-800 ${results[idx]
-                          ? results[idx] === pick
-                            ? "bg-green-200 text-green-800 dark:bg-green-700 dark:text-green-100"
-                            : "bg-red-200 text-red-800 dark:bg-red-700 dark:text-red-100"
-                          : "bg-blue-50 dark:bg-blue-900/20"
-                          }`}
-                      >
-                        {pick}
-                      </td>
-                    ))}
+              <td className="border p-3 text-center font-bold text-green-700 text-lg dark:text-green-300 border-blue-300 dark:border-blue-600">
+                {record.correct}
+              </td>
 
-                    <td className="border p-3 text-center font-bold text-green-700 text-lg dark:text-green-300 border-blue-300 dark:border-blue-600">{record.correct}</td>
-                    <td className="border p-3 text-center font-bold text-red-700 text-lg dark:text-red-300 border-blue-300 dark:border-blue-600">{record.wrong}</td>
-                    <td className="border p-3 text-center text-lg font-bold border-blue-300 dark:border-blue-600">{player.tiebreaker}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
+              <td className="border p-3 text-center font-bold text-red-700 text-lg dark:text-red-300 border-blue-300 dark:border-blue-600">
+                {record.wrong}
+              </td>
+
+              <td className="border p-3 text-center text-lg font-bold border-blue-300 dark:border-blue-600">
+                {player.tiebreaker}
+              </td>
+
+            </tr>
+          );
+        })}
+      </tbody>
+
+    </table>
+
+  </div>
+</div>
 
       </Card>
       {/* Download buttons */}
@@ -715,7 +916,7 @@ export default function PickemTracker() {
       <Card>
         <h1 className="text-3xl text-center font-bold mb-6 drop-shadow-lg"></h1>
         <p className="text-center text-sm font-bold drop-shadow-lg text-blue-700">
-          Created by Carlos Comish 2025
+          Created by Carlos Comish 2026
           <br />
           Built with help from{" "}
           <a
