@@ -75,60 +75,88 @@ const confirmedResults: (string | null)[] = [
 // Week 1 2026
 const initialPlayers: Player[] = [
   {
-    name: "Carlos_Comish",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Edgar B",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Fay",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Meño",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Carlos Cervantes",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "RIOS",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Vinny",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "OSO",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Erick Escobar",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Eric Rodriguez",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
-  {
-    name: "Tito",
-    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 11,
-  },
+  name: "Carlos(comish)",
+  picks: ["NE","LAR","PIT","BAL","HOU","CAR","JAX","CIN","DET","NYJ","LAC","GB","LV","PHI","DAL","KC"],
+  tiebreaker: 45,
+},
+
+{
+  name: "Fay",
+  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","CLE","CIN","DET","TEN","LAC","MIN","MIA","PHI","NYG","KC"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Edgar B",
+  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","MIN","LV","PHI","DAL","KC"],
+  tiebreaker: 41,
+},
+
+{
+  name: "Meno",
+  picks: ["NE","LAR","PIT","BAL","BUF","CAR","JAX","TB","DET","NYJ","LAC","GB","MIA","PHI","NYG","KC"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Los9911",
+  picks: ["SEA","LAR","ATL","BAL","BUF","CHI","JAX","CIN","DET","NYJ","LAC","GB","LV","PHI","DAL","KC"],
+  tiebreaker: 49,
+},
+
+{
+  name: "Rios",
+  picks: ["NE","SF","PIT","BAL","BUF","CHI","JAX","TB","DET","TEN","LAC","MIN","LV","PHI","DAL","KC"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Vinny",
+  picks: ["SEA","LAR","ATL","IND","BUF","CHI","JAX","TB","DET","TEN","LAC","GB","LV","WAS","DAL","DEN"],
+  tiebreaker: 41,
+},
+
+{
+  name: "Oso",
+  picks: ["SEA","LAR","PIT","BAL","HOU","CHI","JAX","CIN","DET","NYJ","LAC","GB","LV","PHI","DAL","DEN"],
+  tiebreaker: 53,
+},
+
+{
+  name: "Erick Escobar",
+  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","MIN","LV","PHI","DAL","DEN"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Eric Rodriguez",
+  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","NYJ","LAC","GB","MIA","PHI","DAL","DEN"],
+  tiebreaker: 50,
+},
+
+{
+  name: "Tito",
+  picks: ["NE","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","NYJ","LAC","MIN","LV","PHI","DAL","DEN"],
+  tiebreaker: 45,
+},
+
+{
+  name: "Sumo",
+  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","GB","LV","PHI","DAL","DEN"],
+  tiebreaker: 38,
+},
+
+{
+  name: "Danny",
+  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","GB","LV","PHI","DAL","DEN"],
+  tiebreaker: 43,
+},
+
+{
+  name: "Ernest",
+  picks: ["SEA","LAR","PIT","BAL","HOU","CHI","JAX","CIN","DET","TEN","LAC","GB","LV","PHI","DAL","KC"],
+  tiebreaker: 44,
+},
   
 ];
 
