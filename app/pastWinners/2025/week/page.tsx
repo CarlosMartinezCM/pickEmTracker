@@ -4,25 +4,33 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 
-type CurrentWinner = {
+type PreviousWinner = {
   week: number;
   winner: string;
 };
 
-/*
- * ADD YOUR 2026 WINNERS HERE
- *
- * Example:
- *
- * { week: 1, winner: "Carlos_W1_2026" },
- * { week: 2, winner: "Bob_W2_2026" },
- *
- * You can add the actual winners as the season progresses.
- */
-
-const currentWinners: CurrentWinner[] = [
-  // { week: 1, winner: "WinnerName_W1_2026" },
-  // { week: 2, winner: "WinnerName_W2_2026" },
+const previousWinners: PreviousWinner[] = [
+  { week: 20, winner: "ChuyitoR_DivisionalRound_2025" },
+  { week: 19, winner: "Rios_WCW_Playoffs_2025" },
+  { week: 18, winner: "CarlosComish_W18_2025" },
+  { week: 17, winner: "Aiden_W17_2025" },
+  { week: 16, winner: "Oso_W16_2025" },
+  { week: 15, winner: "Candon_W15_2025" },
+  { week: 14, winner: "Sumo_W14_2025" },
+  { week: 13.1, winner: "Yolo" },
+  { week: 13, winner: "Thanksgiving_Games_Fay" },
+  { week: 12, winner: "Yolo_W12_2025" },
+  { week: 11, winner: "Candon_W11_2025" },
+  { week: 10, winner: "Javier_W10_2025" },
+  { week: 9, winner: "Oso_W9_2025" },
+  { week: 8, winner: "Maverick_W8_2025" },
+  { week: 7, winner: "Dennis_W7_2025" },
+  { week: 6, winner: "EdgarB_W6_2025" },
+  { week: 5, winner: "Candon_W5_2025" },
+  { week: 4, winner: "Bobby_W4_2025" },
+  { week: 3, winner: "EdgarB_W3_2025" },
+  { week: 2, winner: "Erick_Escobar_W2_2025" },
+  { week: 1, winner: "Candon_W1_2025" },
 ];
 
 const TRY_EXT = [".png", ".jpg", ".jpeg", ".webp"];
@@ -66,7 +74,9 @@ function buildCandidates(baseName: string) {
 
   for (const v of variants) {
     for (const ext of TRY_EXT) {
-      candidates.push(`/images/winners/${v}${ext}`);
+      candidates.push(
+        `/images/2025-winners/${v}${ext}`
+      );
     }
   }
 
@@ -75,7 +85,9 @@ function buildCandidates(baseName: string) {
 
   if (alnum && !variants.includes(alnum)) {
     for (const ext of TRY_EXT) {
-      candidates.push(`/images/winners/${alnum}${ext}`);
+      candidates.push(
+        `/images/2025-winners/${alnum}${ext}`
+      );
     }
 
     const alnumLower = alnum.toLowerCase();
@@ -83,7 +95,7 @@ function buildCandidates(baseName: string) {
     if (alnumLower !== alnum) {
       for (const ext of TRY_EXT) {
         candidates.push(
-          `/images/winners/${alnumLower}${ext}`
+          `/images/2025-winners/${alnumLower}${ext}`
         );
       }
     }
@@ -97,7 +109,7 @@ export default function WinnerDetailPage() {
 
   const week = params.week as string;
 
-  const winner = currentWinners.find(
+  const winner = previousWinners.find(
     (p) => p.week.toString() === week
   );
 
@@ -123,7 +135,7 @@ export default function WinnerDetailPage() {
       setTried(candidates);
 
       console.info(
-        "2026 WinnerDetailPage: trying image candidates:",
+        "2025 WinnerDetailPage: trying image candidates:",
         candidates
       );
 
@@ -134,7 +146,7 @@ export default function WinnerDetailPage() {
           if (!mounted) return;
 
           console.info(
-            "2026 WinnerDetailPage: found image:",
+            "2025 WinnerDetailPage: found image:",
             candidate
           );
 
@@ -143,15 +155,16 @@ export default function WinnerDetailPage() {
           return;
         } catch (err) {
           console.debug(
-            "2026 WinnerDetailPage: not found:",
+            "2025 WinnerDetailPage: not found:",
             candidate
           );
         }
       }
 
+      // Final fallback
       if (mounted) {
         console.warn(
-          "2026 WinnerDetailPage: no candidate found, using default.png"
+          "2025 WinnerDetailPage: no candidate found, using default.png"
         );
 
         setImageSrc("/images/default.png");
@@ -170,10 +183,10 @@ export default function WinnerDetailPage() {
       <div className="flex justify-center space-x-4 mb-6">
 
         <Link
-          href="/pastWinners"
+          href="/pastWinners/2025"
           className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded"
         >
-          🔙 Back to 2026 Winners
+          🔙 Back to 2025 Winners
         </Link>
 
         <Link
@@ -202,7 +215,7 @@ export default function WinnerDetailPage() {
 
             <img
               src={imageSrc}
-              alt={`2026 Winner Week ${winner.week}`}
+              alt={`2025 Winner Week ${winner.week}`}
               className="max-w-full rounded-lg shadow-lg"
               onError={(e) => {
                 console.error(

@@ -77,23 +77,59 @@ const initialPlayers: Player[] = [
   {
     name: "Carlos_Comish",
     picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 44,
+    tiebreaker: 11,
   },
   {
     name: "Edgar B",
     picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 44,
+    tiebreaker: 11,
   },
   {
     name: "Fay",
     picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 44,
+    tiebreaker: 11,
   },
   {
     name: "Meño",
     picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
-    tiebreaker: 44,
+    tiebreaker: 11,
   },
+  {
+    name: "Carlos Cervantes",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 11,
+  },
+  {
+    name: "RIOS",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 11,
+  },
+  {
+    name: "Vinny",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 11,
+  },
+  {
+    name: "OSO",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 11,
+  },
+  {
+    name: "Erick Escobar",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 11,
+  },
+  {
+    name: "Eric Rodriguez",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 11,
+  },
+  {
+    name: "Tito",
+    picks: ["", "", "", "", "", "","", "", "", "", "","", "", "", "", "", ""],
+    tiebreaker: 11,
+  },
+  
 ];
 
 // Helper: calculate correct/wrong
