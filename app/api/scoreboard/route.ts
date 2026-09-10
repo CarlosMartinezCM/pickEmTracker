@@ -164,8 +164,8 @@ export async function GET() {
       null;
 
     const week =
-  getCurrentNFLWeek(events) ??
-  (Number(json?.week?.number) || null);
+      getCurrentNFLWeek(events) ??
+      (Number(json?.week?.number) || null);
 
     /* ------------------------------------------------------------ */
     /* PARSE ESPN EVENTS */
@@ -351,6 +351,22 @@ export async function GET() {
     }
 
     /* ------------------------------------------------------------ */
+    /* SORT GAMES BY DATE */
+    /* ------------------------------------------------------------ */
+
+    matchups.sort((a, b) => {
+      const dateA = a.date
+        ? new Date(a.date).getTime()
+        : 0;
+
+      const dateB = b.date
+        ? new Date(b.date).getTime()
+        : 0;
+
+      return dateA - dateB;
+    });
+
+    /* ------------------------------------------------------------ */
     /* RESULTS */
     /* ------------------------------------------------------------ */
 
@@ -373,22 +389,6 @@ export async function GET() {
 
         return null;
       });
-
-    /* ------------------------------------------------------------ */
-    /* SORT GAMES BY DATE */
-    /* ------------------------------------------------------------ */
-
-    matchups.sort((a, b) => {
-      const dateA = a.date
-        ? new Date(a.date).getTime()
-        : 0;
-
-      const dateB = b.date
-        ? new Date(b.date).getTime()
-        : 0;
-
-      return dateA - dateB;
-    });
 
     /* ------------------------------------------------------------ */
     /* CACHE RESULT */
