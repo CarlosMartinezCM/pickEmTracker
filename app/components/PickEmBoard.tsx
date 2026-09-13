@@ -433,9 +433,108 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
   }
 }
 
+
+/*
+ * IMPORTANT:
+ * Player picks are stored in a fixed Week 1 column order.
+ * ESPN does not guarantee that its scoreboard array will stay in that same
+ * order, so the live matchups/results must be realigned to the pick sheet
+ * before the table is rendered or records are calculated.
+ */
+const WEEK1_GAME_ORDER = [
+  "NE@SEA",
+  "SF@LAR",
+  "ATL@PIT",
+  "BAL@IND",
+  "BUF@HOU",
+  "CHI@CAR",
+  "CLE@JAX",
+  "TB@CIN",
+  "NO@DET",
+  "NYJ@TEN",
+  "ARI@LAC",
+  "GB@MIN",
+  "MIA@LV",
+  "WAS@PHI",
+  "NYG@DAL",
+  "DEN@KC",
+] as const;
+
+function normalizeTeamAbbr(value: string | null | undefined) {
+  if (!value) return "";
+  const abbr = value.toUpperCase();
+
+  if (abbr === "WSH") return "WAS";
+  if (abbr === "OAK") return "LV";
+  if (abbr === "SD") return "LAC";
+
+  return abbr;
+}
+
+function matchupKey(m: Matchup | null | undefined) {
+  if (!m) return "";
+  return `${normalizeTeamAbbr(m.awayAbbr)}@${normalizeTeamAbbr(m.homeAbbr)}`;
+}
+
 export default function PickemTracker() {
   // scoreboard hook (polls /api/scoreboard)
-  const { results: scoreboardResults, matchups, loading } = useScoreboard(1000 * 60 * 5);
+  const {
+    results: rawScoreboardResults,
+    matchups: rawMatchups,
+    loading,
+  } = useScoreboard(1000 * 60 * 5);
+
+  /*
+   * Keep the live ESPN data in the EXACT same order as initialPlayers[].picks.
+   * This is the key fix for columns moving and wins/losses being colored under
+   * the wrong matchup.
+   */
+  const { matchups, scoreboardResults } = useMemo(() => {
+    if (!rawMatchups?.length) {
+      return {
+        matchups: rawMatchups,
+        scoreboardResults: rawScoreboardResults,
+      };
+    }
+
+    // Attach each result to its matchup BEFORE reordering anything.
+    const byGame = new Map<
+      string,
+      { matchup: Matchup; result: string | null }
+    >();
+
+    rawMatchups.forEach((matchup, index) => {
+      const key = matchupKey(matchup);
+      if (!key) return;
+
+      byGame.set(key, {
+        matchup,
+        result: rawScoreboardResults?.[index] ?? null,
+      });
+    });
+
+    const orderedMatchups: Matchup[] = [];
+    const orderedResults: (string | null)[] = [];
+
+    WEEK1_GAME_ORDER.forEach((key) => {
+      const game = byGame.get(key);
+
+      if (game) {
+        orderedMatchups.push(game.matchup);
+        orderedResults.push(game.result);
+      } else {
+        // Keep the column position reserved if ESPN temporarily omits a game.
+        orderedMatchups.push(null as unknown as Matchup);
+        orderedResults.push(null);
+      }
+    });
+
+    return {
+      matchups: orderedMatchups,
+      scoreboardResults: orderedResults,
+    };
+  }, [rawMatchups, rawScoreboardResults]);
+
   const displayedConfirmed = scoreboardResults ?? [];
 
   const [mounted, setMounted] = useState(false);
@@ -454,7 +553,7 @@ export default function PickemTracker() {
 
   // compute gameCount to keep header, winners row and table aligned
   //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
-  const gameCount = (matchups && matchups.length) || (initialPlayers[0]?.picks?.length) || 16;
+  const gameCount = initialPlayers[0]?.picks?.length || WEEK1_GAME_ORDER.length;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {

@@ -2,26 +2,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-
-type Matchup = {
-  eventId: string | null;
-  awayTeam: string | null;
-  homeTeam: string | null;
-  awayAbbr: string | null;
-  homeAbbr: string | null;
-  awayScore: number | null;
-  homeScore: number | null;
-  awayLogo?: string | null;
-  homeLogo?: string | null;
-  awayStanding?: string | null;
-  homeStanding?: string | null;
-  clock: string | null;
-  period: number | null;
-  detailedStatus: string | null;
-  date: string | null;
-  status: string | null;
-  winner?: string; // <--- add this
-};
+import type { Matchup } from "../../types";
 
 type ScoreboardResponse = {
   source?: string;
@@ -31,118 +12,293 @@ type ScoreboardResponse = {
   error?: string;
 };
 
-export default function useScoreboard(pollIntervalMs = 1000 * 60 * 5, apiPath = "/api/scoreboard") {
+type TeamMap = Record<string, string | null>;
+
+function normalizeAbbr(input?: string | null): string | null {
+  if (!input) return null;
+
+  const up = String(input).toUpperCase();
+
+  if (up === "WSH") return "WAS";
+  if (up === "OAK") return "LV";
+  if (up === "SD") return "LAC";
+
+  return up;
+}
+
+export default function useScoreboard(
+  pollIntervalMs = 1000 * 60 * 5,
+  apiPath = "/api/scoreboard"
+) {
   const [results, setResults] = useState<(string | null)[] | null>(null);
   const [matchups, setMatchups] = useState<Matchup[] | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const mounted = useRef(true);
-  const intervalRef = useRef<number | null>(null);
 
-  // Fetch logos mapping
-  async function fetchTeamsLogoMap() {
+  const mounted = useRef(true);
+  const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  async function fetchTeamsLogoMap(
+    signal?: AbortSignal
+  ): Promise<TeamMap> {
     try {
-      const teamsResp = await fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams");
+      const teamsResp = await fetch(
+        "https://site.api.espn.com/apis/site/v2/sports/football/nfl/teams",
+        {
+          signal,
+          cache: "no-store",
+        }
+      );
+
       if (!teamsResp.ok) return {};
+
       const teamsJson = await teamsResp.json();
+
       const arr = Array.isArray(teamsJson?.teams)
         ? teamsJson.teams
         : teamsJson?.sports?.[0]?.leagues?.[0]?.teams ?? [];
-      const map: Record<string, string | null> = {};
+
+      const map: TeamMap = {};
+
       for (const t of arr) {
         const teamObj = t?.team ?? t;
         if (!teamObj) continue;
-        const abbr = (teamObj.abbreviation || teamObj.shortName || teamObj.displayName || "").toUpperCase();
+
+        const abbr = normalizeAbbr(
+          teamObj.abbreviation ||
+            teamObj.shortName ||
+            teamObj.displayName ||
+            null
+        );
+
         let logo: string | null = null;
-        if (Array.isArray(teamObj.logos) && teamObj.logos.length > 0) {
+
+        if (
+          Array.isArray(teamObj.logos) &&
+          teamObj.logos.length > 0
+        ) {
           logo = teamObj.logos[0]?.href ?? null;
         } else if (teamObj.logo) {
           logo = teamObj.logo;
         }
-        if (abbr) map[abbr] = logo;
+
+        if (abbr) {
+          map[abbr] = logo;
+        }
       }
+
       return map;
-    } catch (e) {
-      console.warn("teams fetch failed", e);
+    } catch (err: any) {
+      if (err?.name !== "AbortError") {
+        console.warn("teams fetch failed", err);
+      }
+
       return {};
     }
   }
 
-  // Fetch standings mapping
-  async function fetchStandingsMap() {
+  async function fetchStandingsMap(
+    signal?: AbortSignal
+  ): Promise<TeamMap> {
     try {
-      const sResp = await fetch("https://site.api.espn.com/apis/site/v2/sports/football/nfl/standings");
-      if (!sResp.ok) return {};
-      const sJson = await sResp.json();
-      const map: Record<string, string | null> = {};
-      const entries = (sJson?.records ?? []).flatMap((r: any) => r?.teamRecords ?? []);
-      for (const rec of entries) {
-        const abbr = (rec?.team?.abbreviation || rec?.team?.shortDisplayName || "").toUpperCase();
-        const summary = rec?.summary ?? `${rec?.wins}-${rec?.losses}${rec?.ties ? `-${rec.ties}` : ""}`;
-        if (abbr) map[abbr] = summary;
+      const standingsResp = await fetch(
+        "https://site.api.espn.com/apis/site/v2/sports/football/nfl/standings",
+        {
+          signal,
+          cache: "no-store",
+        }
+      );
+
+      if (!standingsResp.ok) return {};
+
+      const standingsJson = await standingsResp.json();
+
+      const map: TeamMap = {};
+
+      const entries = (standingsJson?.records ?? []).flatMap(
+        (record: any) => record?.teamRecords ?? []
+      );
+
+      for (const record of entries) {
+        const abbr = normalizeAbbr(
+          record?.team?.abbreviation ||
+            record?.team?.shortDisplayName ||
+            null
+        );
+
+        const summary =
+          record?.summary ??
+          `${record?.wins}-${record?.losses}${
+            record?.ties ? `-${record.ties}` : ""
+          }`;
+
+        if (abbr) {
+          map[abbr] = summary;
+        }
       }
+
       return map;
-    } catch (e) {
-      console.warn("standings fetch failed", e);
+    } catch (err: any) {
+      if (err?.name !== "AbortError") {
+        console.warn("standings fetch failed", err);
+      }
+
       return {};
     }
   }
 
   async function fetchOnce(signal?: AbortSignal) {
-    setLoading(true);
-    setError(null);
+    if (mounted.current) {
+      setLoading(true);
+      setError(null);
+    }
+
     try {
-      const res = await fetch(apiPath, { signal });
-      if (!res.ok) throw new Error(`HTTP ${res.status} ${res.statusText}`);
-      const json = (await res.json()) as ScoreboardResponse;
+      const response = await fetch(apiPath, {
+        signal,
+        cache: "no-store",
+        headers: {
+          "Cache-Control": "no-cache",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(
+          `HTTP ${response.status} ${response.statusText}`
+        );
+      }
+
+      const json =
+        (await response.json()) as ScoreboardResponse;
 
       if (!mounted.current) return;
 
-      const logoMap = await fetchTeamsLogoMap();
-      const standingsMap = await fetchStandingsMap();
+      if (json.error) {
+        throw new Error(json.error);
+      }
 
-      const enhancedMatchups = json.matchups?.map((m) => ({
-        ...m,
-        awayLogo: m.awayAbbr ? logoMap[m.awayAbbr] ?? null : null,
-        homeLogo: m.homeAbbr ? logoMap[m.homeAbbr] ?? null : null,
-        awayStanding: m.awayAbbr ? standingsMap[m.awayAbbr] ?? null : null,
-        homeStanding: m.homeAbbr ? standingsMap[m.homeAbbr] ?? null : null,
-        // Fix for Denver game showing TBD
-        date:
-          m?.date ??
-          (m?.status === "SCHEDULED" && m?.detailedStatus?.includes("Sun") ? new Date(m.detailedStatus).toISOString() : null),
-      }));
+      /*
+       * IMPORTANT:
+       * Do not independently sort results and matchups here.
+       *
+       * The API returns:
+       *   matchups[0] <-> results[0]
+       *   matchups[1] <-> results[1]
+       *   ...
+       *
+       * PickEmBoard.tsx handles putting those games into the fixed
+       * Week 1 pick-sheet order.
+       */
+      const rawMatchups = Array.isArray(json.matchups)
+        ? json.matchups
+        : [];
 
-      setResults(json.results ?? null);
-      setMatchups(enhancedMatchups ?? null);
+      const rawResults = Array.isArray(json.results)
+        ? json.results
+        : [];
+
+      const [logoMap, standingsMap] =
+        await Promise.all([
+          fetchTeamsLogoMap(signal),
+          fetchStandingsMap(signal),
+        ]);
+
+      if (!mounted.current) return;
+
+      const enhancedMatchups: Matchup[] =
+        rawMatchups.map((matchup) => {
+          const awayAbbr = normalizeAbbr(
+            matchup.awayAbbr
+          );
+
+          const homeAbbr = normalizeAbbr(
+            matchup.homeAbbr
+          );
+
+          return {
+            ...matchup,
+            awayAbbr,
+            homeAbbr,
+
+            awayLogo: awayAbbr
+              ? logoMap[awayAbbr] ?? null
+              : null,
+
+            homeLogo: homeAbbr
+              ? logoMap[homeAbbr] ?? null
+              : null,
+
+            awayStanding: awayAbbr
+              ? standingsMap[awayAbbr] ?? null
+              : null,
+
+            homeStanding: homeAbbr
+              ? standingsMap[homeAbbr] ?? null
+              : null,
+
+            date: matchup.date ?? null,
+          };
+        });
+
+      /*
+       * Normalize winner abbreviations, but DO NOT change their
+       * position. Each result remains paired with the matchup at
+       * the same index.
+       */
+      const normalizedResults =
+        rawMatchups.map((_, index) =>
+          normalizeAbbr(rawResults[index] ?? null)
+        );
+
+      setMatchups(enhancedMatchups);
+      setResults(normalizedResults);
     } catch (err: any) {
       if (err?.name === "AbortError") return;
-      console.error("useScoreboard fetch error:", err);
-      if (mounted.current) setError(String(err));
+
+      console.error(
+        "useScoreboard fetch error:",
+        err
+      );
+
+      if (mounted.current) {
+        setError(
+          err?.message ?? String(err)
+        );
+      }
     } finally {
-      if (mounted.current) setLoading(false);
+      if (mounted.current) {
+        setLoading(false);
+      }
     }
   }
 
   useEffect(() => {
     mounted.current = true;
+
     const controller = new AbortController();
 
-    // initial fetch
+    // Initial fetch
     fetchOnce(controller.signal);
 
-    // set up polling interval
-    intervalRef.current = window.setInterval(() => {
+    // Refresh scoreboard
+    intervalRef.current = setInterval(() => {
       fetchOnce();
     }, pollIntervalMs);
 
     return () => {
       mounted.current = false;
       controller.abort();
-      if (intervalRef.current) clearInterval(intervalRef.current);
+
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [apiPath, pollIntervalMs]);
 
-  return { results, matchups, loading, error };
+  return {
+    results,
+    matchups,
+    loading,
+    error,
+  };
 }
