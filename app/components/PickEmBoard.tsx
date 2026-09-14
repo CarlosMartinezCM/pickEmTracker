@@ -456,7 +456,7 @@ const WEEK1_GAME_ORDER = [
   "GB@MIN",
   "MIA@LV",
   "WAS@PHI",
-  "NYG@DAL",
+  "DAL@NYG", // <-- FIXED
   "DEN@KC",
 ] as const;
 
