@@ -460,6 +460,42 @@ const WEEK1_GAME_ORDER = [
   "DEN@KC",
 ] as const;
 
+//Week 2 updates for picks    *****************************************************************8
+/**const WEEK2_GAME_ORDER = [
+  "DET@BUF",
+
+  "CAR@ATL",
+
+  "MIN@CHI",
+
+  "PHI@TEN",
+
+  "PIT@NE",
+
+  "GB@NYJ",
+
+  "CLE@TB",
+
+  "NO@BAL",
+
+  "CIN@HOU",
+
+  "JAX@DEN",
+
+  "LV@LAC",
+
+  "WAS@DAL",
+
+  "SEA@ARI",
+
+  "MIA@SF",
+
+  "IND@KC",
+
+  "NYG@LAR",
+] as const;
+  */
+
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
   const abbr = value.toUpperCase();
