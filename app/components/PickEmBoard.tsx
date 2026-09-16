@@ -72,92 +72,32 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-// Week 1 2026
+// Week 2 2026
 const initialPlayers: Player[] = [
   {
   name: "Carlos(comish)",
-  picks: ["NE","LAR","PIT","BAL","HOU","CAR","JAX","CIN","DET","NYJ","LAC","GB","LV","PHI","DAL","KC"],
-  tiebreaker: 45,
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 11,
+},
+{
+  name: "Sumo",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 11,
 },
 
 {
-  name: "Fay",
-  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","CLE","CIN","DET","TEN","LAC","MIN","MIA","PHI","NYG","KC"],
-  tiebreaker: 48,
-},
-
-{
-  name: "Edgar B",
-  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","MIN","LV","PHI","DAL","KC"],
-  tiebreaker: 41,
-},
-
-{
-  name: "Meno",
-  picks: ["NE","LAR","PIT","BAL","BUF","CAR","JAX","TB","DET","NYJ","LAC","GB","MIA","PHI","NYG","KC"],
-  tiebreaker: 42,
-},
-
-{
-  name: "Los9911",
-  picks: ["SEA","LAR","ATL","BAL","BUF","CHI","JAX","CIN","DET","NYJ","LAC","GB","LV","PHI","DAL","KC"],
-  tiebreaker: 49,
-},
-
-{
-  name: "Rios",
-  picks: ["NE","SF","PIT","BAL","BUF","CHI","JAX","TB","DET","TEN","LAC","MIN","LV","PHI","DAL","KC"],
-  tiebreaker: 42,
-},
-
-{
-  name: "Vinny",
-  picks: ["SEA","LAR","ATL","IND","BUF","CHI","JAX","TB","DET","TEN","LAC","GB","LV","WAS","DAL","DEN"],
-  tiebreaker: 41,
+  name: "Curt",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 11,
 },
 
 {
   name: "Oso",
-  picks: ["SEA","LAR","PIT","BAL","HOU","CHI","JAX","CIN","DET","NYJ","LAC","GB","LV","PHI","DAL","DEN"],
-  tiebreaker: 53,
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 11,
 },
 
-{
-  name: "Erick Escobar",
-  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","MIN","LV","PHI","DAL","DEN"],
-  tiebreaker: 42,
-},
 
-{
-  name: "Eric Rodriguez",
-  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","NYJ","LAC","GB","MIA","PHI","DAL","DEN"],
-  tiebreaker: 50,
-},
-
-{
-  name: "Tito",
-  picks: ["NE","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","NYJ","LAC","MIN","LV","PHI","DAL","DEN"],
-  tiebreaker: 45,
-},
-
-{
-  name: "Sumo",
-  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","GB","LV","PHI","DAL","DEN"],
-  tiebreaker: 38,
-},
-
-{
-  name: "Danny",
-  picks: ["SEA","LAR","PIT","BAL","BUF","CHI","JAX","CIN","DET","TEN","LAC","GB","LV","PHI","DAL","DEN"],
-  tiebreaker: 43,
-},
-
-{
-  name: "Ernest",
-  picks: ["SEA","LAR","PIT","BAL","HOU","CHI","JAX","CIN","DET","TEN","LAC","GB","LV","PHI","DAL","KC"],
-  tiebreaker: 44,
-},
-  
 ];
 
 // Helper: calculate correct/wrong
@@ -436,32 +376,14 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
 
 /*
  * IMPORTANT:
- * Player picks are stored in a fixed Week 1 column order.
+ * Player picks are stored in a fixed Week 2 column order.
  * ESPN does not guarantee that its scoreboard array will stay in that same
  * order, so the live matchups/results must be realigned to the pick sheet
  * before the table is rendered or records are calculated.
  */
-const WEEK1_GAME_ORDER = [
-  "NE@SEA",
-  "SF@LAR",
-  "ATL@PIT",
-  "BAL@IND",
-  "BUF@HOU",
-  "CHI@CAR",
-  "CLE@JAX",
-  "TB@CIN",
-  "NO@DET",
-  "NYJ@TEN",
-  "ARI@LAC",
-  "GB@MIN",
-  "MIA@LV",
-  "WAS@PHI",
-  "DAL@NYG", // <-- FIXED
-  "DEN@KC",
-] as const;
 
 //Week 2 updates for picks    *****************************************************************8
-/**const WEEK2_GAME_ORDER = [
+const WEEK2_GAME_ORDER = [
   "DET@BUF",
 
   "CAR@ATL",
@@ -494,7 +416,6 @@ const WEEK1_GAME_ORDER = [
 
   "NYG@LAR",
 ] as const;
-  */
 
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
@@ -552,7 +473,10 @@ export default function PickemTracker() {
     const orderedMatchups: Matchup[] = [];
     const orderedResults: (string | null)[] = [];
 
-    WEEK1_GAME_ORDER.forEach((key) => {
+
+    // Adjust weeks here  ****************************************************************************************
+    //********************************************************************************************************** */
+    WEEK2_GAME_ORDER.forEach((key) => {
       const game = byGame.get(key);
 
       if (game) {
@@ -704,16 +628,16 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Week 1
+          Week 2
         </h1>
 
         {/* Number of players */}
         <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">Total Players: {initialPlayers.length}</div>
 
-        {/* Winner */}
+        {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {winners.map((p) => p.name).join(", ")} 
+            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -727,7 +651,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 1 
+          Week 2
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
