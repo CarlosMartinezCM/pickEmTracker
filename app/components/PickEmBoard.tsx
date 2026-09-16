@@ -513,7 +513,7 @@ export default function PickemTracker() {
 
   // compute gameCount to keep header, winners row and table aligned
   //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
-  const gameCount = initialPlayers[0]?.picks?.length || WEEK1_GAME_ORDER.length;
+  const gameCount = initialPlayers[0]?.picks?.length || WEEK2_GAME_ORDER.length;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
