@@ -151,6 +151,16 @@ const initialPlayers: Player[] = [
   picks: ["","","","","","","","","","","","","","","",""],
   tiebreaker: 11,
 },
+{
+  name: "Bobby",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 11,
+},
+{
+  name: "Danny",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 11,
+},
 ];
 
 // Helper: calculate correct/wrong
