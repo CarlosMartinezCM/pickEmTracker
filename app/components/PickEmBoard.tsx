@@ -726,7 +726,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
+            🏆 {winners.map((p) => p.name).join(", ")} 
           </div>
         )}
 
