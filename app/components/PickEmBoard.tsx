@@ -75,56 +75,135 @@ const confirmedResults: (string | null)[] = [
 // Week 3 2026
 const initialPlayers: Player[] = [
 {
-  name: "Carlos",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  name: "Carlos(comish)",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","NE","SF","TB","BAL","NO","LAR","PHI"],
+  tiebreaker: 44,
 },
+
 {
   name: "Sumo",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","LV","LAR","PHI"],
+  tiebreaker: 38,
 },
 
 {
   name: "Coop",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","LV","LAR","PHI"],
+  tiebreaker: 42,
 },
 
 {
   name: "Curt",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","LV","LAR","PHI"],
+  tiebreaker: 35,
 },
 
 {
   name: "Los9911",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["ATL","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","NE","SF","TB","BAL","LV","LAR","PHI"],
+  tiebreaker: 40,
 },
 
 {
   name: "RIOS",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["GB","BUF","CLE","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","NO","LAR","PHI"],
+  tiebreaker: 42,
 },
 
 {
   name: "Oso",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["GB","BUF","CAR","DET","IND","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","NO","LAR","PHI"],
+  tiebreaker: 53,
 },
 
 {
   name: "Yolo",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","PIT","SEA","JAX","SF","TB","DAL","LV","DEN","PHI"],
+  tiebreaker: 28,
 },
 
 {
   name: "NikGo",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["ATL","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 44,
+},
+
+{
+  name: "Flash",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","NYG","PIT","SEA","NE","SF","MIN","BAL","LV","LAR","CHI"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Carlos A.",
+  picks: ["GB","BUF","CLE","DET","IND","KC","TEN","PIT","SEA","NE","SF","TB","BAL","LV","DEN","PHI"],
+  tiebreaker: 35,
+},
+
+{
+  name: "Tito",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 31,
+},
+
+{
+  name: "Bobby",
+  picks: ["ATL","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 47,
+},
+
+{
+  name: "MadMax",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","NYG","CIN","SEA","NE","SF","MIN","BAL","LV","LAR","PHI"],
+  tiebreaker: 49,
+},
+
+{
+  name: "Edgar B",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","NO","DEN","PHI"],
+  tiebreaker: 41,
+},
+
+{
+  name: "J",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","NO","DEN","PHI"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Fay",
+  picks: ["GB","BUF","CLE","DET","IND","KC","TEN","CIN","SEA","NE","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Candon",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 43,
+},
+
+{
+  name: "Erick Escobar",
+  picks: ["GB","BUF","CAR","DET","IND","KC","TEN","CIN","SEA","JAX","ARI","TB","BAL","LV","LAR","PHI"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Danny",
+  picks: ["GB","BUF","CAR","DET","IND","KC","TEN","CIN","SEA","NE","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 44,
+},
+
+{
+  name: "Eric Rodriguez",
+  picks: ["GB","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","NE","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 45,
+},
+
+{
+  name: "Ernest",
+  picks: ["GB","BUF","CAR","DET","HOU","KC","NYG","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
+  tiebreaker: 44,
 },
 ];
 
