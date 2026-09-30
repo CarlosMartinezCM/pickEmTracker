@@ -524,6 +524,44 @@ const WEEK3_GAME_ORDER = [
   "PHI@CHI",
 ] as const; 
 
+/****  Week 4 fallback schedule
+
+const WEEK4_GAME_ORDER = [
+  "PIT@CLE",
+
+  "IND@WAS",
+
+  "NE@BUF",
+
+  "NYJ@CHI",
+
+  "JAX@CIN",
+
+  "ARI@NYG",
+
+  "LAR@PHI",
+
+  "GB@TB",
+
+  "TEN@BAL",
+
+  "DAL@HOU",
+
+  "MIA@MIN",
+
+  "KC@LV",
+
+  "DEN@SF",
+
+  "LAC@SEA",
+
+  "DET@CAR",
+
+  "ATL@NO",
+] as const;
+
+*/
+
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
   const abbr = value.toUpperCase();
