@@ -33,37 +33,6 @@ const previousWinners: PreviousWinner[] = [
   { week: 1, winner: "Candon_W1_2025" },
 ];
 
-/**
-  {
-  name: "Carlos(comish)",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
-},
-
-{
-  name: "Coop",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
-},
-
-{
-  name: "Curt",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
-},
-
-{
-  name: "Fay",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
-},
-
-{
-  name: "Sumo",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
-},
- */
 
 
 const TRY_EXT = [".png", ".jpg", ".jpeg", ".webp"];

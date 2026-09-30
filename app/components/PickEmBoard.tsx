@@ -72,139 +72,80 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-// Week 3 2026
+// Week 4 2026
 const initialPlayers: Player[] = [
-{
+  {
   name: "Carlos(comish)",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","NE","SF","TB","BAL","NO","LAR","PHI"],
-  tiebreaker: 44,
-},
-
-{
-  name: "Sumo",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","LV","LAR","PHI"],
-  tiebreaker: 38,
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
   name: "Coop",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","LV","LAR","PHI"],
-  tiebreaker: 42,
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
   name: "Curt",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","LV","LAR","PHI"],
-  tiebreaker: 35,
-},
-
-{
-  name: "Los9911",
-  picks: ["ATL","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","NE","SF","TB","BAL","LV","LAR","PHI"],
-  tiebreaker: 40,
-},
-
-{
-  name: "RIOS",
-  picks: ["GB","BUF","CLE","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","NO","LAR","PHI"],
-  tiebreaker: 42,
-},
-
-{
-  name: "Oso",
-  picks: ["GB","BUF","CAR","DET","IND","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","NO","LAR","PHI"],
-  tiebreaker: 53,
-},
-
-{
-  name: "Yolo",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","PIT","SEA","JAX","SF","TB","DAL","LV","DEN","PHI"],
-  tiebreaker: 28,
-},
-
-{
-  name: "NikGo",
-  picks: ["ATL","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 44,
-},
-
-{
-  name: "Flash",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","NYG","PIT","SEA","NE","SF","MIN","BAL","LV","LAR","CHI"],
-  tiebreaker: 48,
-},
-
-{
-  name: "Carlos A.",
-  picks: ["GB","BUF","CLE","DET","IND","KC","TEN","PIT","SEA","NE","SF","TB","BAL","LV","DEN","PHI"],
-  tiebreaker: 35,
-},
-
-{
-  name: "Tito",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 31,
-},
-
-{
-  name: "Bobby",
-  picks: ["ATL","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 47,
-},
-
-{
-  name: "MadMax",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","NYG","CIN","SEA","NE","SF","MIN","BAL","LV","LAR","PHI"],
-  tiebreaker: 49,
-},
-
-{
-  name: "Edgar B",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","NO","DEN","PHI"],
-  tiebreaker: 41,
-},
-
-{
-  name: "J",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","TB","BAL","NO","DEN","PHI"],
-  tiebreaker: 48,
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
   name: "Fay",
-  picks: ["GB","BUF","CLE","DET","IND","KC","TEN","CIN","SEA","NE","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 48,
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Candon",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","TEN","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 43,
+  name: "Sumo",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Erick Escobar",
-  picks: ["GB","BUF","CAR","DET","IND","KC","TEN","CIN","SEA","JAX","ARI","TB","BAL","LV","LAR","PHI"],
-  tiebreaker: 42,
+  name: "Carlos A",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Danny",
-  picks: ["GB","BUF","CAR","DET","IND","KC","TEN","CIN","SEA","NE","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 44,
+  name: "Oso",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Eric Rodriguez",
-  picks: ["GB","BUF","CAR","DET","IND","KC","NYG","CIN","SEA","NE","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 45,
+  name: "Edgar B",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Ernest",
-  picks: ["GB","BUF","CAR","DET","HOU","KC","NYG","CIN","SEA","JAX","SF","MIN","BAL","NO","LAR","PHI"],
-  tiebreaker: 44,
+  name: "MadMax",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
 },
+
+{
+  name: "Yolo",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
+},
+
+{
+  name: "F E Need name",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
+},
+
+{
+  name: "RIOS",
+  picks: ["","","","","","","","","","","","","","","",""],
+  tiebreaker: 100,
+},
+
 ];
 
 // Helper: calculate correct/wrong
@@ -490,42 +431,6 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
  */
 
 /*******************************************************************************************/
-const WEEK3_GAME_ORDER = [
-  "ATL@GB",
-
-  "LAC@BUF",
-
-  "CAR@CLE",
-
-  "NYJ@DET",
-
-  "HOU@IND",
-
-  "KC@MIA",
-
-  "TEN@NYG",
-
-  "CIN@PIT",
-
-  "SEA@WAS",
-
-  "NE@JAX",
-
-  "ARI@SF",
-
-  "MIN@TB",
-
-  "BAL@DAL",
-
-  "LV@NO",
-
-  "LAR@DEN",
-
-  "PHI@CHI",
-] as const; 
-
-/****  Week 4 fallback schedule
-
 const WEEK4_GAME_ORDER = [
   "PIT@CLE",
 
@@ -559,6 +464,10 @@ const WEEK4_GAME_ORDER = [
 
   "ATL@NO",
 ] as const;
+
+/****  Week 4 fallback schedule
+
+
 
 */
 
@@ -621,7 +530,7 @@ export default function PickemTracker() {
 
     // Adjust weeks here  ****************************************************************************************
     //********************************************************************************************************** */
-    WEEK3_GAME_ORDER.forEach((key) => {
+    WEEK4_GAME_ORDER.forEach((key) => {
       const game = byGame.get(key);
 
       if (game) {
@@ -658,7 +567,7 @@ export default function PickemTracker() {
 
   // compute gameCount to keep header, winners row and table aligned
   //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
-  const gameCount = initialPlayers[0]?.picks?.length || WEEK3_GAME_ORDER.length;
+  const gameCount = initialPlayers[0]?.picks?.length || WEEK4_GAME_ORDER.length;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
@@ -773,7 +682,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Week 3
+          Week 4
         </h1>
 
         {/* Number of players */}
@@ -782,7 +691,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {winners.map((p) => p.name).join(", ")} 
+            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -796,7 +705,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 3
+          Week 4
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">

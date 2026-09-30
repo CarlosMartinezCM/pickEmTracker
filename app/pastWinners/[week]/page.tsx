@@ -23,7 +23,7 @@ type CurrentWinner = {
 const currentWinners: CurrentWinner[] = [
   { week: 3, winner: "CarlosA_W3_2026" },
   { week: 2, winner: "null_W2_2026" },
-  { week: 1, winner: "null_W1_2026" },
+  { week: 1, winner: "EdgarB_W1_2026" },
 ];
 
 const TRY_EXT = [".png", ".jpg", ".jpeg", ".webp"];
