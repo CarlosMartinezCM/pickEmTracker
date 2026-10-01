@@ -76,84 +76,122 @@ const confirmedResults: (string | null)[] = [
 const initialPlayers: Player[] = [
   {
   name: "Carlos(comish)",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["PIT","WAS","NE","NYJ","CIN","ARI","LAR","TB","BAL","HOU","MIN","KC","DEN","SEA","DET","ATL"],
+  tiebreaker: 55,
 },
 
 {
   name: "Coop",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["CLE","IND","BUF","CHI","CIN","ARI","LAR","GB","BAL","DAL","MIN","LV","DEN","SEA","CAR","ATL"],
+  tiebreaker: 65,
 },
 
 {
   name: "Curt",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["CLE","WAS","BUF","CHI","CIN","ARI","LAR","GB","BAL","DAL","MIN","LV","SF","SEA","DET","ATL"],
+  tiebreaker: 52,
 },
 
 {
   name: "Fay",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["CLE","WAS","BUF","CHI","CIN","NYG","PHI","TB","BAL","HOU","MIN","LV","SF","SEA","CAR","NO"],
+  tiebreaker: 48,
 },
 
 {
   name: "Sumo",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["CLE","WAS","BUF","NYJ","JAX","ARI","LAR","GB","BAL","DAL","MIN","KC","SF","SEA","DET","NO"],
+  tiebreaker: 49,
 },
 
 {
   name: "Carlos A",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["PIT","IND","BUF","CHI","CIN","NYG","PHI","GB","BAL","DAL","MIN","KC","SF","SEA","DET","NO"],
+  tiebreaker: 28,
 },
 
 {
   name: "Oso",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["PIT","IND","BUF","CHI","CIN","NYG","PHI","GB","BAL","HOU","MIN","KC","DEN","SEA","DET","NO"],
+  tiebreaker: 53,
 },
 
 {
   name: "Edgar B",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["PIT","IND","BUF","CHI","JAX","ARI","LAR","GB","BAL","DAL","MIN","KC","SF","SEA","DET","ATL"],
+  tiebreaker: 49,
 },
 
 {
   name: "MadMax",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["CLE","IND","BUF","CHI","CIN","ARI","PHI","TB","BAL","DAL","MIN","LV","SF","SEA","CAR","NO"],
+  tiebreaker: 56,
 },
 
 {
   name: "Yolo",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["PIT","WAS","BUF","CHI","JAX","NYG","LAR","TB","BAL","HOU","MIN","LV","SF","SEA","DET","ATL"],
+  tiebreaker: 28,
 },
 
 {
-  name: "F E Need name",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  name: "Ele",
+  picks: ["PIT","WAS","BUF","CHI","JAX","ARI","PHI","GB","BAL","DAL","MIN","KC","SF","SEA","DET","NO"],
+  tiebreaker: 62,
 },
 
 {
   name: "RIOS",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["PIT","IND","BUF","CHI","JAX","ARI","LAR","GB","BAL","HOU","MIN","KC","SF","SEA","DET","ATL"],
+  tiebreaker: 38,
 },
+
 {
   name: "Los9911",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["CLE","IND","BUF","CHI","CIN","NYG","LAR","GB","BAL","DAL","MIN","KC","SF","SEA","DET","ATL"],
+  tiebreaker: 40,
 },
+
 {
   name: "Jacob M",
-  picks: ["","","","","","","","","","","","","","","",""],
-  tiebreaker: 100,
+  picks: ["CLE","IND","BUF","CHI","CIN","ARI","LAR","GB","BAL","HOU","MIN","KC","SF","SEA","DET","NO"],
+  tiebreaker: 51,
+},
+
+{
+  name: "Gus.Fota",
+  picks: ["PIT","IND","BUF","CHI","JAX","NYG","LAR","GB","BAL","DAL","MIN","KC","DEN","SEA","DET","ATL"],
+  tiebreaker: 32,
+},
+
+{
+  name: "Gzuz",
+  picks: ["PIT","WAS","BUF","CHI","CIN","ARI","LAR","GB","BAL","HOU","MIN","KC","SF","SEA","DET","ATL"],
+  tiebreaker: 45,
+},
+
+{
+  name: "Ernest",
+  picks: ["PIT","IND","BUF","CHI","JAX","ARI","LAR","GB","BAL","HOU","MIN","KC","SF","SEA","DET","NO"],
+  tiebreaker: 49,
+},
+
+{
+  name: "Bobby",
+  picks: ["PIT","IND","BUF","CHI","CIN","ARI","LAR","GB","BAL","DAL","MIN","KC","SF","SEA","DET","ATL"],
+  tiebreaker: 49,
+},
+
+{
+  name: "Flash",
+  picks: ["PIT","WAS","BUF","CHI","JAX","ARI","PHI","TB","BAL","DAL","MIN","KC","SF","SEA","DET","ATL"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Erick Escobar",
+  picks: ["CLE","WAS","BUF","CHI","CIN","ARI","LAR","TB","BAL","DAL","MIN","LV","SF","SEA","DET","ATL"],
+  tiebreaker: 42,
 },
 
 ];
@@ -475,7 +513,7 @@ const WEEK4_GAME_ORDER = [
   "ATL@NO",
 ] as const;
 
-/****  Week 4 fallback schedule
+/****  Week 5 fallback schedule
 
 
 
