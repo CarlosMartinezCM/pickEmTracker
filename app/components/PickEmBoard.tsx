@@ -1,7 +1,10 @@
 /* PickemTracker.tsx */
 /* 
-Things to do before game start automate later. Line 510 winners section, take of the block comment to display 
+Things to do before game start automate later. 
+Line 510 winners section, take of the block comment to display.
 the current top winners and then the final winner that week. 
+Set the fallback indexes
+Change week to current week on pickemboard and allmatchups
 */
 "use client";
 import React, { useState, useMemo, useEffect } from "react";
@@ -514,7 +517,37 @@ const WEEK4_GAME_ORDER = [
 ] as const;
 
 /****  Week 5 fallback schedule
+const WEEK5_GAME_ORDER = [
+  "TB@DAL",
 
+  "PHI@JAX",
+
+  "HOU@TEN",
+
+  "CIN@MIA",
+
+  "LV@NE",
+
+  "MIN@NO",
+
+  "CLE@NYJ",
+
+  "IND@PIT",
+
+  "NYG@WAS",
+
+  "DEN@LAC",
+
+  "CHI@GB",
+
+  "DET@ARI",
+
+  "SF@SEA",
+
+  "BAL@ATL",
+
+  "BUF@LAR",
+] as const;
 
 
 */
@@ -739,7 +772,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
+            🏆 {winners.map((p) => p.name).join(", ")} 
           </div>
         )}
 
