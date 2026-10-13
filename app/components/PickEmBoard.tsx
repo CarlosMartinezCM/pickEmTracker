@@ -527,6 +527,26 @@ const WEEK5_GAME_ORDER = [
   "BUF@LAR",
 ] as const;
 
+/**
+ * 
+  const WEEK6_GAME_ORDER = [
+  "SEA@DEN",
+  "HOU@JAX",
+  "CHI@ATL",
+  "BAL@CLE",
+  "TEN@IND",
+  "NYJ@NE",
+  "NO@NYG",
+  "CAR@PHI",
+  "PIT@TB",
+  "ARI@LAR",
+  "LAC@KC",
+  "BUF@LV",
+  "DAL@GB",
+  "WAS@SF",
+] as const;
+ */
+
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
   const abbr = value.toUpperCase();
@@ -747,7 +767,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
+            🏆 {winners.map((p) => p.name).join(", ")} 
           </div>
         )}
 
