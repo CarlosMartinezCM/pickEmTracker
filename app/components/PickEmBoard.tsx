@@ -529,6 +529,25 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
   "WAS@SF",
 ] as const;
 
+/**
+ const WEEK7_GAME_ORDER = [
+  "NE@CHI",
+  "PIT@NO",
+  "SF@ATL",
+  "CLE@TEN",
+  "IND@MIN",
+  "MIA@NYJ",
+  "TB@CAR",
+  "CIN@BAL",
+  "NYG@HOU",
+  "DEN@ARI",
+  "GB@DET",
+  "LAR@LV",
+  "KC@SEA",
+  "DAL@PHI",
+] as const;
+ */
+
 
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
@@ -750,7 +769,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
+            🏆 {winners.map((p) => p.name).join(", ")} 
           </div>
         )}
 
