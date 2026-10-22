@@ -79,50 +79,122 @@ const confirmedResults: (string | null)[] = [
 const initialPlayers: Player[] = [
   {
   name: "Carlos(comish)",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["NE","PIT","ATL","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","DET","LV","SEA","DAL"],
+  tiebreaker: 44,
 },
 
 {
   name: "Sumo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","DEN","GB","LAR","KC","DAL"],
+  tiebreaker: 40,
 },
 
 {
   name: "NikGo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","DEN","GB","LAR","KC","DAL"],
+  tiebreaker: 41,
 },
 
 {
   name: "ELE",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","DET","LAR","SEA","DAL"],
+  tiebreaker: 37,
 },
 
 {
   name: "Edgar",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["NE","PIT","SF","TEN","MIN","NYJ","CAR","CIN","HOU","DEN","DET","LAR","SEA","DAL"],
+  tiebreaker: 44,
 },
 
 {
   name: "Jesus",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","TB","BAL","NYG","DEN","DET","LV","KC","PHI"],
+  tiebreaker: 44,
 },
 
 {
   name: "Curt",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","ARI","GB","LV","SEA","PHI"],
+  tiebreaker: 40,
 },
 
 {
   name: "Los9911",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["NE","PIT","SF","CLE","MIN","NYJ","TB","BAL","NYG","DEN","DET","LV","KC","DAL"],
+  tiebreaker: 45,
+},
+
+{
+  name: "MadMax",
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","DET","LV","KC","DAL"],
+  tiebreaker: 41,
+},
+
+{
+  name: "Jacob M",
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","DEN","DET","LAR","SEA","DAL"],
+  tiebreaker: 54,
+},
+
+{
+  name: "Erick Escobar",
+  picks: ["CHI","PIT","SF","TEN","MIN","NYJ","CAR","CIN","HOU","DEN","GB","LV","SEA","DAL"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Flash",
+  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","GB","LAR","SEA","DAL"],
+  tiebreaker: 56,
+},
+
+{
+  name: "RIOS",
+  picks: ["NE","PIT","ATL","TEN","IND","NYJ","CAR","CIN","HOU","DEN","DET","LV","SEA","DAL"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Fay",
+  picks: ["NE","PIT","ATL","TEN","MIN","NYJ","TB","BAL","HOU","DEN","DET","LV","SEA","PHI"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Guzman",
+  picks: ["NE","PIT","SF","CLE","IND","NYJ","TB","BAL","NYG","DEN","DET","LAR","SEA","DAL"],
+  tiebreaker: 40,
+},
+
+{
+  name: "J",
+  picks: ["NE","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","ARI","DET","LAR","SEA","DAL"],
+  tiebreaker: 51,
+},
+
+{
+  name: "Bobby",
+  picks: ["CHI","PIT","ATL","CLE","MIN","NYJ","CAR","CIN","NYG","DEN","DET","LAR","KC","DAL"],
+  tiebreaker: 52,
+},
+
+{
+  name: "Oso",
+  picks: ["NE","PIT","ATL","TEN","IND","MIA","CAR","CIN","NYG","DEN","DET","LAR","SEA","DAL"],
+  tiebreaker: 53,
+},
+
+{
+  name: "Danny",
+  picks: ["NE","PIT","ATL","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","GB","LV","SEA","DAL"],
+  tiebreaker: 47,
+},
+
+{
+  name: "Coop",
+  picks: ["CHI","NO","ATL","CLE","MIN","NYJ","CAR","CIN","HOU","ARI","DET","LV","SEA","DAL"],
+  tiebreaker: 52,
 },
 ];
 
