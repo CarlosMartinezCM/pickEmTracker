@@ -75,126 +75,30 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-// Week 7 2026
+// Week 8 2026
 const initialPlayers: Player[] = [
   {
   name: "Carlos(comish)",
-  picks: ["NE","PIT","ATL","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","DET","LV","SEA","DAL"],
-  tiebreaker: 44,
-},
-
-{
-  name: "Sumo",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","DEN","GB","LAR","KC","DAL"],
-  tiebreaker: 40,
-},
-
-{
-  name: "NikGo",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","DEN","GB","LAR","KC","DAL"],
-  tiebreaker: 41,
-},
-
-{
-  name: "ELE",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","DET","LAR","SEA","DAL"],
-  tiebreaker: 37,
-},
-
-{
-  name: "Edgar",
-  picks: ["NE","PIT","SF","TEN","MIN","NYJ","CAR","CIN","HOU","DEN","DET","LAR","SEA","DAL"],
-  tiebreaker: 44,
-},
-
-{
-  name: "Jesus",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","TB","BAL","NYG","DEN","DET","LV","KC","PHI"],
-  tiebreaker: 44,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "Curt",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","ARI","GB","LV","SEA","PHI"],
-  tiebreaker: 40,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Los9911",
-  picks: ["NE","PIT","SF","CLE","MIN","NYJ","TB","BAL","NYG","DEN","DET","LV","KC","DAL"],
-  tiebreaker: 45,
-},
-
-{
-  name: "MadMax",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","DET","LV","KC","DAL"],
-  tiebreaker: 41,
-},
-
-{
-  name: "Jacob M",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","DEN","DET","LAR","SEA","DAL"],
-  tiebreaker: 54,
-},
-
-{
-  name: "Erick Escobar",
-  picks: ["CHI","PIT","SF","TEN","MIN","NYJ","CAR","CIN","HOU","DEN","GB","LV","SEA","DAL"],
-  tiebreaker: 42,
-},
-
-{
-  name: "Flash",
-  picks: ["CHI","PIT","SF","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","GB","LAR","SEA","DAL"],
-  tiebreaker: 56,
-},
-
-{
-  name: "RIOS",
-  picks: ["NE","PIT","ATL","TEN","IND","NYJ","CAR","CIN","HOU","DEN","DET","LV","SEA","DAL"],
-  tiebreaker: 48,
-},
-
-{
-  name: "Fay",
-  picks: ["NE","PIT","ATL","TEN","MIN","NYJ","TB","BAL","HOU","DEN","DET","LV","SEA","PHI"],
-  tiebreaker: 48,
-},
-
-{
-  name: "Guzman",
-  picks: ["NE","PIT","SF","CLE","IND","NYJ","TB","BAL","NYG","DEN","DET","LAR","SEA","DAL"],
-  tiebreaker: 40,
-},
-
-{
-  name: "J",
-  picks: ["NE","PIT","SF","CLE","MIN","NYJ","CAR","CIN","HOU","ARI","DET","LAR","SEA","DAL"],
-  tiebreaker: 51,
-},
-
-{
-  name: "Bobby",
-  picks: ["CHI","PIT","ATL","CLE","MIN","NYJ","CAR","CIN","NYG","DEN","DET","LAR","KC","DAL"],
-  tiebreaker: 52,
+  name: "Sumo",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "Oso",
-  picks: ["NE","PIT","ATL","TEN","IND","MIA","CAR","CIN","NYG","DEN","DET","LAR","SEA","DAL"],
-  tiebreaker: 53,
-},
-
-{
-  name: "Danny",
-  picks: ["NE","PIT","ATL","CLE","MIN","NYJ","CAR","BAL","HOU","DEN","GB","LV","SEA","DAL"],
-  tiebreaker: 47,
-},
-
-{
-  name: "Coop",
-  picks: ["CHI","NO","ATL","CLE","MIN","NYJ","CAR","CIN","HOU","ARI","DET","LV","SEA","DAL"],
-  tiebreaker: 52,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 ];
 
@@ -481,25 +385,23 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
  */
 
 /*******************************************************************************************/
-//  Week 7 fallback schedule
- const WEEK7_GAME_ORDER = [
-  "NE@CHI",
-  "PIT@NO",
-  "SF@ATL",
-  "CLE@TEN",
-  "IND@MIN",
-  "MIA@NYJ",
-  "TB@CAR",
-  "CIN@BAL",
-  "NYG@HOU",
-  "DEN@ARI",
-  "GB@DET",
-  "LAR@LV",
-  "KC@SEA",
-  "DAL@PHI",
+//  Week 8 fallback schedule
+const WEEK8_GAME_ORDER = [
+  "CAR@GB",
+  "BAL@BUF",
+  "TEN@CIN",
+  "ARI@DAL",
+  "MIN@DET",
+  "LV@NYJ",
+  "CLE@PIT",
+  "ATL@TB",
+  "IND@JAX",
+  "LAC@LAR",
+  "KC@DEN",
+  "NE@MIA",
+  "PHI@WAS",
+  "CHI@SEA",
 ] as const;
- 
-
 
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
@@ -560,7 +462,7 @@ export default function PickemTracker() {
 
     // Adjust weeks here  ****************************************************************************************
     //********************************************************************************************************** */
-    WEEK7_GAME_ORDER.forEach((key) => {
+    WEEK8_GAME_ORDER.forEach((key) => {
       const game = byGame.get(key);
 
       if (game) {
@@ -597,7 +499,7 @@ export default function PickemTracker() {
 
   // compute gameCount to keep header, winners row and table aligned
   //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
-  const gameCount = initialPlayers[0]?.picks?.length || WEEK7_GAME_ORDER.length;
+  const gameCount = initialPlayers[0]?.picks?.length || WEEK8_GAME_ORDER.length;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
@@ -712,7 +614,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Week 7
+          Week 8
         </h1>
 
         {/* Number of players */}
@@ -721,7 +623,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {winners.map((p) => p.name).join(", ")} 
+            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -735,7 +637,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 7
+          Week 8
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
