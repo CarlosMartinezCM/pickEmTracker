@@ -79,99 +79,112 @@ const confirmedResults: (string | null)[] = [
 const initialPlayers: Player[] = [
   {
   name: "Carlos(comish)",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","ATL","DAL","KC","DET","CLE","PHI","LAR","DEN","LAC","SF","NE","SEA","CHI","MIN"],
+  tiebreaker: 38,
 },
 
 {
   name: "Curt",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
+  tiebreaker: 48,
 },
 
 {
   name: "Coop",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","IND","KC","DET","NO","NYG","LAR","CAR","HOU","SF","GB","SEA","CHI","BUF"],
+  tiebreaker: 54,
 },
 
 {
   name: "Edgar B",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","ATL","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
+  tiebreaker: 47,
 },
 
 {
   name: "Yolo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","WAS","DEN","HOU","SF","GB","SEA","CHI","BUF"],
+  tiebreaker: 44,
 },
 
 {
   name: "Sumo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
+  tiebreaker: 45,
 },
 
 {
   name: "RIOS",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","IND","KC","DET","NO","PHI","WAS","CAR","HOU","SF","NE","SEA","CHI","BUF"],
+  tiebreaker: 52,
 },
 
 {
   name: "Madmaxx",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","ATL","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","LV","NE","SEA","CHI","BUF"],
+  tiebreaker: 49,
 },
 
 {
   name: "Flash",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","LAC","SF","NE","SEA","CHI","MIN"],
+  tiebreaker: 60,
 },
 
 {
   name: "Jacob",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
+  tiebreaker: 49,
 },
 
 {
   name: "NikGo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
+  tiebreaker: 43,
 },
 
 {
   name: "Fay",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["BAL","ATL","DAL","KC","DET","NO","PHI","WAS","DEN","LAC","SF","GB","SEA","CHI","MIN"],
+  tiebreaker: 48,
 },
 
 {
   name: "Jesus",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
+  tiebreaker: 50,
 },
 
 {
   name: "Oso",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","CIN","IND","KC","DET","NO","PHI","LAR","DEN","LAC","SF","GB","SEA","TB","BUF"],
+  tiebreaker: 53,
 },
 
 {
   name: "ELE",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["JAX","ATL","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
+  tiebreaker: 51,
 },
 
 {
-  name: "Eric R",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  name: "Eric Rodriguez",
+  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
+  tiebreaker: 45,
 },
+
+{
+  name: "Erick E",
+  picks: ["JAX","CIN","IND","KC","DET","NO","NYG","WAS","DEN","LAC","SF","GB","SEA","CHI","BUF"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Bobby",
+  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
+  tiebreaker: 43,
+},
+
 ];
 
 // Helper: calculate correct/wrong
