@@ -21,6 +21,7 @@ type CurrentWinner = {
  */
 
 const currentWinners: CurrentWinner[] = [
+  { week: 9, winner: "NikGo_W9_2026" },
   { week: 8, winner: "Yolo_W8_2026" },
   { week: 7, winner: "Bobby_W7_2026" },
   { week: 6, winner: "Sumo_W6_2026" },
