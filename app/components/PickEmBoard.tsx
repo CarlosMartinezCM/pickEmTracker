@@ -78,113 +78,100 @@ const confirmedResults: (string | null)[] = [
 // Week 9 2026
 const initialPlayers: Player[] = [
   {
-  name: "Carlos(comish)",
-  picks: ["JAX","ATL","DAL","KC","DET","CLE","PHI","LAR","DEN","LAC","SF","NE","SEA","CHI","MIN"],
-  tiebreaker: 38,
-},
-
-{
-  name: "Curt",
-  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
-  tiebreaker: 48,
-},
-
-{
-  name: "Coop",
-  picks: ["JAX","CIN","IND","KC","DET","NO","NYG","LAR","CAR","HOU","SF","GB","SEA","CHI","BUF"],
-  tiebreaker: 54,
-},
-
-{
-  name: "Edgar B",
-  picks: ["JAX","ATL","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
-  tiebreaker: 47,
-},
-
-{
-  name: "Yolo",
-  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","WAS","DEN","HOU","SF","GB","SEA","CHI","BUF"],
-  tiebreaker: 44,
-},
-
-{
-  name: "Sumo",
-  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
-  tiebreaker: 45,
-},
-
-{
-  name: "RIOS",
-  picks: ["JAX","CIN","IND","KC","DET","NO","PHI","WAS","CAR","HOU","SF","NE","SEA","CHI","BUF"],
-  tiebreaker: 52,
-},
-
-{
-  name: "Madmaxx",
-  picks: ["JAX","ATL","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","LV","NE","SEA","CHI","BUF"],
-  tiebreaker: 49,
+  name: "Carlos Comish",
+  picks: ["WAS","NE","KC","HOU","MIN","JAX","IND","CAR","BUF","SEA","LAR","DAL","CIN","LAC"],
+  tiebreaker: 31,
 },
 
 {
   name: "Flash",
-  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","LAC","SF","NE","SEA","CHI","MIN"],
-  tiebreaker: 60,
+  picks: ["NYG","DET","KC","HOU","MIN","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","BAL"],
+  tiebreaker: 34,
 },
 
 {
-  name: "Jacob",
-  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
-  tiebreaker: 49,
+  name: "Curt",
+  picks: ["NYG","DET","KC","HOU","GB","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","BAL"],
+  tiebreaker: 35,
 },
 
 {
-  name: "NikGo",
-  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
-  tiebreaker: 43,
-},
-
-{
-  name: "Fay",
-  picks: ["BAL","ATL","DAL","KC","DET","NO","PHI","WAS","DEN","LAC","SF","GB","SEA","CHI","MIN"],
-  tiebreaker: 48,
+  name: "Sumo",
+  picks: ["NYG","DET","KC","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","LAC"],
+  tiebreaker: 40,
 },
 
 {
   name: "Jesus",
-  picks: ["JAX","CIN","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
-  tiebreaker: 50,
+  picks: ["NYG","DET","KC","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
+  tiebreaker: 39,
 },
 
 {
-  name: "Oso",
-  picks: ["JAX","CIN","IND","KC","DET","NO","PHI","LAR","DEN","LAC","SF","GB","SEA","TB","BUF"],
-  tiebreaker: 53,
+  name: "Edgar",
+  picks: ["WAS","DET","KC","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
+  tiebreaker: 38,
 },
 
 {
-  name: "ELE",
-  picks: ["JAX","ATL","DAL","KC","DET","NO","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
-  tiebreaker: 51,
+  name: "NikGo",
+  picks: ["WAS","NE","KC","HOU","MIN","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","BAL"],
+  tiebreaker: 31,
 },
 
 {
-  name: "Eric Rodriguez",
-  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","HOU","SF","NE","SEA","CHI","BUF"],
-  tiebreaker: 45,
+  name: "RIOS",
+  picks: ["WAS","NE","KC","HOU","GB","JAX","IND","CAR","BUF","SEA","LAR","SF","PIT","LAC"],
+  tiebreaker: 38,
 },
 
 {
-  name: "Erick E",
-  picks: ["JAX","CIN","IND","KC","DET","NO","NYG","WAS","DEN","LAC","SF","GB","SEA","CHI","BUF"],
-  tiebreaker: 42,
+  name: "Fay",
+  picks: ["NYG","DET","KC","HOU","MIN","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
+  tiebreaker: 48,
+},
+
+{
+  name: "MadMax",
+  picks: ["WAS","DET","KC","HOU","GB","JAX","MIA","CAR","BUF","LV","LAR","SF","CIN","BAL"],
+  tiebreaker: 44,
+},
+
+{
+  name: "Coop",
+  picks: ["WAS","DET","ATL","HOU","GB","JAX","MIA","CAR","BUF","SEA","LAR","DAL","CIN","BAL"],
+  tiebreaker: 49,
 },
 
 {
   name: "Bobby",
-  picks: ["JAX","CIN","DAL","KC","DET","CLE","NYG","LAR","DEN","HOU","SF","GB","SEA","CHI","BUF"],
+  picks: ["WAS","DET","KC","CLE","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
   tiebreaker: 43,
 },
 
+{
+  name: "Jacob",
+  picks: ["NYG","DET","KC","CLE","GB","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","LAC"],
+  tiebreaker: 37,
+},
+
+{
+  name: "Erick E",
+  picks: ["NYG","DET","ATL","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","PIT","LAC"],
+  tiebreaker: 42,
+},
+
+{
+  name: "Oso",
+  picks: ["NYG","DET","ATL","HOU","GB","JAX","MIA","NO","BUF","SEA","LAR","DAL","CIN","LAC"],
+  tiebreaker: 53,
+},
+
+{
+  name: "Yolo",
+  picks: ["WAS","NE","KC","CLE","MIN","JAX","MIA","CAR","BUF","SEA","LAR","SF","PIT","LAC"],
+  tiebreaker: 45,
+},
 ];
 
 // Helper: calculate correct/wrong
@@ -470,23 +457,22 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
  */
 
 /*******************************************************************************************/
-//  Week 9 fallback schedule
-const WEEK9_GAME_ORDER = [
-  "JAX@BAL",
-  "CIN@ATL",
-  "DAL@IND",
-  "NYJ@KC",
-  "DET@MIA",
-  "CLE@NO",
-  "NYG@PHI",
-  "LAR@WAS",
-  "DEN@CAR",
-  "HOU@LAC",
-  "LV@SF",
-  "GB@NE",
-  "ARI@SEA",
-  "TB@CHI",
-  "BUF@MIN",
+//  Week 10 fallback schedule
+const WEEK10_GAME_ORDER = [
+  "WAS@NYG",
+  "NE@DET",
+  "KC@ATL",
+  "HOU@CLE",
+  "MIN@GB",
+  "JAX@TEN",
+  "MIA@IND",
+  "CAR@NO",
+  "BUF@NYJ",
+  "SEA@LV",
+  "LAR@ARI",
+  "SF@DAL",
+  "PIT@CIN",
+  "LAC@BAL",
 ] as const;
 
 function normalizeTeamAbbr(value: string | null | undefined) {
@@ -548,7 +534,7 @@ export default function PickemTracker() {
 
     // Adjust weeks here  ****************************************************************************************
     //********************************************************************************************************** */
-    WEEK9_GAME_ORDER.forEach((key) => {
+    WEEK10_GAME_ORDER.forEach((key) => {
       const game = byGame.get(key);
 
       if (game) {
@@ -585,7 +571,7 @@ export default function PickemTracker() {
 
   // compute gameCount to keep header, winners row and table aligned
   //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
-  const gameCount = WEEK9_GAME_ORDER.length;
+  const gameCount = WEEK10_GAME_ORDER.length;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
@@ -700,7 +686,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Week 9
+          Week 10
         </h1>
 
         {/* Number of players */}
@@ -709,7 +695,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {winners.map((p) => p.name).join(", ")} 
+            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -723,7 +709,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 9
+          Week 10
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">

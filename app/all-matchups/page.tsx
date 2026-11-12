@@ -67,7 +67,7 @@ export default function AllMatchupsPage() {
 
       <Card>
         <h2 className="text-2xl font-bold text-center mb-6 text-gray-700 dark:text-gray-300">
-          Week 9
+          Week 10
         </h2>
 
         {matchups?.length ? (
