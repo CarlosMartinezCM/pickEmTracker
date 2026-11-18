@@ -77,100 +77,34 @@ const confirmedResults: (string | null)[] = [
 
 // Week 9 2026
 const initialPlayers: Player[] = [
-  {
+{
   name: "Carlos Comish",
-  picks: ["WAS","NE","KC","HOU","MIN","JAX","IND","CAR","BUF","SEA","LAR","DAL","CIN","LAC"],
-  tiebreaker: 31,
-},
-
-{
-  name: "Flash",
-  picks: ["NYG","DET","KC","HOU","MIN","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","BAL"],
-  tiebreaker: 34,
-},
-
-{
-  name: "Curt",
-  picks: ["NYG","DET","KC","HOU","GB","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","BAL"],
-  tiebreaker: 35,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "Sumo",
-  picks: ["NYG","DET","KC","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","LAC"],
-  tiebreaker: 40,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Jesus",
-  picks: ["NYG","DET","KC","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
-  tiebreaker: 39,
-},
-
-{
-  name: "Edgar",
-  picks: ["WAS","DET","KC","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
-  tiebreaker: 38,
-},
-
-{
-  name: "NikGo",
-  picks: ["WAS","NE","KC","HOU","MIN","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","BAL"],
-  tiebreaker: 31,
-},
-
-{
-  name: "RIOS",
-  picks: ["WAS","NE","KC","HOU","GB","JAX","IND","CAR","BUF","SEA","LAR","SF","PIT","LAC"],
-  tiebreaker: 38,
-},
-
-{
-  name: "Fay",
-  picks: ["NYG","DET","KC","HOU","MIN","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
-  tiebreaker: 48,
-},
-
-{
-  name: "MadMax",
-  picks: ["WAS","DET","KC","HOU","GB","JAX","MIA","CAR","BUF","LV","LAR","SF","CIN","BAL"],
-  tiebreaker: 44,
-},
-
-{
-  name: "Coop",
-  picks: ["WAS","DET","ATL","HOU","GB","JAX","MIA","CAR","BUF","SEA","LAR","DAL","CIN","BAL"],
-  tiebreaker: 49,
-},
-
-{
-  name: "Bobby",
-  picks: ["WAS","DET","KC","CLE","GB","JAX","IND","NO","BUF","SEA","LAR","SF","CIN","BAL"],
-  tiebreaker: 43,
-},
-
-{
-  name: "Jacob",
-  picks: ["NYG","DET","KC","CLE","GB","JAX","IND","CAR","BUF","SEA","LAR","SF","CIN","LAC"],
-  tiebreaker: 37,
-},
-
-{
-  name: "Erick E",
-  picks: ["NYG","DET","ATL","HOU","GB","JAX","IND","NO","BUF","SEA","LAR","SF","PIT","LAC"],
-  tiebreaker: 42,
+  name: "Curt",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "Oso",
-  picks: ["NYG","DET","ATL","HOU","GB","JAX","MIA","NO","BUF","SEA","LAR","DAL","CIN","LAC"],
-  tiebreaker: 53,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Yolo",
-  picks: ["WAS","NE","KC","CLE","MIN","JAX","MIA","CAR","BUF","SEA","LAR","SF","PIT","LAC"],
-  tiebreaker: 45,
+  name: "NikGo",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 ];
 
@@ -457,25 +391,7 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
  */
 
 /*******************************************************************************************/
-//  Week 10 fallback schedule
-const WEEK10_GAME_ORDER = [
-  "WAS@NYG",
-  "NE@DET",
-  "KC@ATL",
-  "HOU@CLE",
-  "MIN@GB",
-  "JAX@TEN",
-  "MIA@IND",
-  "CAR@NO",
-  "BUF@NYJ",
-  "SEA@LV",
-  "LAR@ARI",
-  "SF@DAL",
-  "PIT@CIN",
-  "LAC@BAL",
-] as const;
-
-/*
+//  Week 11 fallback schedule
 const WEEK11_GAME_ORDER = [
   "IND@HOU",
   "MIA@BUF",
@@ -491,7 +407,6 @@ const WEEK11_GAME_ORDER = [
   "MIN@SF",
   "CIN@WAS",
 ] as const;
-*/
 
 
 function normalizeTeamAbbr(value: string | null | undefined) {
@@ -553,7 +468,7 @@ export default function PickemTracker() {
 
     // Adjust weeks here  ****************************************************************************************
     //********************************************************************************************************** */
-    WEEK10_GAME_ORDER.forEach((key) => {
+    WEEK11_GAME_ORDER.forEach((key) => {
       const game = byGame.get(key);
 
       if (game) {
@@ -590,7 +505,7 @@ export default function PickemTracker() {
 
   // compute gameCount to keep header, winners row and table aligned
   //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
-  const gameCount = WEEK10_GAME_ORDER.length;
+  const gameCount = WEEK11_GAME_ORDER.length;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
@@ -697,24 +612,25 @@ export default function PickemTracker() {
       </div>
 
       <Card>
-        <h1 className="text-3xl text-center font-bold mb-6 drop-shadow-lg">
+        <h1 className="text-6xl text-center font-bold mb-6 drop-shadow-lg">
           🏈
           <span className="bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent">
-            NFL Pick'em Tracker 2026
+            Pick'ems Tracker 2026
           </span>
           🏈
         </h1>
-        <h1 className="text-4xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
-          Week 10
+        <h1 className="text-5xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
+          Week 11
         </h1>
 
         {/* Number of players */}
-        <div className="text-center text-lg font-semibold text-yellow-300 dark:text-yellow-500 mb-1">Total Players: {initialPlayers.length}</div>
-
+<div className="text-center text-4xl font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
+  Total Players: {initialPlayers.length}
+</div>
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {winners.map((p) => p.name).join(", ")} 
+            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -727,8 +643,8 @@ export default function PickemTracker() {
         </div>
 
         {/* Final Winners Row */}
-        <h2 className="text-lg font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 10
+        <h2 className="text-2xl font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
+          Week 11 Games
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
