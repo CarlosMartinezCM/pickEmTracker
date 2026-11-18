@@ -106,6 +106,11 @@ const initialPlayers: Player[] = [
   picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
   tiebreaker: 100,
 },
+{
+  name: "Flash",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
+},
 ];
 
 // Helper: calculate correct/wrong
@@ -495,6 +500,46 @@ export default function PickemTracker() {
     setMounted(true); // client-only
   }, []);
 
+  // Keep the countdown current and automatically move to the next kickoff.
+  const [countdownNow, setCountdownNow] = useState(0);
+
+  useEffect(() => {
+    const updateTime = () => setCountdownNow(Date.now());
+    updateTime();
+    const timer = window.setInterval(updateTime, 1000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  const nextKickoff = useMemo(() => {
+    if (!matchups?.length || !countdownNow) return null;
+
+    return matchups
+      .filter((game) => {
+        if (!game?.date) return false;
+        const kickoff = new Date(game.date).getTime();
+        return Number.isFinite(kickoff) && kickoff > countdownNow;
+      })
+      .sort(
+        (a, b) =>
+          new Date(a.date!).getTime() - new Date(b.date!).getTime()
+      )[0] ?? null;
+  }, [matchups, countdownNow]);
+
+  const kickoffCountdown = useMemo(() => {
+    if (!nextKickoff?.date || !countdownNow) return null;
+
+    const difference = Math.max(
+      0,
+      new Date(nextKickoff.date).getTime() - countdownNow
+    );
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((difference / (1000 * 60)) % 60);
+    const seconds = Math.floor((difference / 1000) % 60);
+
+    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }, [nextKickoff, countdownNow]);
+
   // initialize with fallback confirmedResults
   const [results, setResults] = useState<Result>(() =>
     confirmedResults.reduce((acc, val, idx) => {
@@ -619,18 +664,17 @@ export default function PickemTracker() {
           </span>
           🏈
         </h1>
-        <h1 className="text-5xl text-center font-bold mb-6 bg-gradient-to-r from-blue-300 via-blue-500 to-blue-700 bg-clip-text text-transparent drop-shadow-lg">
+        <h1 className="text-5xl text-center font-bold mb-6 text-gray-700 dark:text-gray-300">
           Week 11
         </h1>
-
         {/* Number of players */}
-<div className="text-center text-4xl font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
-  Total Players: {initialPlayers.length}
-</div>
+        <div className="text-center text-4xl font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
+          Total Players: {initialPlayers.length}
+        </div>
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 {/*winners.map((p) => p.name).join(", ")*/} 
+            {/*🏆 winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -640,6 +684,28 @@ export default function PickemTracker() {
         <div className="flex justify-center gap-3 my-4">
           <button onClick={() => exportImage("leaderboard")} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">🖼 Save as Image</button>
           <button onClick={() => exportPDF({ elementId: "leaderboard", filenamePrefix: "pickem_week" })} className="px-3 py-1 bg-blue-900 hover:bg-blue-800 text-white rounded text-sm">📸 Save as PDF</button>
+        </div>
+
+         {/* Automatic next-kickoff countdown: advances when a game starts *******************************************************************************************************/}
+        <div className="text-center mb-4">
+          <div className="text-2xl font-bold text-orange-500 dark:text-orange-400">
+            🏈 NEXT KICKOFF 🏈
+          </div>
+          {mounted && nextKickoff ? (
+            <>
+              <div className="text-3xl font-extrabold text-blue-700 dark:text-blue-300 mt-1">
+                {kickoffCountdown ?? "Loading countdown..."}
+              </div>
+              <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                {nextKickoff.awayAbbr ?? nextKickoff.awayTeam ?? "Away"} @ {nextKickoff.homeAbbr ?? nextKickoff.homeTeam ?? "Home"}
+                {" • "}{kickoffToPT(nextKickoff.date)} PT
+              </div>
+            </>
+          ) : (
+            <div className="text-lg font-semibold text-gray-600 dark:text-gray-300 mt-1">
+              {mounted ? "No upcoming kickoffs scheduled" : "Loading countdown..."}
+            </div>
+          )}
         </div>
 
         {/* Final Winners Row */}
