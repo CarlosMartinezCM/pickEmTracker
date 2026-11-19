@@ -75,41 +75,84 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-// Week 9 2026
+// Week 11 2026
 const initialPlayers: Player[] = [
 {
   name: "Carlos Comish",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","MIN","CIN"],
+  tiebreaker: 51,
 },
 
 {
   name: "Sumo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
+  tiebreaker: 48,
 },
 
 {
   name: "Curt",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["HOU","BUF","CHI","TEN","DET","KC","JAX","CAR","NYJ","DEN","PIT","MIN","CIN"],
+  tiebreaker: 55,
 },
 
 {
   name: "Oso",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","MIN","CIN"],
+  tiebreaker: 53,
 },
 
 {
   name: "NikGo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","NYJ","DEN","PIT","MIN","CIN"],
+  tiebreaker: 49,
 },
+
 {
   name: "Flash",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["IND","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
+  tiebreaker: 39,
+},
+
+{
+  name: "Edagr B",
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","NYJ","DEN","PIT","SF","CIN"],
+  tiebreaker: 53,
+},
+
+{
+  name: "MadMax",
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
+  tiebreaker: 48,
+},
+
+{
+  name: "RIOS",
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","BAL","LAC","DEN","PIT","SF","CIN"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Fay",
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Jacob",
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","MIN","CIN"],
+  tiebreaker: 57,
+},
+
+{
+  name: "ELE",
+  picks: ["HOU","BUF","NO","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
+  tiebreaker: 48,
+},
+
+{
+  name: "Erick E",
+  picks: ["HOU","BUF","CHI","DAL","DET","KC","NYG","CAR","LAC","DEN","PIT","MIN","CIN"],
+  tiebreaker: 42,
 },
 ];
 
