@@ -456,6 +456,26 @@ const WEEK11_GAME_ORDER = [
   "CIN@WAS",
 ] as const;
 
+/**
+ const WEEK12_GAME_ORDER = [
+  "GB@LAR",
+  "CHI@DET",
+  "PHI@DAL",
+  "KC@BUF",
+  "DEN@PIT",
+  "NO@CIN",
+  "NYG@IND",
+  "NYJ@MIA",
+  "ATL@MIN",
+  "BAL@HOU",
+  "TEN@JAX",
+  "NE@LAC",
+  "WAS@ARI",
+  "SEA@SF",
+  "LV@CLE",
+  "CAR@TB",
+] as const;
+ */
 
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
