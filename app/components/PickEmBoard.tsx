@@ -75,84 +75,78 @@ type LeaderboardPlayer = Player & { correct: number; wrong: number; rank: number
 const confirmedResults: (string | null)[] = [
 ];
 
-// Week 11 2026
+// Week 12 2026
 const initialPlayers: Player[] = [
 {
-  name: "Carlos Comish",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","MIN","CIN"],
-  tiebreaker: 51,
-},
-
-{
-  name: "Sumo",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
-  tiebreaker: 48,
+  name: "Carlos",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "Curt",
-  picks: ["HOU","BUF","CHI","TEN","DET","KC","JAX","CAR","NYJ","DEN","PIT","MIN","CIN"],
-  tiebreaker: 55,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Oso",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","MIN","CIN"],
-  tiebreaker: 53,
-},
-
-{
-  name: "NikGo",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","NYJ","DEN","PIT","MIN","CIN"],
-  tiebreaker: 49,
-},
-
-{
-  name: "Flash",
-  picks: ["IND","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
-  tiebreaker: 39,
-},
-
-{
-  name: "Edgar B",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","NYJ","DEN","PIT","SF","CIN"],
-  tiebreaker: 53,
-},
-
-{
-  name: "MadMax",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
-  tiebreaker: 48,
-},
-
-{
-  name: "RIOS",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","BAL","LAC","DEN","PIT","SF","CIN"],
-  tiebreaker: 48,
+  name: "Coop",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "Fay",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
-  tiebreaker: 48,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
+},
+
+{
+  name: "Sumo",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
+},
+
+{
+  name: "Edgar",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
+},
+
+{
+  name: "Rios",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "Jacob",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","MIN","CIN"],
-  tiebreaker: 57,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
+},
+
+{
+  name: "Oso",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
+},
+
+{
+  name: "MadMax",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
   name: "ELE",
-  picks: ["HOU","BUF","NO","DAL","DET","KC","JAX","CAR","LAC","DEN","PIT","SF","CIN"],
-  tiebreaker: 48,
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 
 {
-  name: "Erick E",
-  picks: ["HOU","BUF","CHI","DAL","DET","KC","NYG","CAR","LAC","DEN","PIT","MIN","CIN"],
-  tiebreaker: 42,
+  name: "NikGo",
+  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
+  tiebreaker: 100,
 },
 ];
 
@@ -439,24 +433,7 @@ export async function exportPDF(options?: { elementId?: string; filenamePrefix?:
  */
 
 /*******************************************************************************************/
-//  Week 11 fallback schedule
-const WEEK11_GAME_ORDER = [
-  "IND@HOU",
-  "MIA@BUF",
-  "NO@CHI",
-  "TEN@DAL",
-  "TB@DET",
-  "ARI@KC",
-  "JAX@NYG",
-  "BAL@CAR",
-  "NYJ@LAC",
-  "LV@DEN",
-  "PIT@PHI",
-  "MIN@SF",
-  "CIN@WAS",
-] as const;
-
-/**
+//  Week 12 fallback schedule
  const WEEK12_GAME_ORDER = [
   "GB@LAR",
   "CHI@DET",
@@ -475,7 +452,7 @@ const WEEK11_GAME_ORDER = [
   "LV@CLE",
   "CAR@TB",
 ] as const;
- */
+
 
 function normalizeTeamAbbr(value: string | null | undefined) {
   if (!value) return "";
@@ -536,7 +513,7 @@ export default function PickemTracker() {
 
     // Adjust weeks here  ****************************************************************************************
     //********************************************************************************************************** */
-    WEEK11_GAME_ORDER.forEach((key) => {
+    WEEK12_GAME_ORDER.forEach((key) => {
       const game = byGame.get(key);
 
       if (game) {
@@ -613,7 +590,7 @@ export default function PickemTracker() {
 
   // compute gameCount to keep header, winners row and table aligned
   //IMPORTANT, this is where the number of games is set!!!  ********************************************************************************
-  const gameCount = WEEK11_GAME_ORDER.length;
+  const gameCount = WEEK12_GAME_ORDER.length;
 
   // When scoreboardResults becomes available, map to results object
   useEffect(() => {
@@ -728,7 +705,7 @@ export default function PickemTracker() {
           🏈
         </h1>
         <h1 className="text-5xl text-center font-bold mb-6 text-gray-700 dark:text-gray-300">
-          Week 11
+          Week 12
         </h1>
         {/* Number of players */}
         <div className="text-center text-4xl font-semibold text-yellow-300 dark:text-yellow-500 mb-1">
@@ -737,7 +714,7 @@ export default function PickemTracker() {
         {/* Winner - Adjust on Monday to display user, comment out on Wednesday*/}
         {isFinalGameDone && winners.length > 0 && (
           <div className="text-center mt-4 text-3xl font-bold text-green-300 dark:text-green-400">
-            🏆 { winners.map((p) => p.name).join(", ")} 
+          🏈🏈🏈🏈🏈🏈🏈 {/* 🏆 winners.map((p) => p.name).join(", ")*/} 
           </div>
         )}
 
@@ -773,7 +750,7 @@ export default function PickemTracker() {
 
         {/* Final Winners Row */}
         <h2 className="text-2xl font-semibold text-center mb-2 text-gray-700 dark:text-gray-300">
-          Week 11 Games
+          Week 12 Games
         </h2>
         {mounted && scoreboardResults?.length ? (
           <div className="mt-2 mb-4 flex flex-wrap justify-center gap-2 text-xs font-bold text-blue-900 dark:text-blue-200">
