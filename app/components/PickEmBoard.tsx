@@ -79,74 +79,98 @@ const confirmedResults: (string | null)[] = [
 const initialPlayers: Player[] = [
 {
   name: "Carlos",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","DET","DAL","BUF","PIT","CIN","CLE","IND","NYJ","MIN","BAL","JAX","WAS","SEA","NE","CAR"],
+  tiebreaker: 37,
 },
 
 {
   name: "Curt",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["GB","CHI","DAL","BUF","DEN","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SF","NE","TB"],
+  tiebreaker: 45,
 },
 
 {
   name: "Coop",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["GB","CHI","DAL","BUF","DEN","CIN","CLE","NYG","MIA","ATL","HOU","JAX","WAS","SEA","NE","CAR"],
+  tiebreaker: 45,
 },
 
 {
   name: "Fay",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","DET","DAL","BUF","DEN","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SF","NE","TB"],
+  tiebreaker: 48,
 },
 
 {
   name: "Sumo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","CHI","DAL","KC","DEN","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SF","LAC","TB"],
+  tiebreaker: 54,
 },
 
 {
   name: "Edgar",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","DET","DAL","BUF","DEN","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SEA","NE","TB"],
+  tiebreaker: 44,
 },
 
 {
   name: "Rios",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["GB","DET","PHI","BUF","DEN","CIN","CLE","IND","MIA","ATL","HOU","JAX","WAS","SF","NE","CAR"],
+  tiebreaker: 52,
 },
 
 {
   name: "Jacob",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","DET","DAL","BUF","DEN","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SEA","LAC","TB"],
+  tiebreaker: 55,
 },
 
 {
   name: "Oso",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["GB","DET","DAL","BUF","DEN","CIN","CLE","NYG","MIA","MIN","HOU","JAX","WAS","SEA","NE","TB"],
+  tiebreaker: 53,
 },
 
 {
   name: "MadMax",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","DET","DAL","BUF","DEN","CIN","LV","NYG","NYJ","MIN","HOU","JAX","WAS","SF","NE","TB"],
+  tiebreaker: 56,
 },
 
 {
   name: "ELE",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","CHI","DAL","BUF","PIT","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SF","NE","TB"],
+  tiebreaker: 47,
 },
 
 {
   name: "NikGo",
-  picks: ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""],
-  tiebreaker: 100,
+  picks: ["LAR","CHI","DAL","KC","DEN","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SF","LAC","TB"],
+  tiebreaker: 32,
+},
+
+{
+  name: "Bobby",
+  picks: ["LAR","DET","DAL","KC","DEN","CIN","CLE","NYG","NYJ","ATL","HOU","JAX","WAS","SF","LAC","CAR"],
+  tiebreaker: 45,
+},
+
+{
+  name: "Flash",
+  picks: ["LAR","CHI","DAL","BUF","DEN","CIN","CLE","IND","NYJ","MIN","HOU","JAX","WAS","SEA","NE","CAR"],
+  tiebreaker: 36,
+},
+
+{
+  name: "Danny",
+  picks: ["GB","CHI","DAL","BUF","DEN","CIN","CLE","NYG","NYJ","MIN","HOU","JAX","WAS","SEA","LAC","CAR"],
+  tiebreaker: 43,
+},
+
+{
+  name: "Erick E",
+  picks: ["GB","DET","PHI","KC","DEN","CIN","CLE","NYG","MIA","MIN","HOU","JAX","WAS","SEA","LAC","CAR"],
+  tiebreaker: 42,
 },
 ];
 
